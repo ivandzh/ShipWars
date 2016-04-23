@@ -1,0 +1,19 @@
+{
+  "name": "shipwars",
+  "description": "",
+  "main": "server.js",
+  "authors": [
+    "Ivan Dzhambov"
+  ],
+  "license": "ISC",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components"
+  ],
+  "dependencies": {
+    "phaser-official": "latest"
+  }
+}

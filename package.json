@@ -1,0 +1,26 @@
+{
+  "name": "shipwars",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "author": "Ivan Dzhambov",
+  "license": "ISC",
+  "devDependencies": {
+    "bower": "*",
+	"browserify": "*",
+	"watchify": "*"
+  },
+  "scripts": {
+    "start": "node server.js",
+	"watch": "watchify src/js/main.js -o dist/bundle.js -v",
+    "build": "browserify src/js/main.js  | uglifyjs -mc warnings=false > dist/bundle.js"
+  },
+  "dependencies": {
+    "express": "^4.13.4",
+    "socket.io": "^1.4.5"
+  },
+  "engines": {
+    "node": "^4.1.1",
+    "npm": "3.8.x"
+  }
+}
