@@ -25,6 +25,7 @@
             min-height: 100%;
             overflow: hidden;
             margin: 0;
+            background: url("assets/controller/contrBckgr.png") repeat;
         }
 
         html, .mobile {
@@ -42,7 +43,7 @@
             height: 100%;
         }
 
-        .arrows, .hit {
+        .directions, .hit {
             height: 100%;
             width: 50%;
             float: left;
@@ -53,35 +54,33 @@
             float: right;
         }
 
-        .top, .bottom {
+        .goUp, .goSides {
             width: 100%;
-            height: 33%;
+            height: 50%;
             text-align: center;
             padding: 15px;
         }
 
-        .middle {
+        /*.middle {
             width: 100%;
             height: 33%;
             overflow: hidden;
             padding: 5px;
-        }
+        }*/
 
-        .up, .down {
+        .up {
             width: 40%;
             height: 100%;
-            font-size: 1em;
-            background: #ffffff;
-            border: 1px solid brown;
+            background: transparent;
+            border: none;
         }
 
         .left, .right {
-            width: 40%;
+            width: 30%;
             height: 100%;
             float: left;
-            font-size: 1em;
-            background: #ffffff;
-            border: 1px solid brown;
+            background: transparent;
+            border: none;
         }
 
         .right {
@@ -101,16 +100,37 @@
 
 <body>
 
-<div class="arrows">
-    <div class="top">
-        <button type="button" class="up" id="up">Up</button>
+<div class="directions">
+    <div class="goUp">
+        <button type="button" class="up" id="up">
+            <img src="assets/controller/upArrow.png" width="100%">
+        </button>
     </div>
-    <div class="middle">
+    <!--<div class="middle">
         <button id="left" class="left">Left</button>
         <button id="right" class="right">Right</button>
-    </div >
+    </div >-->
+    <div class="goSides">
+        <button id="left" class="left">
+            <img src="assets/controller/leftArrow.png" width="100%">
+        </button>
+        <button id="right" class="right">
+            <img src="assets/controller/rightArrow.png" width="100%">
+        </button>
+    </div>
+</div>
+
+<div class="arrows">
+    <div class="top">
+        <button type="button" class="up" id="ahksjhd">Up</button>
+    </div>
+    <!--<div class="middle">
+        <button id="left" class="left">Left</button>
+        <button id="right" class="right">Right</button>
+    </div >-->
     <div class="bottom">
-        <button type="button" class="down" id="down">Down</button>
+        <button id="lefdsadt" class="left">Left</button>
+        <button id="rigsdsht" class="right">Right</button>
     </div>
 </div>
 
