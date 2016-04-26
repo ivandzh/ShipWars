@@ -1,7 +1,10 @@
+//Using variable assignment to function in order to use the "this" keyword,
+// referencing to the function from which the object is called
 var Boot = function () {
     console.log("Boot stage initiated!");
 };
 
+//Using JavaScript's "prototypical" inheritance system, simulating classes
 Boot.prototype = {
 
     preload: function () {

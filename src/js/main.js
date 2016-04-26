@@ -1,4 +1,4 @@
-'use strict';
+'use strict'; //because referencing the window object
 
 window.Helper = require('./helper');
 window.Sockets = io();

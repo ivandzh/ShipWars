@@ -29,7 +29,7 @@ Load.prototype = {
         this.load.image("playerBoat_green", "assets/jetboats/green_ranger.png");
 
         // Loading Bullets
-        this.load.image('bullet', 'assets/laserpng.png');
+        this.load.image('laser', 'assets/laserpng.png');
 
         // Loading Explosion
         this.load.spritesheet('kaboom', 'assets/boom.png', 128, 128);
@@ -41,8 +41,10 @@ Load.prototype = {
         this.load.image('rock1', 'assets/one_rock.png');
         this.load.image('rock2', 'assets/two_rock.png');
         this.load.image('container1', 'assets/container.png');
-        this.load.image('barrel_blue', 'assets/barrel_b_small.png');
-        this.load.image('barrel_yellow', 'assets/barrel_small.png');
+        this.load.image('b_blue_hor', 'assets/b_blue_hor.png');
+        this.load.image('b_yellow_hor', 'assets/b_yellow_hor.png');
+        this.load.image('b_blue_vert', 'assets/b_blue_vert.png');
+        this.load.image('b_yellow_vert', 'assets/b_yellow_vert.png');
 
         // Loading Background
         this.load.image("backgroundWater", "assets/water.jpg");
@@ -52,7 +54,7 @@ Load.prototype = {
 
         // Loading Sounds
         this.load.audio('explode', 'assets/audio/explode.ogg');
-        this.load.audio('laser', 'assets/audio/laser.wav');
+        this.load.audio('laserAudio', 'assets/audio/laser.wav');
         this.load.audio('titleSequence', 'assets/audio/titleSequence.wav');
         this.load.audio('inGameLoop', 'assets/audio/loopGame.wav');
     },

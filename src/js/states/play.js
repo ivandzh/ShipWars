@@ -1,50 +1,97 @@
-//var Player = require('../entities/player');
+var Player = require('../entities/player');
 
-var Play = function () {
+var Game = function () {
 
     this.players = [];
-    this.meteors = null;
-    console.log("Play stage initiated!");
+    this.rocks = null;
+    this.barrels = null;
+    console.log("Play stage initiated");
+
 };
 
-/*Game.prototype = {
+Game.prototype = {
 
     create: function () {
 
-        this.setConfig();
+        this.setArena();
         this.setPlayers();
-        this.setMeteors();
-
+        this.setRocks();
+        this.setBarrels();
     },
 
     update: function () {
 
-        this.game.physics.arcade.collide(this.players, this.meteors);
         this.game.physics.arcade.collide(this.players, this.players);
-        this.game.physics.arcade.collide(this.meteors, this.meteors);
+        this.game.physics.arcade.collide(this.players, this.rocks);
+        this.game.physics.arcade.collide(this.players, this.barrels);
+        //this.game.physics.arcade.collide(this.meteors, this.meteors);
 
-        for (var i = 0; i < this.players.length; i++) {
+        for (var i = 0; i < this.players.length; i++) { // for each player
+            //play the emitters
+            this.players[i].emitterOne.emitParticle();
+            this.players[i].emitterTwo.emitParticle();
 
-            this.game.physics.arcade.overlap(this.players[i].bullets, this.meteors, function (bullet, meteor) {
-                bullet.kill();
-                meteor.kill();
-                this.meteorAudio.play();
+            this.players[i].emitterOne.x = this.players[i].x;
+            this.players[i].emitterOne.y = this.players[i].y;
+
+            this.players[i].emitterTwo.x = this.players[i].x;
+            this.players[i].emitterTwo.y = this.players[i].y;
+
+            //in case of laser shot to barrel, destroy barrel and bullet
+            this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+                laser.kill();
+                barrel.kill();
+                this.explodeAudio.play(); //explode
+                //add explosion sprite
+                var barrelExpl = player.explosions.getFirstExists(false);
+                barrelExpl.reset(barrel.x, barrel.y);
+                barrelExpl.play('kaboom', 20, false, true);
             }, null, this);
 
-            for (var j = 0; j < this.players.length; j++) {
+            //in case of player hitting barrel, destroy barrel and player
+            this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
+                player.kill();
+                barrel.kill();
+                this.explodeAudio.play(); //explode
+                //add explosion sprite
+                var barrelExpl = player.explosions.getFirstExists(false);
+                barrelExpl.reset(barrel.x, barrel.y);
+                barrelExpl.play('kaboom', 20, false, true);
+            }, null, this);
+
+            //in case of player hitting rock, destroy only player
+            this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
+                player.kill();
+                this.explodeAudio.play(); //explode
+                //add explosion sprite
+                var playerExpl = player.explosions.getFirstExists(false);
+                playerExpl.reset(player.x, player.y);
+                playerExpl.play('kaboom', 20, false, true);
+            }, null, this);
+
+            //in case of laser shot to rock, destroy only bullet
+            this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
+                laser.kill();
+            }, null, this);
+
+            for (var j = 0; j < this.players.length; j++) { //for each other player
                 if (this.players[i].playerId === this.players[j].playerId) {
-                    continue;
+                    continue; //skip if player is the exact same
                 }
                 this.game.physics.arcade.overlap(this.players[i].bullets, this.players[j], function (bullet, player) {
                     bullet.kill();
                     player.kill();
-                    this.playerHitAudio.play();
+                    this.playerHitAudio.play(); //explode
+                    //add explosion sprite
+                    var playerExpl = player.explosions.getFirstExists(false);
+                    playerExpl.reset(player.x, player.y);
+                    playerExpl.play('kaboom', 20, false, true);
                 }, null, this);
             }
-
+                //players hit players explode or not?
         }
 
-        this.meteors.forEachAlive(function (child) {
+        /*this.meteors.forEachAlive(function (child) {
             if (child.x < 0) {
                 child.x = this.width;
             } else if (child.x > this.width) {
@@ -56,11 +103,11 @@ var Play = function () {
             } else if (child.y > this.height) {
                 child.y = 0;
             }
-        }, this.game);
+        }, this.game); //screenWrap function*/
 
     },
 
-    screenWrap : function (sprite, game) {
+/*    screenWrap : function (sprite, game) {
         if (sprite.x < 0) {
             sprite.x = game.width;
         } else if (sprite.x > game.width) {
@@ -72,79 +119,84 @@ var Play = function () {
         } else if (sprite.y > game.height) {
             sprite.y = 0;
         }
-    },
+    },*/
 
-    setConfig : function () {
-        this.game.add.tileSprite(0, 0, screen.width, screen.height, Utils.backgrounds[Utils.randomNumber(0,3)]);
-        this.game.renderer.clearBeforeRender = false;
+    //set the Arena
+    setArena : function () {
+        this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
+        this.game.renderer.clearBeforeRender = true; // difference ??
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.playingAudio = this.game.add.audio("playing");
+        this.playingAudio = this.game.add.audio("titleSequence"); //titleSequence  //AUDIO SHOULD BE FIXED
         this.playingAudio.volume = 0.3;
-        this.playingAudio.loop = true;
+        //this.playingAudio.loop = true; //false?
         this.playingAudio.play();
     },
 
     setPlayers : function () {
-        var that = this;
+        //theGameObj
+        var gameObj = this;
 
-        this.playerHitAudio = this.game.add.audio("playerHit");
+        this.playerHitAudio = this.game.add.audio("explode"); //explode
 
         Sockets.on("client new player", function (data) {
-            that.players.push(new Player({
-                playerNr : that.players.length + 1,
+            gameObj.players.push(new Player({ //call the Player function from player.js
+                playerNum : gameObj.players.length + 1,
                 playerId : data.id,
-                sprite : Utils.randomNumber(0,11),
-                game : that.game,
-                x : that.game.world.randomX,
-                y : that.game.world.randomY
+                sprite : gameObj.players.length, //assign sprite according to playerNum? check
+                game : gameObj.game,
+                x : gameObj.game.world.randomX, //spawning point, might be risky?
+                y : gameObj.game.world.randomY
             }));
         });
 
         Sockets.on("client disconnected", function (data) {
-            for (var i = 0; i < that.players.length; i++) {
-                if (that.players[i].playerId === data.id) {
-                    that.players[i].destroy(true);
-                    that.players.splice(i, 1);
+            for (var i = 0; i < gameObj.players.length; i++) {
+                if (gameObj.players[i].playerId === data.id) {
+                    gameObj.players[i].destroy(true);
+                    gameObj.players.splice(i, 1);
                 }
             }
         });
     },
 
-    setMeteors : function () {
+    setRocks : function () {
 
-        this.meteors = this.game.add.group();
-        this.meteors.enableBody = true;
-        this.meteors.physicsBodyType = Phaser.Physics.ARCADE;
-        this.meteorAudio = this.game.add.audio('trash');
+        this.rocks = this.game.add.group();
+        this.rocks.enableBody = true;
+        //this.rocks.physicsBodyType = Phaser.Physics.ARCADE;
+        //this.rockHit = this.game.add.audio('explode'); //explode    DOUBLE
 
-        for (var i = 0; i < this.game.rnd.between(1,2); i++) {
-            var MeteorBrownBigOne = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_big1");
-            var MeteorBrownBigTwo = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_big2");
-            var MeteorBrownBigThree = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_big3");
-            var MeteorBrownBigFour = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_big4");
-            var MeteorGrayBigOne = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_big1");
-            var MeteorGrayBigTwo = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_big1");
-            var MeteorGrayBigThree = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_big1");
-            var MeteorGrayBigFour = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_big1");
-        }
+        var SquaredRock = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "rock1");
+        var TriangularRock = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "rock2");
+        var RedContainer = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "container1");
 
-        for (var k = 0; k < this.game.rnd.between(1,3); k++) {
-            var MeteorBrownMediumOne = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_med1");
-            var MeteorBrownMediumTwo = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_med3");
-            var MeteorGrayMediumOne = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_med1");
-            var MeteorGrayMediumTwo = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_med2");
-        }
+        SquaredRock.body.immovable = true;
+        TriangularRock.body.immovable = true;
+        RedContainer.body.immovable = true;
+    },
 
-        for (var l = 0; l < this.game.rnd.between(1,4); l++) {
-            var MeteorBrownSmallOne = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_small1");
-            var MeteorBrownSmallTwo = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorBrown_small2");
-            var MeteorGraySmallOne = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_small1");
-            var MeteorGraySmallTwo = this.meteors.create(this.game.world.randomX, this.game.world.randomY, "meteorGrey_small2");
-        }
+    setBarrels : function () {
+
+        var barrelExpl = null;
+
+        this.barrels = this.game.add.group();
+        this.barrels.enableBody = true;
+        //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
+        this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
+
+        var bBlueHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
+        var bBlueVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_vert");
+        var bYellowHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_hor");
+        var bYellowVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_vert");
+
+        bBlueHor.body.immovable = true;
+        bBlueVert.body.immovable = true;
+        bYellowHor.body.immovable = true;
+        bYellowVert.body.immovable = true;
 
     }
 
-};*/
+};
 
-module.exports = Play;
+module.exports = Game;
