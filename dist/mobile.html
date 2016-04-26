@@ -1,72 +1,43 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
 
     <title>Jetboat Deathmatch</title>
 
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-
-    <!-- build:css main.min.css
-    <link rel="stylesheet" href="/css/main.css">
-     /build -->
-
     <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            min-height: 100%;
+            background: url("assets/controller/contrBckgr.png") repeat;
+            overflow: hidden; /*helps remove selection*/
+        }
+
+        /*prevent user from selecting elements of the DOM*/
         * {
             -webkit-user-select: none;
             user-select: none;
             box-sizing: border-box;
         }
 
-        html, body {
-            width: 100%;
-            height: 100%;
-            min-height: 100%;
-            overflow: hidden;
-            margin: 0;
-            background: url("assets/controller/contrBckgr.png") repeat;
-        }
-
-        html, .mobile {
-            height: 100%;
-            min-height: 100%;
-            overflow: hidden;
-        }
-
-        button {
-            text-transform: uppercase;
-        }
-
-        .game {
-            width: 100%;
-            height: 100%;
-        }
-
-        .directions, .hit {
+        .directions, .console {
             height: 100%;
             width: 50%;
             float: left;
             padding: 25px;
         }
 
-        .hit {
+        .console {
             float: right;
         }
 
         .goUp, .goSides {
             width: 100%;
-            height: 50%;
+            height: 33%;
             text-align: center;
             padding: 15px;
         }
-
-        /*.middle {
-            width: 100%;
-            height: 33%;
-            overflow: hidden;
-            padding: 5px;
-        }*/
 
         .up {
             width: 40%;
@@ -76,7 +47,7 @@
         }
 
         .left, .right {
-            width: 30%;
+            width: 40%;
             height: 100%;
             float: left;
             background: transparent;
@@ -87,63 +58,76 @@
             float: right;
         }
 
-        #shoot {
-            height: 100%;
+        .emptyFill {
             width: 100%;
-            font-size: 3em;
-            background: #ffffff;
-            border: 1px solid brown;
+            height: 33%;
+            overflow: hidden;
+            padding: 5px;
+            text-align: center;
         }
 
+        .display {
+            width: 100%;
+            height: 60%;
+            overflow: hidden;
+            padding: 25px;
+            text-align: center;
+        }
+
+        .shoot {
+            width: 100%;
+            height: 40%;
+            overflow: hidden;
+            padding: 5px;
+            text-align: center;
+        }
+
+        .scaleImg {
+            width: 100%;
+            height : 100%;
+        }
     </style>
 </head>
 
 <body>
 
+<!--USE DIVS and CSS INSTEAD OF A TABLE-->
 <div class="directions">
+    <div class="emptyFill">
+        <img src="assets/controller/title.png" class="scaleImg">
+    </div>
     <div class="goUp">
-        <button type="button" class="up" id="up">
-            <img src="assets/controller/upArrow.png" width="100%">
+        <button id="up" class="up" >
+            <img src="assets/controller/upArrow.png" class="scaleImg">
         </button>
     </div>
-    <!--<div class="middle">
-        <button id="left" class="left">Left</button>
-        <button id="right" class="right">Right</button>
-    </div >-->
     <div class="goSides">
         <button id="left" class="left">
-            <img src="assets/controller/leftArrow.png" width="100%">
+            <img src="assets/controller/leftArrow.png" class="scaleImg" style="padding-right: 3em">
         </button>
         <button id="right" class="right">
-            <img src="assets/controller/rightArrow.png" width="100%">
+            <img src="assets/controller/rightArrow.png" class="scaleImg" style="padding-left: 3em">
         </button>
     </div>
 </div>
 
-<div class="arrows">
-    <div class="top">
-        <button type="button" class="up" id="ahksjhd">Up</button>
+<div class="console">
+    <div class="display">
+            <img src="assets/controller/ranger1.png" width="auto" height="80%">
     </div>
-    <!--<div class="middle">
-        <button id="left" class="left">Left</button>
-        <button id="right" class="right">Right</button>
-    </div >-->
-    <div class="bottom">
-        <button id="lefdsadt" class="left">Left</button>
-        <button id="rigsdsht" class="right">Right</button>
+    <div class="shoot">
+        <button class="up" id="shoot">
+            <img src="assets/controller/shootButton.png" width="100%">
+        </button>
     </div>
 </div>
 
-<div class="hit">
-    <button id="shoot">Shoot</button>
-</div>
 
 <script src="https://cdn.socket.io/socket.io-1.4.5.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bean/1.0.15/bean.js"></script>
-<!-- build:js main.min.js -->
+
 <script src="/bundle.js"></script>
-<!-- /build -->
-<script src="/js/lib/mobile.js"></script>
+<script src="/js/mobile.js"></script>
 
 </body>
 </html>

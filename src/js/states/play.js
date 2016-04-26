@@ -37,7 +37,7 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
-            /*//in case of laser shot to barrel, destroy barrel and bullet
+            //in case of laser shot to barrel, destroy barrel and bullet
             this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
                 laser.kill();
                 barrel.kill();
@@ -46,7 +46,7 @@ Game.prototype = {
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
-            }, null, this);*/
+            }, null, this);
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
@@ -74,7 +74,7 @@ Game.prototype = {
                 laser.kill();
             }, null, this);
 
-            /*for (var j = 0; j < this.players.length; j++) { //for each other player
+            for (var j = 0; j < this.players.length; j++) { //for each other player
                 if (this.players[i].playerId === this.players[j].playerId) {
                     continue; //skip if player is the exact same
                 }
@@ -87,7 +87,7 @@ Game.prototype = {
                     playerExpl.reset(player.x, player.y);
                     playerExpl.play('kaboom', 20, false, true);
                 }, null, this);
-            }*/
+            }
                 //players hit players explode or not?
         }
 
@@ -140,6 +140,8 @@ Game.prototype = {
         this.playerHitAudio = this.game.add.audio("explode"); //explode
 
         Sockets.on("client new player", function (data) {
+            if(gameObj.players.length < 4)
+            {
                 gameObj.players.push(new Player({ //call the Player function from player.js
                     playerNum : gameObj.players.length + 1,
                     playerId : data.id,
@@ -148,6 +150,11 @@ Game.prototype = {
                     x : gameObj.game.world.randomX, //spawning point, might be risky?
                     y : gameObj.game.world.randomY
                 }));
+            }
+            else
+            {
+                console.log("Come back later, Player " + data.id + "! The game currently supports up to 4 players and it is full!");
+            }
         });
 
         Sockets.on("client disconnected", function (data) {
