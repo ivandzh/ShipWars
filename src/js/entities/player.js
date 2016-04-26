@@ -22,7 +22,7 @@ var Player = function (player) {
 
     //set anchor and scale of player
     this.anchor.setTo(0.5, 0.5);
-    this.scale.setTo(0.5,0.5);
+    //this.scale.setTo(0.5,0.5);
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
@@ -80,6 +80,10 @@ var Player = function (player) {
     this.emitterTwo.maxParticleSpeed = new Phaser.Point(10,100);
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
 
+    //swap emitter with player, place underneath
+    player.game.world.swap(emitter, player);
+    player.game.world.swap(emitter2, player);
+
     this.playerController();
 };
 
@@ -106,7 +110,6 @@ Player.prototype.playerController = function () {
     //all responses to messages from Sockets, from the mobile controller
     Sockets.on("client up", function (data) {
         if (data.id === playerObj.playerId) {
-            //playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.up, playerObj.body.acceleration);
             playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.stop;
         }
@@ -123,12 +126,6 @@ Player.prototype.playerController = function () {
             playerObj.body.angularVelocity = angularVelocity.pos;
         }
     });
-
-/*    Sockets.on("client down", function (data) {
-        if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.down, playerObj.body.acceleration);
-        }
-    });*/
 
     Sockets.on("client left right stop", function (data) {
         if (data.id === playerObj.playerId) {
@@ -156,20 +153,6 @@ Player.prototype.playerController = function () {
         }
     });
 
-    /*Sockets.on("client down right", function (data) {
-        if (data.id === playerObj.playerId) {
-            playerObj.body.angularVelocity = angularVelocity.pos;
-            playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.down, playerObj.body.acceleration);
-        }
-    });
-
-    Sockets.on("client down left", function (data) {
-        if (data.id === playerObj.playerId) {
-            playerObj.body.angularVelocity = angularVelocity.neg;
-            playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.down, playerObj.body.acceleration);
-        }
-    });*/
-
     Sockets.on("client shoot", function (data) {
         if (data.id === playerObj.playerId && playerObj.alive) {
             playerObj.fire();
@@ -195,6 +178,7 @@ Player.prototype.playerController = function () {
 Player.prototype.fire = function () {
     if (this.game.time.now > this.laserTime) {
         this.laser = this.lasers.getFirstExists(false);
+        console.log("Shoot!");
 
         if (this.laser) {
             this.laser.reset(this.body.x, this.body.y);  //was + 25

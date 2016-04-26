@@ -23,7 +23,7 @@ var Player = function (player) {
 
     //set anchor and scale of player
     this.anchor.setTo(0.5, 0.5);
-    this.scale.setTo(0.5,0.5);
+    //this.scale.setTo(0.5,0.5);
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
@@ -81,6 +81,10 @@ var Player = function (player) {
     this.emitterTwo.maxParticleSpeed = new Phaser.Point(10,100);
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
 
+    //swap emitter with player, place underneath
+    player.game.world.swap(emitter, player);
+    player.game.world.swap(emitter2, player);
+
     this.playerController();
 };
 
@@ -107,7 +111,6 @@ Player.prototype.playerController = function () {
     //all responses to messages from Sockets, from the mobile controller
     Sockets.on("client up", function (data) {
         if (data.id === playerObj.playerId) {
-            //playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.up, playerObj.body.acceleration);
             playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.stop;
         }
@@ -124,12 +127,6 @@ Player.prototype.playerController = function () {
             playerObj.body.angularVelocity = angularVelocity.pos;
         }
     });
-
-/*    Sockets.on("client down", function (data) {
-        if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.down, playerObj.body.acceleration);
-        }
-    });*/
 
     Sockets.on("client left right stop", function (data) {
         if (data.id === playerObj.playerId) {
@@ -157,20 +154,6 @@ Player.prototype.playerController = function () {
         }
     });
 
-    /*Sockets.on("client down right", function (data) {
-        if (data.id === playerObj.playerId) {
-            playerObj.body.angularVelocity = angularVelocity.pos;
-            playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.down, playerObj.body.acceleration);
-        }
-    });
-
-    Sockets.on("client down left", function (data) {
-        if (data.id === playerObj.playerId) {
-            playerObj.body.angularVelocity = angularVelocity.neg;
-            playerObj.game.physics.arcade.accelerationFromRotation(playerObj.rotation, acceleration.down, playerObj.body.acceleration);
-        }
-    });*/
-
     Sockets.on("client shoot", function (data) {
         if (data.id === playerObj.playerId && playerObj.alive) {
             playerObj.fire();
@@ -196,6 +179,7 @@ Player.prototype.playerController = function () {
 Player.prototype.fire = function () {
     if (this.game.time.now > this.laserTime) {
         this.laser = this.lasers.getFirstExists(false);
+        console.log("Shoot!");
 
         if (this.laser) {
             this.laser.reset(this.body.x, this.body.y);  //was + 25
@@ -423,7 +407,7 @@ Menu.prototype = {
         //USE FOR IN GAME
         this.titleSequence = this.game.add.audio("inGameLoop");
         this.titleSequence.volume = 0.5;
-        this.titleSequence.loop = true;
+        //this.titleSequence.loop = true;
         this.titleSequence.play();
     },
 
@@ -487,7 +471,7 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
-            //in case of laser shot to barrel, destroy barrel and bullet
+            /*//in case of laser shot to barrel, destroy barrel and bullet
             this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
                 laser.kill();
                 barrel.kill();
@@ -496,7 +480,7 @@ Game.prototype = {
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
-            }, null, this);
+            }, null, this);*/
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
@@ -524,7 +508,7 @@ Game.prototype = {
                 laser.kill();
             }, null, this);
 
-            for (var j = 0; j < this.players.length; j++) { //for each other player
+            /*for (var j = 0; j < this.players.length; j++) { //for each other player
                 if (this.players[i].playerId === this.players[j].playerId) {
                     continue; //skip if player is the exact same
                 }
@@ -537,7 +521,7 @@ Game.prototype = {
                     playerExpl.reset(player.x, player.y);
                     playerExpl.play('kaboom', 20, false, true);
                 }, null, this);
-            }
+            }*/
                 //players hit players explode or not?
         }
 
@@ -578,7 +562,7 @@ Game.prototype = {
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
         this.playingAudio = this.game.add.audio("titleSequence"); //titleSequence  //AUDIO SHOULD BE FIXED
-        this.playingAudio.volume = 0.3;
+        this.playingAudio.volume = 0.6;
         //this.playingAudio.loop = true; //false?
         this.playingAudio.play();
     },
@@ -590,14 +574,21 @@ Game.prototype = {
         this.playerHitAudio = this.game.add.audio("explode"); //explode
 
         Sockets.on("client new player", function (data) {
-            gameObj.players.push(new Player({ //call the Player function from player.js
-                playerNum : gameObj.players.length + 1,
-                playerId : data.id,
-                sprite : gameObj.players.length, //assign sprite according to playerNum? check
-                game : gameObj.game,
-                x : gameObj.game.world.randomX, //spawning point, might be risky?
-                y : gameObj.game.world.randomY
-            }));
+            if(gameObj.players.length < 4)
+            {
+                gameObj.players.push(new Player({ //call the Player function from player.js
+                    playerNum : gameObj.players.length + 1,
+                    playerId : data.id,
+                    sprite : gameObj.players.length, //assign sprite according to playerNum? check
+                    game : gameObj.game,
+                    x : gameObj.game.world.randomX, //spawning point, might be risky?
+                    y : gameObj.game.world.randomY
+                }));
+            }
+            else
+            {
+                console.log("Come back later, Player " + data.id + "! The game currently supports up to 4 players and it is full!");
+            }
         });
 
         Sockets.on("client disconnected", function (data) {
@@ -635,15 +626,17 @@ Game.prototype = {
         //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
         this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
 
-        var bBlueHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
-        var bBlueVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_vert");
-        var bYellowHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_hor");
-        var bYellowVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_vert");
+        for (var i = 0; i < 2; i++) {
+            var bBlueHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
+            var bBlueVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_vert");
+            var bYellowHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_hor");
+            var bYellowVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_vert");
 
-        bBlueHor.body.immovable = true;
-        bBlueVert.body.immovable = true;
-        bYellowHor.body.immovable = true;
-        bYellowVert.body.immovable = true;
+            bBlueHor.body.immovable = true;
+            bBlueVert.body.immovable = true;
+            bYellowHor.body.immovable = true;
+            bYellowVert.body.immovable = true;
+        }
 
     }
 
