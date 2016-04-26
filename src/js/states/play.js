@@ -140,8 +140,6 @@ Game.prototype = {
         this.playerHitAudio = this.game.add.audio("explode"); //explode
 
         Sockets.on("client new player", function (data) {
-            if(gameObj.players.length < 4)
-            {
                 gameObj.players.push(new Player({ //call the Player function from player.js
                     playerNum : gameObj.players.length + 1,
                     playerId : data.id,
@@ -150,11 +148,6 @@ Game.prototype = {
                     x : gameObj.game.world.randomX, //spawning point, might be risky?
                     y : gameObj.game.world.randomY
                 }));
-            }
-            else
-            {
-                console.log("Come back later, Player " + data.id + "! The game currently supports up to 4 players and it is full!");
-            }
         });
 
         Sockets.on("client disconnected", function (data) {
