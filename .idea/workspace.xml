@@ -70,8 +70,8 @@
       <file leaf-file-name="player.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/entities/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29912025" vertical-offset="2958" max-vertical-offset="3927">
-              <caret line="186" column="48" selection-start-line="186" selection-start-column="48" selection-end-line="186" selection-end-column="48" />
+            <state vertical-scroll-proportion="0.5483871" vertical-offset="1020" max-vertical-offset="3927">
+              <caret line="82" column="49" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -823,8 +823,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/entities/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29912025" vertical-offset="2958" max-vertical-offset="3927">
-          <caret line="186" column="48" selection-start-line="186" selection-start-column="48" selection-end-line="186" selection-end-column="48" />
+        <state vertical-scroll-proportion="0.5483871" vertical-offset="1020" max-vertical-offset="3927">
+          <caret line="82" column="49" selection-start-line="82" selection-start-column="49" selection-end-line="82" selection-end-column="49" />
           <folding />
         </state>
       </provider>
