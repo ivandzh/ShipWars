@@ -15,6 +15,8 @@ var spriteNum = null;
 //Socket handle the UP button
 bean.on(document.getElementById("up"), "touchstart", function (e) {
     /*Sockets.emit("server up", null);*/
+
+    console.log("Button Clicked!");
     Sockets.emit("server check start", null);
 });
 
