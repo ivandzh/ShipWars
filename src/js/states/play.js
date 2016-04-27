@@ -58,7 +58,7 @@ Game.prototype = {
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
-                barrelExpl.reset(barrel.x, barrel.y);
+                barrelExpl.reset(player.x, player.y);
                 barrelExpl.play('kaboom', 20, false);
                 player.kill();
                 barrel.kill();

@@ -91,9 +91,9 @@ Player.prototype.constructor = Player; //set its constructor to the Player funct
 
 Player.prototype.update = function() {
 
-    /*this.anchor.x = 0.5;
+    this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.animations.add('kaboom');*/
+    this.animations.add('kaboom');
     //this.screenWrap(); //allows infinite traversing of the screen, if left side reached - spawn from right side
 };
 
@@ -183,7 +183,7 @@ Player.prototype.fire = function () {
         console.log("Shoot!");
 
         if (this.laser) {
-            this.laser.reset(this.body.x, this.body.y);  //was + 25
+            this.laser.reset(this.x, this.y);  //was + 25
             this.laser.lifespan = 2000;
             this.laser.rotation = this.rotation;
             this.game.physics.arcade.velocityFromRotation(this.rotation, 400, this.laser.body.velocity);
@@ -493,7 +493,7 @@ Game.prototype = {
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
-                barrelExpl.reset(barrel.x, barrel.y);
+                barrelExpl.reset(player.x, player.y);
                 barrelExpl.play('kaboom', 20, false);
                 player.kill();
                 barrel.kill();
