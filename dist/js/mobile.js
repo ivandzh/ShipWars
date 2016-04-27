@@ -5,12 +5,10 @@ Sockets.emit("server check start", null);
 var playerId = null;
 var spriteNum = null;
 
-var playerBoat = [
-    "playerBoat_normal",
-    "playerBoat_blue",
-    "playerBoat_red",
-    "playerBoat_green"
-];
+var playerOneNum = 1;
+var playerTwoNum = 2;
+var playerOThreeNum = 3;
+var playerFourNum = 4;
 
 //using bean.js for event handling
 
@@ -51,14 +49,34 @@ Sockets.on("client check start", function (data) {
     console.log("Client Check called, result = " + playerId);
 });
 
-Sockets.on("client check done", function (passData) {
+Sockets.once("client check done", function (passData) {
     console.log("client check done called");
     if (passData.id === playerId) {
         spriteNum = passData.num;
         console.log("Client checkDone called, result = " + spriteNum);
     }
-    var imgSource = "assets/controller/ranger" + spriteNum + ".png";
-    document.getElementById("displayRanger").src = imgSource;
+    var imgSource = null;
+
+    switch(spriteNum){
+        case 1 :
+            imgSource = "assets/controller/ranger1.png";
+            document.getElementById("displayRanger1").src = imgSource;
+            break;
+        case 2 :
+            imgSource = "assets/controller/ranger2.png";
+            document.getElementById("displayRanger2").src = imgSource;
+            break;
+        case 3 :
+            imgSource = "assets/controller/ranger3.png";
+            document.getElementById("displayRanger3").src = imgSource;
+            break;
+        case 4 :
+            imgSource = "assets/controller/ranger4.png";
+            document.getElementById("displayRanger4").src = imgSource;
+            break;
+        default :
+            imgSource = "";
+    }
 });
 
 
