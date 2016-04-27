@@ -14,7 +14,7 @@ var Player = function (player) {
 
     //take values from passed player instance
     this.playerId = player.playerId;
-    this.playerNum = player.playerNum; //!!!!!! changed
+    this.playerNum = player.playerNum;
 
     Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
     player.game.add.existing(this);
@@ -79,8 +79,8 @@ var Player = function (player) {
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
 
     //swap emitter with player, place underneath
-   // player.game.world.swap(this.emitterOne, player);
-   // player.game.world.swap(this.emitterTwo, player);
+   player.game.world.swap(this.emitterOne, player);
+   player.game.world.swap(this.emitterTwo, player);
 
     this.playerController();
 };
@@ -90,9 +90,9 @@ Player.prototype.constructor = Player; //set its constructor to the Player funct
 
 Player.prototype.update = function() {
 
-    this.anchor.x = 0.5;
+    /*this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.animations.add('kaboom');
+    this.animations.add('kaboom');*/
     //this.screenWrap(); //allows infinite traversing of the screen, if left side reached - spawn from right side
 };
 
@@ -182,7 +182,7 @@ Player.prototype.fire = function () {
         console.log("Shoot!");
 
         if (this.laser) {
-            this.laser.reset(this.body.x + 25, this.body.y + 25);  //was + 25
+            this.laser.reset(this.body.x, this.body.y);  //was + 25
             this.laser.lifespan = 2000;
             this.laser.rotation = this.rotation;
             this.game.physics.arcade.velocityFromRotation(this.rotation, 400, this.laser.body.velocity);
