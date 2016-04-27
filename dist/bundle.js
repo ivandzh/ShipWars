@@ -82,8 +82,8 @@ var Player = function (player) {
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
 
     //swap emitter with player, place underneath
-    player.game.world.swap(this.emitterOne, player);
-    player.game.world.swap(this.emitterTwo, player);
+   // player.game.world.swap(this.emitterOne, player);
+   // player.game.world.swap(this.emitterTwo, player);
 
     this.playerController();
 };
