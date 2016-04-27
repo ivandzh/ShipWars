@@ -44,9 +44,9 @@ Sockets.on("client check start", function (data) {
     console.log("Client Check called, result = " + playerId);
 });
 
-Sockets.on("client check done", function (socketId, socketNum) {
-    if (socketId === playerId) {
-        spriteNum = socketNum;
+Sockets.on("client check done", function (passData) {
+    if (passData.id === playerId) {
+        spriteNum = passData.num;
         console.log("Client checkDone called, result = " + spriteNum);
     }
 });

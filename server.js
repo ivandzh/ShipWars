@@ -36,9 +36,9 @@ io.on('connection', function(socket){
         console.log("server check start");
     });
 
-   socket.on('server check done', function(playerId, playerNum){
-        socket.emit("client check done", playerId, playerNum);
-        socket.broadcast.emit("client check", playerId, playerNum);
+   socket.on('server check done', function(passData){
+        socket.emit("client check done", passData);
+        socket.broadcast.emit("client check", passData);
         console.log("server check done");
     });
 
