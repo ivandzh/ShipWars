@@ -1,8 +1,14 @@
 //on script start - add new player
-console.log("onStart function started! new player ");
 Sockets.emit("server new player", null);
-console.log("onStart function started! check");
-Sockets.emit("server banana", null);
+
+if(document.getElementById("up"))
+{
+    Sockets.emit("server checkStart", null);
+}
+
+/*socket.on("connect", function () {
+    console.log("Connected!");
+});*/
 
 var playerId = null;
 var spriteNum = null;
@@ -41,7 +47,7 @@ bean.on(document.getElementById("shoot"), "touchstart", function (e) {
     Sockets.emit("server shoot", null);
 });
 
-Sockets.on("client banana", function (data) {
+Sockets.on("client checkStart", function (data) {
     playerId = data.id;
     console.log("Client Check called, result = " + playerId);
 });
