@@ -603,6 +603,8 @@ Game.prototype = {
                     x : gameObj.game.world.randomX, //spawning point, might be risky?
                     y : gameObj.game.world.randomY
                 }));
+            console.log("Emit Server check!");
+            Sockets.emit("server check", null);
         });
 
         Sockets.on("client disconnected", function (data) {

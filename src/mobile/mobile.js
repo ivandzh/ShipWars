@@ -1,6 +1,6 @@
 //on script start - add new player
 Sockets.emit("server new player", null);
-Sockets.emit("server check", null);
+
 
 var playerId = null;
 var spriteNum = null;
@@ -40,12 +40,13 @@ bean.on(document.getElementById("shoot"), "touchstart", function (e) {
 });
 
 Sockets.on("client check", function (data) {
-    playerId = data.id
+    playerId = data.id;
+    console.log("Client Check called, result = " + playerId);
 });
 
 Sockets.on("client checkDone", function (socketId, socketNum) {
     if (socketId === playerId) {
         spriteNum = socketNum;
-        console.log(spriteNum);
+        console.log("Client checkDone called, result = " + spriteNum);
     }
 });
