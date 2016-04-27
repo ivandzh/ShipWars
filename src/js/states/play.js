@@ -70,7 +70,7 @@ Game.prototype = {
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var playerExpl = player.explosions.getFirstExists(false);
-                playerExpl.reset(player.body.x, player.body.y); //experiment
+                playerExpl.reset(player.x, player.y); //experiment
                 playerExpl.play('kaboom', 20, false, true);
                 player.kill();
             }, null, this);
@@ -84,13 +84,13 @@ Game.prototype = {
                 if (this.players[i].playerId === this.players[j].playerId) {
                     continue; //skip if player is the exact same
                 }
-                this.game.physics.arcade.overlap(this.players[i].lasers, this.players[j], function (laser, player) {
+                this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.players[j], function (playerFirst, laser, playerSecond) {
                     laser.kill();
-                    player.kill();
+                    playerSecond.kill();
                     this.playerHitAudio.play(); //explode
                     //add explosion sprite
-                    var playerExpl = player.explosions.getFirstExists(false);
-                    playerExpl.reset(player.x, player.y);
+                    var playerExpl = playerFirst.explosions.getFirstExists(false);
+                    playerExpl.reset(playerSecond.x, playerSecond.y);
                     playerExpl.play('kaboom', 20, false, true);
                 }, null, this);
             }

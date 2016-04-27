@@ -27,8 +27,8 @@ var Player = function (player) {
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
-    this.body.drag.set(500);
-    //this.body.maxVelocity.set(300);
+    //this.body.drag.set(500);
+    this.body.maxVelocity.set(300);
 
     //set animation
     this.animations.add('kaboom');
@@ -47,8 +47,6 @@ var Player = function (player) {
     this.lasers.setAll('outOfBoundsKill', true);
     this.lasers.setAll('anchor.x', 0.5);
     this.lasers.setAll('anchor.y', 0.5);
-    this.lasers.setAll("scale.x", 0.5);
-    this.lasers.setAll("scale.y", 0.5);
 
     //set laser bullets
     this.laser = null;
