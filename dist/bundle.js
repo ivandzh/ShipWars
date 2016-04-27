@@ -115,6 +115,12 @@ Player.prototype.playerController = function () {
     };
 
     //all responses to messages from Sockets, from the mobile controller
+    Sockets.on("client check", function (data) {
+        if (data.id === playerObj.playerId) {
+            Sockets.emit("server checkDone", playerObj.playerId, playerObj.playerNum);
+        }
+    });
+
     Sockets.on("client up", function (data) {
         if (data.id === playerObj.playerId) {
             playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.go, playerObj.body.velocity);

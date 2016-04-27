@@ -1,5 +1,9 @@
 //on script start - add new player
 Sockets.emit("server new player", null);
+Sockets.emit("server check", null);
+
+var playerId = null;
+var spriteNum = null;
 
 //using bean.js for event handling
 
@@ -33,4 +37,15 @@ bean.on(document.getElementById("right"), "touchend", function (e) {
 //Socket handle the SHOOT button
 bean.on(document.getElementById("shoot"), "touchstart", function (e) {
     Sockets.emit("server shoot", null);
+});
+
+Sockets.on("client check", function (data) {
+    playerId = data.id
+});
+
+Sockets.on("client checkDone", function (socketId, socketNum) {
+    if (socketId === playerId) {
+        spriteNum = socketNum;
+        console.log(spriteNum);
+    }
 });
