@@ -55,7 +55,7 @@ Load.prototype = {
         // Loading Sounds
         this.load.audio('explode', 'assets/audio/explode.ogg');
         this.load.audio('laserAudio', 'assets/audio/laser.wav');
-        this.load.audio('titleSequence', 'assets/audio/titleSequence.wav');
+        //this.load.audio('titleSequence', 'assets/audio/titleSequence.wav');
         this.load.audio('inGameLoop', 'assets/audio/loopGame.wav');
     },
 

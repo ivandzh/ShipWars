@@ -79,9 +79,9 @@ Game.prototype = {
                     tween.start();
                gameObj.explodeAudio.play(); //explode
                 //add explosion sprite
-                var barrelExpl = gameObj.players.explosions.getFirstExists(false);
-                barrelExpl.reset(barrel.x, barrel.y);
-                barrelExpl.play('kaboom', 20, false, true);
+                //var barrelExpl = player.explosions.getFirstExists(false);
+               // barrelExpl.reset(barrel.x, barrel.y);
+                //barrelExpl.play('kaboom', 20, false, true);
 
             }, null, this);
 
