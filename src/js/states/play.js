@@ -22,9 +22,8 @@ Game.prototype = {
     update: function () {
 
         this.game.physics.arcade.collide(this.players, this.players);
-        //this.game.physics.arcade.collide(this.players, this.rocks);
-        //this.game.physics.arcade.collide(this.players, this.barrels);
-        //this.game.physics.arcade.collide(this.meteors, this.meteors);
+        this.game.physics.arcade.collide(this.players, this.rocks);
+        this.game.physics.arcade.collide(this.players, this.barrels);
 
         for (var i = 0; i < this.players.length; i++) { // for each player
             //play the emitters
@@ -38,15 +37,16 @@ Game.prototype = {
             this.players[i].emitterTwo.y = this.players[i].y;
 
             //in case of laser shot to barrel, destroy barrel and bullet
-           /* this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
-                laser.kill();
-                barrel.kill();
+           this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
-            }, null, this);*/
+               laser.kill();
+               barrel.kill();
+            }, null, this);
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
@@ -188,10 +188,10 @@ Game.prototype = {
         this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
 
         for (var i = 0; i < 2; i++) {
-            var bBlueHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
-            var bBlueVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_blue_vert");
-            var bYellowHor = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_hor");
-            var bYellowVert = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_vert");
+            var bBlueHor = this.barrels.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
+            var bBlueVert = this.barrels.create(this.game.world.randomX, this.game.world.randomY, "b_blue_vert");
+            var bYellowHor = this.barrels.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_hor");
+            var bYellowVert = this.barrels.create(this.game.world.randomX, this.game.world.randomY, "b_yellow_vert");
 
             bBlueHor.body.immovable = true;
             bBlueVert.body.immovable = true;
