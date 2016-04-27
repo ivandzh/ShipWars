@@ -30,10 +30,10 @@ io.on('connection', function(socket){
         socket.broadcast.emit("client disconnected", player);
     });
 
-    socket.on('server check', function(){
-        socket.emit("client check", player);
-        socket.broadcast.emit("client check", player);
-        console.log("server check");
+    socket.on('server banana', function(){
+        socket.emit("client banana", player);
+        socket.broadcast.emit("client banana", player);
+        console.log("server banana");
     });
 
     socket.on('server checkDone', function(playerId, playerNum){
