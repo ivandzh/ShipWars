@@ -4,7 +4,7 @@ var Game = function () {
 
     this.players = [];
     //this.rocks = null;
-    //this.barrels = null;
+    this.barrels = null;
     console.log("Play stage initiated");
 
 };
@@ -42,7 +42,7 @@ Game.prototype = {
             //this.players[i].game.world.swap(this.emitterTwo, this.players[i]);
 
             //in case of laser shot to barrel, destroy barrel and bullet
-            this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+           /* this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
                 laser.kill();
                 barrel.kill();
                 this.explodeAudio.play(); //explode
@@ -50,27 +50,29 @@ Game.prototype = {
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
-            }, null, this);
+            }, null, this);*/
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
-                player.kill();
-                barrel.kill();
+
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
+                player.kill();
+                barrel.kill();
             }, null, this);
 
             //in case of player hitting rock, destroy only player
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
-                player.kill();
+
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var playerExpl = player.explosions.getFirstExists(false);
                 playerExpl.reset(player.body.x, player.body.y); //experiment
                 playerExpl.play('kaboom', 20, false, true);
+                player.kill();
             }, null, this);
 
             //in case of laser shot to rock, destroy only bullet
