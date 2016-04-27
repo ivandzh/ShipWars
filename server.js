@@ -21,10 +21,6 @@ io.on('connection', function(socket){
         id : socket.id
     };
 
-    socket.emit("client checkStart", player);
-    socket.broadcast.emit("client checkStart", player);
-    console.log("server checkStart");
-
     console.log("User: " + socket.id + " Connected");
 
     socket.on('disconnect', function(){
@@ -34,17 +30,17 @@ io.on('connection', function(socket){
         socket.broadcast.emit("client disconnected", player);
     });
 
-    socket.on('server checkStart', function(){
-        socket.emit("client checkStart", player);
-        socket.broadcast.emit("client checkStart", player);
-        console.log("server checkStart");
+    socket.on('server check start', function(){
+        socket.emit("client check start", player);
+        socket.broadcast.emit("client check start", player);
+        console.log("server check start");
     });
 
-    socket.on('server checkDone', function(playerId, playerNum){
-        socket.emit("client checkDone", playerId, playerNum);
+   /* socket.on('server check done', function(playerId, playerNum){
+        socket.emit("client check done", playerId, playerNum);
         socket.broadcast.emit("client check", playerId, playerNum);
-        console.log("server checkDone");
-    });
+        console.log("server check done");
+    });*/
 
     socket.on('server new player', function(){
         socket.emit("client new player", player);

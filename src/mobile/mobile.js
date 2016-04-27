@@ -1,10 +1,7 @@
 //on script start - add new player
 Sockets.emit("server new player", null);
 
-if(document.getElementById("up"))
-{
-    Sockets.emit("server checkStart", null);
-}
+//Sockets.emit("server check start", null);
 
 /*socket.on("connect", function () {
     console.log("Connected!");
@@ -17,7 +14,8 @@ var spriteNum = null;
 
 //Socket handle the UP button
 bean.on(document.getElementById("up"), "touchstart", function (e) {
-    Sockets.emit("server up", null);
+    /*Sockets.emit("server up", null);*/
+    Sockets.emit("server check start", null);
 });
 
 bean.on(document.getElementById("up"), "touchend", function (e) {
@@ -47,14 +45,15 @@ bean.on(document.getElementById("shoot"), "touchstart", function (e) {
     Sockets.emit("server shoot", null);
 });
 
-Sockets.on("client checkStart", function (data) {
+Sockets.on("client check start", function (data) {
     playerId = data.id;
     console.log("Client Check called, result = " + playerId);
 });
 
-Sockets.on("client checkDone", function (socketId, socketNum) {
+/*
+Sockets.on("client check done", function (socketId, socketNum) {
     if (socketId === playerId) {
         spriteNum = socketNum;
         console.log("Client checkDone called, result = " + spriteNum);
     }
-});
+});*/
