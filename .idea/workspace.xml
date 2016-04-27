@@ -24,11 +24,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="play.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="play.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/states/play.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5483871" vertical-offset="2975" max-vertical-offset="4369">
-              <caret line="197" column="35" selection-start-line="197" selection-start-column="35" selection-end-line="197" selection-end-column="35" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="2975" max-vertical-offset="4369">
+              <caret line="195" column="20" selection-start-line="195" selection-start-column="20" selection-end-line="195" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -80,18 +80,18 @@
       <file leaf-file-name="player.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/js/entities/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3485">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1734" max-vertical-offset="3485">
               <caret line="113" column="6" selection-start-line="113" selection-start-column="6" selection-end-line="113" selection-end-column="6" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="mobile.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="mobile.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/mobile/mobile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="287" max-vertical-offset="969">
-              <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
+            <state vertical-scroll-proportion="0.1994135" vertical-offset="0" max-vertical-offset="1071">
+              <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
               <folding />
             </state>
           </provider>
@@ -133,9 +133,9 @@
         <option value="$PROJECT_DIR$/src/js/states/menu.js" />
         <option value="$PROJECT_DIR$/src/js/states/load.js" />
         <option value="$PROJECT_DIR$/src/js/entities/player.js" />
-        <option value="$PROJECT_DIR$/src/mobile/mobile.js" />
         <option value="$PROJECT_DIR$/server.js" />
         <option value="$PROJECT_DIR$/src/js/states/play.js" />
+        <option value="$PROJECT_DIR$/src/mobile/mobile.js" />
       </list>
     </option>
   </component>
@@ -774,17 +774,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/dist/mobile.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.230769" vertical-offset="1265" max-vertical-offset="2397">
-          <caret line="87" column="30" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
-          <folding>
-            <element signature="n#style#0;n#img#0;n#button#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#button#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/states/menu.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="833">
@@ -823,22 +812,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/js/entities/player.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3485">
-          <caret line="113" column="6" selection-start-line="113" selection-start-column="6" selection-end-line="113" selection-end-column="6" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/mobile/mobile.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="287" max-vertical-offset="969">
-          <caret line="41" column="25" selection-start-line="41" selection-start-column="25" selection-end-line="41" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/server.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="306" max-vertical-offset="1802">
@@ -847,10 +820,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dist/mobile.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-8.230769" vertical-offset="1265" max-vertical-offset="2397">
+          <caret line="87" column="30" selection-start-line="87" selection-start-column="30" selection-end-line="87" selection-end-column="30" />
+          <folding>
+            <element signature="n#style#0;n#img#0;n#button#0;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#img#0;n#button#1;n#div#2;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/js/entities/player.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1683" max-vertical-offset="3485">
+          <caret line="113" column="6" selection-start-line="113" selection-start-column="6" selection-end-line="113" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/js/states/play.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5483871" vertical-offset="2975" max-vertical-offset="4369">
-          <caret line="197" column="35" selection-start-line="197" selection-start-column="35" selection-end-line="197" selection-end-column="35" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="2975" max-vertical-offset="4369">
+          <caret line="195" column="20" selection-start-line="195" selection-start-column="20" selection-end-line="195" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/mobile/mobile.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1994135" vertical-offset="0" max-vertical-offset="1071">
+          <caret line="8" column="10" selection-start-line="8" selection-start-column="10" selection-end-line="8" selection-end-column="10" />
           <folding />
         </state>
       </provider>

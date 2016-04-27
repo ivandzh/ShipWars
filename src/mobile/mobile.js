@@ -1,6 +1,12 @@
 //on script start - add new player
-Sockets.emit("server new player", null);
-Sockets.emit("server banana", null);
+function onStart()
+{
+    console.log("onStart function started! new player + check");
+    Sockets.emit("server new player", null);
+    Sockets.emit("server banana", null);
+}
+
+onStart();
 
 var playerId = null;
 var spriteNum = null;
