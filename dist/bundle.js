@@ -115,12 +115,12 @@ Player.prototype.playerController = function () {
     };
 
     //all responses to messages from Sockets, from the mobile controller
-   /* Sockets.on("client check start", function (data) {
+   Sockets.on("client check start", function (data) {
         if (data.id === playerObj.playerId) {
             console.log("server check done " + playerObj.playerId + " + " + playerObj.playerNum);
             Sockets.emit("server check done", playerObj.playerId, playerObj.playerNum);
         }
-    });*/
+    });
 
     Sockets.on("client up", function (data) {
         if (data.id === playerObj.playerId) {
