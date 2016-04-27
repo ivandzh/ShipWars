@@ -15,7 +15,9 @@ var Player = function (player) {
 
     //take values from passed player instance
     this.playerId = player.playerId;
-    this.playerNum = player.playerNum;
+    this.playerNum = player.playerNum;   //server broadcast this Num!!!!
+
+
 
     Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
     player.game.add.existing(this);
@@ -368,7 +370,7 @@ Menu.prototype = {
         //USE FOR IN GAME
         this.titleSequence = this.game.add.audio("inGameLoop");
         this.titleSequence.volume = 0.5;
-        //this.titleSequence.loop = true;
+        this.titleSequence.loop = true;
         this.titleSequence.play();
     },
 
@@ -440,13 +442,13 @@ Game.prototype = {
                 //this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
-                barrelExpl.reset(player.x, player.y);
+                barrelExpl.reset(player.x - 10, player.y - 10);
                 barrelExpl.play('kaboom', 20, false, true);
 
             }, null, this);
 
             //in case of laser shot to barrel, destroy barrel and bullet
-           /*this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+           this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
 
                laser.kill();
                barrel.kill();
@@ -454,10 +456,10 @@ Game.prototype = {
                 //this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
-                barrelExpl.reset(barrel.x, barrel.y);
+               // barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
 
-            }, null, this);*/
+            }, null, this);
 
             //in case of player hitting rock, destroy only player
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
@@ -484,9 +486,9 @@ Game.prototype = {
                     player.kill();
                     //this.playerHitAudio.play(); //explode
                     //add explosion sprite
-                    var playerExpl = player.explosions.getFirstExists(false);
+                    /*var playerExpl = player.explosions.getFirstExists(false);
                     playerExpl.reset(player.x, player.y);
-                    playerExpl.play('kaboom', 20, false, true);
+                    playerExpl.play('kaboom', 20, false, true);*/
                 }, null, this);
             }
                 //players hit players explode or not?

@@ -14,7 +14,9 @@ var Player = function (player) {
 
     //take values from passed player instance
     this.playerId = player.playerId;
-    this.playerNum = player.playerNum;
+    this.playerNum = player.playerNum;   //server broadcast this Num!!!!
+
+
 
     Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
     player.game.add.existing(this);

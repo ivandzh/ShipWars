@@ -18,7 +18,7 @@ Menu.prototype = {
         //USE FOR IN GAME
         this.titleSequence = this.game.add.audio("inGameLoop");
         this.titleSequence.volume = 0.5;
-        //this.titleSequence.loop = true;
+        this.titleSequence.loop = true;
         this.titleSequence.play();
     },
 
