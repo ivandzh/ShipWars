@@ -472,8 +472,8 @@ Game.prototype = {
             this.players[i].emitterTwo.y = this.players[i].y;
 
             //Swapping emitters
-            this.players[i].game.world.swap(this.emitterOne, this.players[i]);
-            this.players[i].game.world.swap(this.emitterTwo, this.players[i]);
+            //this.players[i].game.world.swap(this.emitterOne, this.players[i]);
+            //this.players[i].game.world.swap(this.emitterTwo, this.players[i]);
 
             //in case of laser shot to barrel, destroy barrel and bullet
             /*this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
