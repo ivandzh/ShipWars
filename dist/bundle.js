@@ -418,6 +418,8 @@ Game.prototype = {
 
     update: function () {
 
+        var gameObj = this
+
         this.game.physics.arcade.collide(this.players, this.players);
         //this.game.physics.arcade.collide(this.players, this.rocks);
         //this.game.physics.arcade.collide(this.players, this.barrels);
@@ -451,9 +453,12 @@ Game.prototype = {
            this.game.physics.arcade.overlap(this.players[i].lasers, this.barrels, function (laser, barrel) {
 
                laser.kill();
-               barrel.kill();
-
-                //this.explodeAudio.play(); //explode
+               //barrel.kill();
+                var tween = gameObj.game.add.tween(barrel);
+                    tween.to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None);
+                    tween.onComplete.add(function () {        barrel.kill();    });
+                    tween.start();
+               gameObj.explodeAudio.play(); //explode
                 //add explosion sprite
                 //var barrelExpl = player.explosions.getFirstExists(false);
                // barrelExpl.reset(barrel.x, barrel.y);
@@ -464,11 +469,13 @@ Game.prototype = {
             //in case of player hitting rock, destroy only player
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
 
-                setTimeout(function(){ player.kill(); }, 1000);
+                //player.kill();
+                player.body = null;
+                player.destroy();
 
-                this.game.add.tween(player).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
+                //this.game.add.tween(player).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
-                this.explodeAudio.play(); //explode
+                gameObj.explodeAudio.play(); //explode
                 //add explosion sprite
                 /*var playerExpl = player.explosions.getFirstExists(false);
                 playerExpl.reset(player.body.x, player.body.y); //experiment
