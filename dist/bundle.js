@@ -431,20 +431,6 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
-            //in case of laser shot to barrel, destroy barrel and bullet
-           this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
-
-               laser.kill();
-               barrel.kill();
-
-                //this.explodeAudio.play(); //explode
-                //add explosion sprite
-                var barrelExpl = player.explosions.getFirstExists(false);
-                barrelExpl.reset(barrel.x, barrel.y);
-                barrelExpl.play('kaboom', 20, false, true);
-
-            }, null, this);
-
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
 
@@ -455,6 +441,20 @@ Game.prototype = {
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(player.x, player.y);
+                barrelExpl.play('kaboom', 20, false, true);
+
+            }, null, this);
+
+            //in case of laser shot to barrel, destroy barrel and bullet
+           this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+
+               laser.kill();
+               barrel.kill();
+
+                //this.explodeAudio.play(); //explode
+                //add explosion sprite
+                var barrelExpl = player.explosions.getFirstExists(false);
+                barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
 
             }, null, this);
