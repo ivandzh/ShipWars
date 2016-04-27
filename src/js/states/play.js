@@ -42,9 +42,6 @@ Game.prototype = {
                 player.kill();
                 barrel.kill();
 
-                this.players[i].destroy(true);
-                this.players.splice(i, 1);
-
                 //this.explodeAudio.play(); //explode
                 //add explosion sprite
                /* var barrelExpl = player.explosions.getFirstExists(false);
@@ -71,6 +68,8 @@ Game.prototype = {
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
 
                 player.kill();
+
+                this.game.add.tween(player).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
                 this.explodeAudio.play(); //explode
                 //add explosion sprite

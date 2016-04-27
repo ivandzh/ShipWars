@@ -17,7 +17,7 @@ var Player = function (player) {
     this.playerId = player.playerId;
     this.playerNum = player.playerNum;   //server broadcast this Num!!!!
 
-
+    this.alpha = 1;
 
     Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
     player.game.add.existing(this);
@@ -439,9 +439,6 @@ Game.prototype = {
                 player.kill();
                 barrel.kill();
 
-                this.players[i].destroy(true);
-                this.players.splice(i, 1);
-
                 //this.explodeAudio.play(); //explode
                 //add explosion sprite
                /* var barrelExpl = player.explosions.getFirstExists(false);
@@ -468,6 +465,8 @@ Game.prototype = {
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
 
                 player.kill();
+
+                this.game.add.tween(player).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
                 this.explodeAudio.play(); //explode
                 //add explosion sprite

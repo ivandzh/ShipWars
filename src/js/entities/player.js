@@ -16,7 +16,7 @@ var Player = function (player) {
     this.playerId = player.playerId;
     this.playerNum = player.playerNum;   //server broadcast this Num!!!!
 
-
+    this.alpha = 1;
 
     Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
     player.game.add.existing(this);
