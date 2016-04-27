@@ -476,9 +476,9 @@ Game.prototype = {
                     tween.start();
                gameObj.explodeAudio.play(); //explode
                 //add explosion sprite
-                //var barrelExpl = player.explosions.getFirstExists(false);
-               // barrelExpl.reset(barrel.x, barrel.y);
-                //barrelExpl.play('kaboom', 20, false, true);
+                var barrelExpl = gameObj.players.explosions.getFirstExists(false);
+                barrelExpl.reset(barrel.x, barrel.y);
+                barrelExpl.play('kaboom', 20, false, true);
 
             }, null, this);
 
@@ -522,7 +522,7 @@ Game.prototype = {
                         player.kill();
                     });
                     tweenP.start();
-                    //this.playerHitAudio.play(); //explode
+                    gameObj.playerHitAudio.play(); //explode
                     //add explosion sprite
                     /*var playerExpl = player.explosions.getFirstExists(false);
                     playerExpl.reset(player.x, player.y);
