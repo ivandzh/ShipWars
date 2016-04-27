@@ -337,7 +337,7 @@ Load.prototype = {
         this.load.image('laser', 'assets/laserpng.png');
 
         // Loading Explosion
-        this.load.spritesheet('kaboom', 'assets/boom.png', 128, 128);
+        this.load.spritesheet('kaboom', 'assets/boom.png', 128, 128, 14);
 
         //Loading Particles
         this.load.image('bubble','assets/bubble.png');
@@ -494,7 +494,7 @@ Game.prototype = {
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
-                barrelExpl.play('kaboom', 20, false, true);
+                barrelExpl.play('kaboom', 20, false);
                 player.kill();
                 barrel.kill();
             }, null, this);
@@ -504,9 +504,10 @@ Game.prototype = {
 
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
-                var playerExpl = player.explosions.getFirstExists(false);
+                player.animations.play("kaboom", 20, false);
+                /*var playerExpl = player.explosions.getFirstExists(false);
                 playerExpl.reset(player.x, player.y); //experiment
-                playerExpl.play('kaboom', 20, false, true);
+                playerExpl.play('kaboom', 20, false, true);*/
                 player.kill();
             }, null, this);
 
@@ -519,14 +520,14 @@ Game.prototype = {
                 if (this.players[i].playerId === this.players[j].playerId) {
                     continue; //skip if player is the exact same
                 }
-                this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.players[j], function (playerFirst, laser, playerSecond) {
+                this.game.physics.arcade.overlap(this.players[i].lasers, this.players[j], function (laser, player) {
                     laser.kill();
-                    playerSecond.kill();
+                    player.kill();
                     this.playerHitAudio.play(); //explode
                     //add explosion sprite
-                    var playerExpl = playerFirst.explosions.getFirstExists(false);
+                    /*var playerExpl = playerFirst.explosions.getFirstExists(false);
                     playerExpl.reset(playerSecond.x, playerSecond.y);
-                    playerExpl.play('kaboom', 20, false, true);
+                    playerExpl.play('kaboom', 20, false, true);*/
                 }, null, this);
             }
                 //players hit players explode or not?

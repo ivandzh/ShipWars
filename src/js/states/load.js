@@ -32,7 +32,7 @@ Load.prototype = {
         this.load.image('laser', 'assets/laserpng.png');
 
         // Loading Explosion
-        this.load.spritesheet('kaboom', 'assets/boom.png', 128, 128);
+        this.load.spritesheet('kaboom', 'assets/boom.png', 128, 128, 14);
 
         //Loading Particles
         this.load.image('bubble','assets/bubble.png');
