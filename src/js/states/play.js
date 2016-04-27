@@ -37,10 +37,6 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
-            //Swapping emitters
-            //this.players[i].game.world.swap(this.emitterOne, this.players[i]);
-            //this.players[i].game.world.swap(this.emitterTwo, this.players[i]);
-
             //in case of laser shot to barrel, destroy barrel and bullet
            /* this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
                 laser.kill();
@@ -69,17 +65,16 @@ Game.prototype = {
 
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
-                player.animations.play("kaboom", 20, false);
-                /*var playerExpl = player.explosions.getFirstExists(false);
+                var playerExpl = player.explosions.getFirstExists(false);
                 playerExpl.reset(player.x, player.y); //experiment
-                playerExpl.play('kaboom', 20, false, true);*/
+                playerExpl.play('kaboom', 20, false, true);
                 player.kill();
             }, null, this);
 
             //in case of laser shot to rock, destroy only bullet
-            /*this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
+            this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
                 laser.kill();
-            }, null, this);*/
+            }, null, this);
 
             for (var j = 0; j < this.players.length; j++) { //for each other player
                 if (this.players[i].playerId === this.players[j].playerId) {
@@ -90,9 +85,9 @@ Game.prototype = {
                     player.kill();
                     this.playerHitAudio.play(); //explode
                     //add explosion sprite
-                    /*var playerExpl = playerFirst.explosions.getFirstExists(false);
-                    playerExpl.reset(playerSecond.x, playerSecond.y);
-                    playerExpl.play('kaboom', 20, false, true);*/
+                    var playerExpl = player.explosions.getFirstExists(false);
+                    playerExpl.reset(player.x, player.y);
+                    playerExpl.play('kaboom', 20, false, true);
                 }, null, this);
             }
                 //players hit players explode or not?

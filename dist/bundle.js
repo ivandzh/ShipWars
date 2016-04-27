@@ -91,10 +91,9 @@ Player.prototype.constructor = Player; //set its constructor to the Player funct
 
 Player.prototype.update = function() {
 
-    this.anchor.x = 0.5;
+    /*this.anchor.x = 0.5;
     this.anchor.y = 0.5;
-    this.animations.add('kaboom');
-    //this.screenWrap(); //allows infinite traversing of the screen, if left side reached - spawn from right side
+    this.animations.add('kaboom');*/
 };
 
 Player.prototype.playerController = function () {
@@ -162,20 +161,6 @@ Player.prototype.playerController = function () {
     });
 };
 
-/*Player.prototype.screenWrap = function ( ) {
-    if (this.x < 0) {
-        this.x = this.game.width;
-    } else if (this.x > this.game.width) {
-        this.x = 0;
-    }
-
-    if (this.y < 0) {
-        this.y = this.game.height;
-    } else if (this.y > this.game.height) {
-        this.y = 0;
-    }
-};*/
-
 //standard shooting function
 Player.prototype.fire = function () {
     if (this.game.time.now > this.laserTime) {
@@ -192,36 +177,6 @@ Player.prototype.fire = function () {
         }
     }
 };
-
-/*Player.prototype.particleEmitter = function (player) {
-
-    //create an emitter
-    emitter = player.game.add.emitter(0, 0, 5000);
-    emitter.makeParticles('fireblob');
-
-    emitter2 = player.game.add.emitter(0, 0, 5000);
-    emitter2.makeParticles('fireblob');
-
-    // Attach the emitter to the sprite
-    //player.addChild(emitter);
-
-    //position the emitter relative to the sprite's anchor location
-    emitter.x = player.x;
-    emitter.y = player.y;
-
-    emitter2.x = player.x;
-    emitter2.y = player.y;
-
-    // setup options for the emitter
-    emitter.lifespan = 300;
-    emitter.maxParticleSpeed = new Phaser.Point(50,100);
-    emitter.minParticleSpeed = new Phaser.Point(-50,-100);
-
-    emitter2.lifespan = 300;
-    emitter2.maxParticleSpeed = new Phaser.Point(10,100);
-    emitter2.minParticleSpeed = new Phaser.Point(-10,-100);
-
-};*/
 
 module.exports = Player;
 
@@ -472,10 +427,6 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
-            //Swapping emitters
-            //this.players[i].game.world.swap(this.emitterOne, this.players[i]);
-            //this.players[i].game.world.swap(this.emitterTwo, this.players[i]);
-
             //in case of laser shot to barrel, destroy barrel and bullet
            /* this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
                 laser.kill();
@@ -504,17 +455,16 @@ Game.prototype = {
 
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
-                player.animations.play("kaboom", 20, false);
-                /*var playerExpl = player.explosions.getFirstExists(false);
+                var playerExpl = player.explosions.getFirstExists(false);
                 playerExpl.reset(player.x, player.y); //experiment
-                playerExpl.play('kaboom', 20, false, true);*/
+                playerExpl.play('kaboom', 20, false, true);
                 player.kill();
             }, null, this);
 
             //in case of laser shot to rock, destroy only bullet
-            /*this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
+            this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
                 laser.kill();
-            }, null, this);*/
+            }, null, this);
 
             for (var j = 0; j < this.players.length; j++) { //for each other player
                 if (this.players[i].playerId === this.players[j].playerId) {
@@ -525,9 +475,9 @@ Game.prototype = {
                     player.kill();
                     this.playerHitAudio.play(); //explode
                     //add explosion sprite
-                    /*var playerExpl = playerFirst.explosions.getFirstExists(false);
-                    playerExpl.reset(playerSecond.x, playerSecond.y);
-                    playerExpl.play('kaboom', 20, false, true);*/
+                    var playerExpl = player.explosions.getFirstExists(false);
+                    playerExpl.reset(player.x, player.y);
+                    playerExpl.play('kaboom', 20, false, true);
                 }, null, this);
             }
                 //players hit players explode or not?
