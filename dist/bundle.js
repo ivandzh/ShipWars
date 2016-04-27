@@ -439,11 +439,14 @@ Game.prototype = {
                 player.kill();
                 barrel.kill();
 
+                this.players[i].destroy(true);
+                this.players.splice(i, 1);
+
                 //this.explodeAudio.play(); //explode
                 //add explosion sprite
-                var barrelExpl = player.explosions.getFirstExists(false);
+               /* var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(player.x - 10, player.y - 10);
-                barrelExpl.play('kaboom', 20, false, true);
+                barrelExpl.play('kaboom', 20, false, true);*/
 
             }, null, this);
 
@@ -464,12 +467,14 @@ Game.prototype = {
             //in case of player hitting rock, destroy only player
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
 
-                //this.explodeAudio.play(); //explode
-                //add explosion sprite
-                var playerExpl = player.explosions.getFirstExists(false);
-                playerExpl.reset(player.body.x, player.body.y); //experiment
-                playerExpl.play('kaboom', 20, false, true);
                 player.kill();
+
+                this.explodeAudio.play(); //explode
+                //add explosion sprite
+                /*var playerExpl = player.explosions.getFirstExists(false);
+                playerExpl.reset(player.body.x, player.body.y); //experiment
+                playerExpl.play('kaboom', 20, false, true);*/
+
             }, null, this);
 
             //in case of laser shot to rock, destroy only bullet
