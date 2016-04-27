@@ -195,7 +195,7 @@ Game.prototype = {
                     y : gameObj.game.world.randomY
                 }));
             console.log("Emit Server check!");
-            Sockets.emit("server check", null);
+            Sockets.emit("server banana", null);
         });
 
         Sockets.on("client disconnected", function (data) {
