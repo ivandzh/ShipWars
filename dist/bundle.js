@@ -434,31 +434,35 @@ Game.prototype = {
             //in case of laser shot to barrel, destroy barrel and bullet
            this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
 
-                this.explodeAudio.play(); //explode
+               laser.kill();
+               barrel.kill();
+
+                //this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
-               laser.kill();
-               barrel.kill();
+
             }, null, this);
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
 
-                this.explodeAudio.play(); //explode
+                player.kill();
+                barrel.kill();
+
+                //this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(player.x, player.y);
                 barrelExpl.play('kaboom', 20, false, true);
-                player.kill();
-                barrel.kill();
+
             }, null, this);
 
             //in case of player hitting rock, destroy only player
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
 
-                this.explodeAudio.play(); //explode
+                //this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var playerExpl = player.explosions.getFirstExists(false);
                 playerExpl.reset(player.body.x, player.body.y); //experiment
@@ -478,7 +482,7 @@ Game.prototype = {
                 this.game.physics.arcade.overlap(this.players[i].lasers, this.players[j], function (laser, player) {
                     laser.kill();
                     player.kill();
-                    this.playerHitAudio.play(); //explode
+                    //this.playerHitAudio.play(); //explode
                     //add explosion sprite
                     var playerExpl = player.explosions.getFirstExists(false);
                     playerExpl.reset(player.x, player.y);
