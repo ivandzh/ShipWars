@@ -67,7 +67,7 @@ Game.prototype = {
             //in case of player hitting rock, destroy only player
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
 
-                player.kill();
+                setTimeout(function(){ player.kill(); }, 1000);
 
                 this.game.add.tween(player).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
