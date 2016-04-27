@@ -22,8 +22,8 @@ Game.prototype = {
     update: function () {
 
         this.game.physics.arcade.collide(this.players, this.players);
-        this.game.physics.arcade.collide(this.players, this.rocks);
-        this.game.physics.arcade.collide(this.players, this.barrels);
+        //this.game.physics.arcade.collide(this.players, this.rocks);
+        //this.game.physics.arcade.collide(this.players, this.barrels);
         //this.game.physics.arcade.collide(this.meteors, this.meteors);
 
         for (var i = 0; i < this.players.length; i++) { // for each player
@@ -42,7 +42,7 @@ Game.prototype = {
             //this.players[i].game.world.swap(this.emitterTwo, this.players[i]);
 
             //in case of laser shot to barrel, destroy barrel and bullet
-            /*this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+            this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
                 laser.kill();
                 barrel.kill();
                 this.explodeAudio.play(); //explode
@@ -50,7 +50,7 @@ Game.prototype = {
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
-            }, null, this);*/
+            }, null, this);
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {

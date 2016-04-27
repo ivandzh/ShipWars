@@ -26,8 +26,8 @@ var Player = function (player) {
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
-    this.body.drag.set(500);
-    this.body.maxVelocity.set(300);
+    //this.body.drag.set(500);
+    //this.body.maxVelocity.set(300);
 
     //set animation
     this.animations.add('kaboom');
