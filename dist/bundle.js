@@ -122,6 +122,8 @@ Player.prototype.playerController = function () {
                 num: playerObj.playerNum
             };
             console.log("server check done " + playerObj.playerId + " + " + playerObj.playerNum);
+            console.log("server check done collective var ");
+            console.log(passData);
             Sockets.emit("server check done", passData);
         }
     });
