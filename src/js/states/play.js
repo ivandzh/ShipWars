@@ -3,8 +3,8 @@ var Player = require('../entities/player');
 var Game = function () {
 
     this.players = [];
-    this.rocks = null;
-    this.barrels = null;
+    //this.rocks = null;
+    //this.barrels = null;
     console.log("Play stage initiated");
 
 };
@@ -69,7 +69,7 @@ Game.prototype = {
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var playerExpl = player.explosions.getFirstExists(false);
-                playerExpl.reset(player.x, player.y);
+                playerExpl.reset(player.body.x, player.body.y); //experiment
                 playerExpl.play('kaboom', 20, false, true);
             }, null, this);
 
