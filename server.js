@@ -37,8 +37,9 @@ io.on('connection', function(socket){
     });
 
    socket.on('server check done', function(passData){
+       console.log(passData);
         socket.emit("client check done", passData);
-        socket.broadcast.emit("client check", passData);
+        socket.broadcast.emit("client check done", passData);
         console.log("server check done");
     });
 

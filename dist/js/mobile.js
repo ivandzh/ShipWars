@@ -5,6 +5,13 @@ Sockets.emit("server check start", null);
 var playerId = null;
 var spriteNum = null;
 
+var playerBoat = [
+    "playerBoat_normal",
+    "playerBoat_blue",
+    "playerBoat_red",
+    "playerBoat_green"
+];
+
 //using bean.js for event handling
 
 //Socket handle the UP button
@@ -50,4 +57,10 @@ Sockets.on("client check done", function (passData) {
         spriteNum = passData.num;
         console.log("Client checkDone called, result = " + spriteNum);
     }
+    var imgSource = "assets/controller/ranger" + spriteNum + ".png";
+    document.getElementById("displayRanger").src = imgSource;
 });
+
+
+
+
