@@ -28,7 +28,7 @@ var Player = function (player) {
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
-    this.body.drag.set(500);
+    //this.body.drag.set(500);
     this.body.maxVelocity.set(300);
 
     //set animation
@@ -101,8 +101,13 @@ Player.prototype.playerController = function () {
     var playerObj = this;
 
     //store values in variables to use later
-    var acceleration = 200;
-    var angularVelocity = {
+    var acceleration =
+    {
+        go: 200,
+        stop: 0
+    };
+    var angularVelocity =
+    {
         stop : 0,
         neg : -100,
         pos : 100
@@ -111,7 +116,7 @@ Player.prototype.playerController = function () {
     //all responses to messages from Sockets, from the mobile controller
     Sockets.on("client up", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration, playerObj.body.velocity);
+            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.go, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.stop;
         }
     });
@@ -136,20 +141,21 @@ Player.prototype.playerController = function () {
 
     Sockets.on("client up stop", function (data) {
         if (data.id === playerObj.playerId) {
+            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.stop, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.stop;
         }
     });
 
     Sockets.on("client up right", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration, playerObj.body.velocity);
+            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.go, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.pos;
         }
     });
 
     Sockets.on("client up left", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration, playerObj.body.velocity);
+            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.go, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.neg;
         }
     });
