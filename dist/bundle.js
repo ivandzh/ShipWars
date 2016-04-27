@@ -446,7 +446,7 @@ Game.prototype = {
             }, null, this);
 
             //in case of laser shot to barrel, destroy barrel and bullet
-           this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+           /*this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
 
                laser.kill();
                barrel.kill();
@@ -457,7 +457,7 @@ Game.prototype = {
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
 
-            }, null, this);
+            }, null, this);*/
 
             //in case of player hitting rock, destroy only player
             this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
