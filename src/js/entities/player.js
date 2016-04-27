@@ -26,7 +26,7 @@ var Player = function (player) {
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
-    //this.body.drag.set(500);
+    this.body.drag.set(500);
     this.body.maxVelocity.set(300);
 
     //set animation
@@ -90,6 +90,9 @@ Player.prototype.constructor = Player; //set its constructor to the Player funct
 
 Player.prototype.update = function() {
 
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.animations.add('kaboom');
     //this.screenWrap(); //allows infinite traversing of the screen, if left side reached - spawn from right side
 };
 
