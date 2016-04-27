@@ -181,7 +181,7 @@ Player.prototype.fire = function () {
         console.log("Shoot!");
 
         if (this.laser) {
-            this.laser.reset(this.body.x, this.body.y);  //was + 25
+            this.laser.reset(this.body.x + 25, this.body.y + 25);  //was + 25
             this.laser.lifespan = 2000;
             this.laser.rotation = this.rotation;
             this.game.physics.arcade.velocityFromRotation(this.rotation, 400, this.laser.body.velocity);

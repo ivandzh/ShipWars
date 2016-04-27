@@ -182,7 +182,7 @@ Player.prototype.fire = function () {
         console.log("Shoot!");
 
         if (this.laser) {
-            this.laser.reset(this.body.x, this.body.y);  //was + 25
+            this.laser.reset(this.body.x + 25, this.body.y + 25);  //was + 25
             this.laser.lifespan = 2000;
             this.laser.rotation = this.rotation;
             this.game.physics.arcade.velocityFromRotation(this.rotation, 400, this.laser.body.velocity);
@@ -471,8 +471,12 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
+            //Swapping emitters
+            this.players[i].game.world.swap(this.emitterOne, this.players[i]);
+            this.players[i].game.world.swap(this.emitterTwo, this.players[i]);
+
             //in case of laser shot to barrel, destroy barrel and bullet
-            this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
+            /*this.game.physics.arcade.overlap(this.players[i], this.players[i].lasers, this.barrels, function (player, laser, barrel) {
                 laser.kill();
                 barrel.kill();
                 this.explodeAudio.play(); //explode
@@ -480,7 +484,7 @@ Game.prototype = {
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(barrel.x, barrel.y);
                 barrelExpl.play('kaboom', 20, false, true);
-            }, null, this);
+            }, null, this);*/
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
@@ -504,16 +508,16 @@ Game.prototype = {
             }, null, this);
 
             //in case of laser shot to rock, destroy only bullet
-            this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
+            /*this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
                 laser.kill();
-            }, null, this);
+            }, null, this);*/
 
             for (var j = 0; j < this.players.length; j++) { //for each other player
                 if (this.players[i].playerId === this.players[j].playerId) {
                     continue; //skip if player is the exact same
                 }
-                this.game.physics.arcade.overlap(this.players[i].bullets, this.players[j], function (bullet, player) {
-                    bullet.kill();
+                this.game.physics.arcade.overlap(this.players[i].lasers, this.players[j], function (laser, player) {
+                    laser.kill();
                     player.kill();
                     this.playerHitAudio.play(); //explode
                     //add explosion sprite
