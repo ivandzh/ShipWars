@@ -20,7 +20,7 @@ var Player = function (player) {
     player.game.add.existing(this);
     player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
 
-    //set anchor and scale of player
+    //set anchor of player
     this.anchor.setTo(0.5, 0.5);
     //this.scale.setTo(0.5,0.5);
 
@@ -31,12 +31,14 @@ var Player = function (player) {
 
     //set animation
     this.animations.add('kaboom');
+
     //CREATE EXPLOSION POOL
     this.explosions = player.game.add.group();
     this.explosions.createMultiple(30, 'kaboom');
-    //this.explosions.forEach(setupPlayer, this);
+    this.explosions.forEach(this.setupExplosion, this);
 
-    this.lasers = player.game.add.group(); //add group to game instance from passed player instance
+    //add group to game instance from passed player instance
+    this.lasers = player.game.add.group();
 
     //configure properties for the lasers group
     this.lasers.enableBody = true;
@@ -90,9 +92,6 @@ Player.prototype.constructor = Player; //set its constructor to the Player funct
 
 Player.prototype.update = function() {
 
-    /*this.anchor.x = 0.5;
-    this.anchor.y = 0.5;
-    this.animations.add('kaboom');*/
 };
 
 Player.prototype.playerController = function () {
@@ -158,6 +157,12 @@ Player.prototype.playerController = function () {
             playerObj.fire();
         }
     });
+};
+
+Player.prototype.setupExplosion = function () {
+    this.anchor.x = 0.5;
+    this.anchor.y = 0.5;
+    this.animations.add('kaboom');
 };
 
 //standard shooting function

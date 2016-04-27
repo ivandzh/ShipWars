@@ -55,7 +55,7 @@ Game.prototype = {
                 //add explosion sprite
                 var barrelExpl = player.explosions.getFirstExists(false);
                 barrelExpl.reset(player.x, player.y);
-                barrelExpl.play('kaboom', 20, false);
+                barrelExpl.play('kaboom', 20, false, true);
                 player.kill();
                 barrel.kill();
             }, null, this);
@@ -66,7 +66,7 @@ Game.prototype = {
                 this.explodeAudio.play(); //explode
                 //add explosion sprite
                 var playerExpl = player.explosions.getFirstExists(false);
-                playerExpl.reset(player.x, player.y); //experiment
+                playerExpl.reset(player.body.x, player.body.y); //experiment
                 playerExpl.play('kaboom', 20, false, true);
                 player.kill();
             }, null, this);
