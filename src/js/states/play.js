@@ -22,8 +22,8 @@ Game.prototype = {
     update: function () {
 
         this.game.physics.arcade.collide(this.players, this.players);
-        this.game.physics.arcade.collide(this.players, this.rocks);
-        this.game.physics.arcade.collide(this.players, this.barrels);
+        //this.game.physics.arcade.collide(this.players, this.rocks);
+        //this.game.physics.arcade.collide(this.players, this.barrels);
 
         for (var i = 0; i < this.players.length; i++) { // for each player
             //play the emitters
@@ -133,6 +133,8 @@ Game.prototype = {
         this.playingAudio.volume = 0.6;
         //this.playingAudio.loop = true; //false?
         this.playingAudio.play();
+
+        this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
     },
 
     setPlayers : function () {
@@ -185,7 +187,7 @@ Game.prototype = {
         this.barrels = this.game.add.group();
         this.barrels.enableBody = true;
         //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
-        this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
+
 
         for (var i = 0; i < 2; i++) {
             var bBlueHor = this.barrels.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
