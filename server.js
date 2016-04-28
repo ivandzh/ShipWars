@@ -89,6 +89,13 @@ io.on('connection', function(socket){
         socket.broadcast.emit("client shoot", player);
     });
 
+    socket.on('server shooter', function(shooterId){
+        console.log(shooterId);
+        socket.emit("client shooter", shooterId);
+        socket.broadcast.emit("client shooter", shooterId);
+        console.log("server shooter");
+    });
+
     socket.on('server player win', function(winnerData){
         console.log(winnerData);
         socket.emit("client player win", winnerData);

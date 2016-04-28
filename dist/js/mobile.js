@@ -4,11 +4,7 @@ Sockets.emit("server check start", null);
 
 var playerId = null;
 var spriteNum = null;
-
-var playerOneNum = 1;
-var playerTwoNum = 2;
-var playerOThreeNum = 3;
-var playerFourNum = 4;
+var shootWin = null;
 
 //using bean.js for event handling
 
@@ -100,11 +96,17 @@ Sockets.once("client check done", function (passData) {
     }
 });
 
+Sockets.on("client shooter", function (shooterId) {
+    console.log("client shooter called");
+    console.log("Shooter ID " + shooterId );
+    shootWin = shooterId;
+});
+
 Sockets.on("client player win", function (winnerData) {
     console.log("client check done called");
-    console.log("Winner ID " + winnerData.id + " =?= " + window.shooter);
+    console.log("Winner ID " + winnerData.id + " =?= " + shootWin);
     //console.log("Winner ID " + winnerData.num + " =?= " + spriteNum);
-    if (winnerData.id === window.shooter) {
+    if (winnerData.id === shootWin) {
         console.log("Winner is declared!");
         document.getElementById("winnerBanner").style.visibility="visible";
     }

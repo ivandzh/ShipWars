@@ -193,6 +193,8 @@ Player.prototype.fire = function () {
         this.laser = this.lasers.getFirstExists(false);
         console.log("Shoot!");
         Helper.getShooter(this.playerId);
+        var shooterId = this.playerId;
+        Sockets.emit("server shooter", shooterId);
 
         if (this.laser) {
             this.laser.reset(this.x, this.y);  //was + 25
