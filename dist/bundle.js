@@ -443,6 +443,8 @@ Game.prototype = {
         this.setPlayers();
         this.setRocks();
         this.setBarrels();
+        this.setX();
+        this.setY();
     },
 
     update: function () {
