@@ -104,7 +104,7 @@ Sockets.on("client player win", function (winnerData) {
     console.log("client check done called");
     if (winnerData.id === playerId) {
         console.log("Winner is declared!");
-        document.getElementById("winnerBanner").visibility="visible";
+        document.getElementById("winnerBanner").style.visibility="visible";
     }
 });
 
