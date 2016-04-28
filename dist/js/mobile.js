@@ -57,7 +57,7 @@ Sockets.once("client check done", function (passData) {
     }
     var imgSource = null;
 
-    switch(spriteNum){
+    /*switch(spriteNum){
         case 1 :
             imgSource = "assets/controller/ranger1.png";
             document.getElementById("displayRanger1").src = imgSource;
@@ -73,6 +73,27 @@ Sockets.once("client check done", function (passData) {
         case 4 :
             imgSource = "assets/controller/ranger4.png";
             document.getElementById("displayRanger4").src = imgSource;
+            break;
+        default :
+            imgSource = "";
+    }*/
+
+    switch(spriteNum){
+        case 1 :
+            imgSource = "assets/controller/ranger1.png";
+            document.getElementById("displayRanger").src = imgSource;
+            break;
+        case 2 :
+            imgSource = "assets/controller/ranger2.png";
+            document.getElementById("displayRanger").src = imgSource;
+            break;
+        case 3 :
+            imgSource = "assets/controller/ranger3.png";
+            document.getElementById("displayRanger").src = imgSource;
+            break;
+        case 4 :
+            imgSource = "assets/controller/ranger4.png";
+            document.getElementById("displayRanger").src = imgSource;
             break;
         default :
             imgSource = "";

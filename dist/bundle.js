@@ -241,6 +241,7 @@ if (document.getElementById("jb-deathmatch")) {
 	game.state.add('Load', require('./states/load'));
 	game.state.add('Menu', require('./states/menu'));
 	game.state.add('Play', require('./states/play'));
+	game.state.add('Win', require('./states/win'));
 	//game.state.add('Game', require('./states/game'));
 	//game.state.add('Win', require('./states/win'));
 
@@ -248,7 +249,7 @@ if (document.getElementById("jb-deathmatch")) {
 
 }
 
-},{"./helper":2,"./states/boot":4,"./states/load":5,"./states/menu":6,"./states/play":7}],4:[function(require,module,exports){
+},{"./helper":2,"./states/boot":4,"./states/load":5,"./states/menu":6,"./states/play":7,"./states/win":8}],4:[function(require,module,exports){
 //Using variable assignment to function in order to use the "this" keyword,
 // referencing to the function from which the object is called
 var Boot = function () {
@@ -666,4 +667,6 @@ Game.prototype = {
 };
 
 module.exports = Game;
-},{"../entities/player":1}]},{},[3]);
+},{"../entities/player":1}],8:[function(require,module,exports){
+
+},{}]},{},[3]);
