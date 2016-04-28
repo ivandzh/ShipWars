@@ -1,6 +1,7 @@
 //on script start - add new player
 Sockets.emit("server new player", null);
 Sockets.emit("server check start", null);
+document.getElementById("displayRanger").visibility="hidden";
 
 var playerId = null;
 var spriteNum = null;
@@ -49,7 +50,7 @@ Sockets.on("client check start", function (data) {
     console.log("Client Check called, result = " + playerId);
 });
 
-Sockets.once("client check done", function (passData) {
+Sockets.on("client check done", function (passData) {
     console.log("client check done called");
     if (passData.id === playerId) {
         spriteNum = passData.num;
@@ -98,18 +99,19 @@ Sockets.once("client check done", function (passData) {
         default :
             imgSource = "";
     }
-
-    /*function emitDestroy()
-    {
-        Sockets.emit("server player destroy", null);
-    }*/
-
-    window.onbeforeunload = function(event)
-    {
-        return "RELOADING IS CHEATING!";
-    };
 });
 
+Sockets.on("client player win", function (winnerData) {
+    console.log("client check done called");
+    if (winnerData.id === playerId) {
+        console.log("Winner is declared!");
+        document.getElementById("displayRanger").visibility="visible";
+    }
+});
 
+window.onbeforeunload = function(event)
+{
+    return "RELOADING IS CHEATING!";
+};
 
 

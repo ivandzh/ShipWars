@@ -12,6 +12,8 @@
             min-height: 100%;
             background: url("assets/controller/contrBckgr.png") repeat;
             overflow: hidden; /*helps remove selection*/
+            margin: 0;
+            padding: 0;
         }
 
         /*prevent user from selecting elements of the DOM*/
@@ -22,7 +24,7 @@
         }
 
         .directions, .console {
-            height: 100%;
+            height: 95%;
             width: 50%;
             float: left;
             padding: 25px;
@@ -34,7 +36,7 @@
 
         .goUp, .goSides {
             width: 100%;
-            height: 33%;
+            height: 31%;
             text-align: center;
             padding: 15px;
         }
@@ -60,7 +62,7 @@
 
         .emptyFill {
             width: 100%;
-            height: 33%;
+            height: 31%;
             overflow: hidden;
             padding: 5px;
             text-align: center;
@@ -68,7 +70,7 @@
 
         .display {
             width: 100%;
-            height: 60%;
+            height: 58%;
             overflow: hidden;
             padding: 25px;
             text-align: center;
@@ -76,10 +78,21 @@
 
         .shoot {
             width: 100%;
-            height: 40%;
+            height: 38%;
             overflow: hidden;
             padding: 5px;
             text-align: center;
+        }
+
+        .winner {
+            width: 100%;
+            height: 5%;
+            overflow: hidden;
+            padding: 5px;
+            text-align: center;
+            background-color: #009900;
+            color: #ffffff;
+            font-family: sans-serif;
         }
 
         .scaleImg {
@@ -87,6 +100,7 @@
             height : 100%;
             user-select: none;
         }
+
         h3 {
             color: #ffffff;
         }
@@ -96,6 +110,11 @@
 <body>
 
 <!--USE DIVS and CSS INSTEAD OF A TABLE-->
+
+<div class="winner" id="winner">
+    YOU ARE THE WINNER!
+</div>
+
 <div class="directions">
     <div class="emptyFill">
         <img src="assets/controller/title.png" class="scaleImg">

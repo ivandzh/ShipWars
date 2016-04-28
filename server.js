@@ -89,6 +89,12 @@ io.on('connection', function(socket){
         socket.broadcast.emit("client shoot", player);
     });
 
+    socket.on('server player win', function(winnerData){
+        console.log(winnerData);
+        socket.emit("client player win", winnerData);
+        socket.broadcast.emit("client player win", winnerData);
+        console.log("server player win");
+    });
 });
 
 var port = process.env.PORT || 5000;

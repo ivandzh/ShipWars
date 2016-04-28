@@ -423,6 +423,7 @@ var Game = function () {
     console.log("Play stage initiated");
     this.deathCounter = 0;
     this.playersAlive = 0;
+    this.currentPlayer = 0;
 };
 
 Game.prototype = {
@@ -444,6 +445,12 @@ Game.prototype = {
         //this.game.physics.arcade.collide(this.players, this.barrels);
 
         for (var i = 0; i < this.players.length; i++) { // for each player
+
+            var winnerData = {
+                id: this.this.players[i].playerId,
+                num:this.this.players[i].playerNum
+            };
+
             //play the emitters
             this.players[i].emitterOne.emitParticle();
             this.players[i].emitterTwo.emitParticle();
@@ -541,6 +548,14 @@ Game.prototype = {
                         player.kill();
                         gameObj.deathCounter++;
                         gameObj.playersAlive--;
+
+                        //Check if there is only one player alive, if yes - move to win state.
+                        if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
+                        {
+                            console.log("We have a winner!");
+                            Sockets.emit("server player win", winnerData);
+                            gameObj.game.state.start('Win'); // move to win state
+                        }
                     });
                     tweenP.start();
                     gameObj.playerHitAudio.play(); //explode
@@ -552,13 +567,6 @@ Game.prototype = {
             }
                 //players hit players explode or not? - No, opportunity to bump a player in an obstacle
 
-           //Check if there is only one player alive, if yes - move to win state.
-
-            if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
-            {
-                console.log("We have a winner!");
-                this.game.state.start('Win'); // move to win state
-            }
         }
 
     },
