@@ -1,7 +1,7 @@
 //on script start - add new player
 Sockets.emit("server new player", null);
 Sockets.emit("server check start", null);
-document.getElementById("winner").visibility="hidden";
+document.getElementById("winnerBanner").visibility="hidden";
 
 var playerId = null;
 var spriteNum = null;
@@ -105,7 +105,7 @@ Sockets.on("client player win", function (winnerData) {
     console.log("client check done called");
     if (winnerData.id === playerId) {
         console.log("Winner is declared!");
-        document.getElementById("winner").visibility="visible";
+        document.getElementById("winnerBanner").visibility="visible";
     }
 });
 

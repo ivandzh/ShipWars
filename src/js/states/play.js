@@ -32,8 +32,8 @@ Game.prototype = {
         for (var i = 0; i < this.players.length; i++) { // for each player
 
             var winnerData = {
-                id: this.this.players[i].playerId,
-                num:this.this.players[i].playerNum
+                id: this.players[i].playerId,
+                num:this.players[i].playerNum
             };
 
             //play the emitters
