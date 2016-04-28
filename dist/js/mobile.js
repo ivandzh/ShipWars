@@ -1,7 +1,7 @@
 //on script start - add new player
 Sockets.emit("server new player", null);
 Sockets.emit("server check start", null);
-document.getElementById("displayRanger").visibility="hidden";
+document.getElementById("winner").visibility="hidden";
 
 var playerId = null;
 var spriteNum = null;
@@ -50,7 +50,7 @@ Sockets.on("client check start", function (data) {
     console.log("Client Check called, result = " + playerId);
 });
 
-Sockets.on("client check done", function (passData) {
+Sockets.once("client check done", function (passData) {
     console.log("client check done called");
     if (passData.id === playerId) {
         spriteNum = passData.num;
@@ -105,7 +105,7 @@ Sockets.on("client player win", function (winnerData) {
     console.log("client check done called");
     if (winnerData.id === playerId) {
         console.log("Winner is declared!");
-        document.getElementById("displayRanger").visibility="visible";
+        document.getElementById("winner").visibility="visible";
     }
 });
 
