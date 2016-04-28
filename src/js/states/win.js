@@ -26,6 +26,7 @@ Win.prototype = {
         //this.titleSequence.loop = false;
         console.log("Play again!");
         //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
+
         this.game.state.start('Menu');
     },
 
@@ -33,7 +34,7 @@ Win.prototype = {
         //center image on screen
         var x = this.game.width / 2;
         var y = (this.game.height / 2) + 50;
-        this.title = this.game.add.sprite(x, y, 'WinTitle');
+        this.title = this.game.add.sprite(x, y, 'winTitle');
         this.title.anchor.setTo(0.5, 0.5);
     }
 };

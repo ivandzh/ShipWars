@@ -348,6 +348,7 @@ Load.prototype = {
 
         // Loading Menu Title
         this.load.image("menuTitle", "assets/menuTitle.png");
+        this.load.image("winTitle", "assets/winTitle.png");
 
         // Loading Sounds
         this.load.audio('explode', 'assets/audio/explode.ogg');
@@ -469,9 +470,6 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
-            var playerGroup = this.game.add.group(this.players);
-            console.log(playerGroup.countLiving());
-
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
 
@@ -572,6 +570,10 @@ Game.prototype = {
                             {
                                 console.log("We have a winner!");
                                 Sockets.emit("server player win", winnerData);
+                                for (var i = 0; i < gameObj.players.length; i++) {
+                                        gameObj.players[i].destroy(true);
+                                        gameObj.players.splice(i, 1);
+                                }
                                 gameObj.game.state.start('Win'); // move to win state
                             }
                        // }
@@ -616,8 +618,8 @@ Game.prototype = {
                     playerId : data.id,
                     sprite : gameObj.players.length, //assign sprite according to playerNum? check
                     game : gameObj.game,
-                    x : gameObj.game.world.randomX, //spawning point, might be risky?
-                    y : gameObj.game.world.randomY
+                    x : gameObj.setX(), //spawning point, might be risky?
+                    y : gameObj.setY()
                 }));
 
             gameObj.playersAlive++; //add one to the counter of players alive
@@ -633,6 +635,56 @@ Game.prototype = {
             }
             console.log("client disconnected");
         });
+    },
+
+    setX : function () {
+        var x = 0;
+
+        this.rocks.forEach(function(rock)
+        {
+            this.barrels.forEach(function(barrel)
+            {
+            var random = this.game.world.randomX;
+            while (x = 0) {
+                if(random != rock.body.x && (rock.body.x + rock.body.length) && barrel.body.x  && (barrel.body.x + barrel.body.length))
+                {
+                    x = random;
+                }
+                else
+                {
+                    x = 0;
+                }
+            }
+            return x
+
+            }, this);
+
+        }, this);
+    },
+
+    setY : function () {
+        var y = 0;
+
+        this.rocks.forEach(function(rock)
+        {
+            this.barrels.forEach(function(barrel)
+            {
+                var random = this.game.world.randomX;
+                while (y = 0) {
+                    if(random != rock.body.y && (rock.body.y + rock.body.length) && barrel.body.y  && (barrel.body.y + barrel.body.length))
+                    {
+                        y = random;
+                    }
+                    else
+                    {
+                        y = 0;
+                    }
+                }
+                return y
+
+            }, this);
+
+        }, this);
     },
 
     setRocks : function () {
@@ -714,6 +766,7 @@ Win.prototype = {
         //this.titleSequence.loop = false;
         console.log("Play again!");
         //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
+
         this.game.state.start('Menu');
     },
 
@@ -721,7 +774,7 @@ Win.prototype = {
         //center image on screen
         var x = this.game.width / 2;
         var y = (this.game.height / 2) + 50;
-        this.title = this.game.add.sprite(x, y, 'WinTitle');
+        this.title = this.game.add.sprite(x, y, 'winTitle');
         this.title.anchor.setTo(0.5, 0.5);
     }
 };

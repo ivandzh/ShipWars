@@ -54,6 +54,7 @@ Load.prototype = {
 
         // Loading Menu Title
         this.load.image("menuTitle", "assets/menuTitle.png");
+        this.load.image("winTitle", "assets/winTitle.png");
 
         // Loading Sounds
         this.load.audio('explode', 'assets/audio/explode.ogg');
