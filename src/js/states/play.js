@@ -124,7 +124,7 @@ Game.prototype = {
                     continue; //skip if player is the exact same
                 }
                 var winnerData = {
-                    player: this.players[i],
+                    //player: this.players[i],
                     id: this.players[i].playerId,
                     num:this.players[i].playerNum
                 };
