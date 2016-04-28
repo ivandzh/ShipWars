@@ -7,6 +7,7 @@ var Game = function () {
     this.barrels = null;
     console.log("Play stage initiated");
     this.deathCounter = 0;
+    this.playersAlive = [];
 };
 
 Game.prototype = {
@@ -124,10 +125,7 @@ Game.prototype = {
                     tweenP.onComplete.add(function () {
                         player.kill();
                         gameObj.deathCounter++;
-                        console.log("Remaining alive:");
-                        console.log(gameObj.players.countLiving());
-                        console.log("Already dead:");
-                        console.log(gameObj.players.countDead());
+
                     });
                     tweenP.start();
                     gameObj.playerHitAudio.play(); //explode
@@ -142,7 +140,14 @@ Game.prototype = {
             /*console.log("Preparing for win state!");
             console.log(gameObj.players.length);
             console.log(gameObj.deathCounter);*/
-            if (gameObj.players.length == 1 && gameObj.deathCounter >= 1)
+
+            this.players.forEachAlive(function(player){
+
+                // put every living enemy in an array
+                this.playersAlive.push(player);
+            });
+
+            if (gameObj.playersAlive.length == 1 && gameObj.deathCounter >= 1)
             {
                 console.log("We have a winner!");
             }
