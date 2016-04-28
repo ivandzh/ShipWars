@@ -98,6 +98,16 @@ Sockets.once("client check done", function (passData) {
         default :
             imgSource = "";
     }
+
+    /*function emitDestroy()
+    {
+        Sockets.emit("server player destroy", null);
+    }*/
+
+    window.onbeforeunload = function(event)
+    {
+        return "RELOADING IS CHEATING!";
+    };
 });
 
 
