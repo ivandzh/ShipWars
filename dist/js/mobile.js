@@ -117,4 +117,5 @@ window.onbeforeunload = function(event)
     return "RELOADING IS CHEATING!";
 };
 
+document.getElementById('shootImg').ondragstart = function() { return false; };
 
