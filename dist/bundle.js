@@ -223,10 +223,11 @@ getScreenHeight : function () {
 
 module.exports = Helper;
 },{}],3:[function(require,module,exports){
-'use strict'; //because referencing the window object
+'use strict';
 
-window.Helper = require('./helper');
-window.Sockets = io();
+window.Helper = require('./helper'); //make the Helper functions available through the window object
+window.Sockets = io(); //make sockets available through the window object
+//provides access to them from the whole project
 
 if (document.getElementById("jb-deathmatch")) {
 
@@ -242,8 +243,6 @@ if (document.getElementById("jb-deathmatch")) {
 	game.state.add('Menu', require('./states/menu'));
 	game.state.add('Play', require('./states/play'));
 	game.state.add('Win', require('./states/win'));
-	//game.state.add('Game', require('./states/game'));
-	//game.state.add('Win', require('./states/win'));
 
 	game.state.start('Boot');
 
@@ -285,7 +284,7 @@ Boot.prototype = {
 
 module.exports = Boot;
 },{}],5:[function(require,module,exports){
-var Load = function (game) {
+var Load = function () {
     this.asset = null;
     this.loadingReady = false;
     console.log("Load stage initiated!");
@@ -660,5 +659,45 @@ Game.prototype = {
 
 module.exports = Game;
 },{"../entities/player":1}],8:[function(require,module,exports){
+var Win = function () {
+    this.title = null;
+    console.log("Win stage initiated!");
+};
 
+Win.prototype = {
+
+    create: function () {
+        this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
+
+        this.titleImage();
+        this.input.onDown.add(this.onDown, this);
+
+        //USE FOR IN GAME
+       /* this.titleSequence = this.game.add.audio("inGameLoop");
+        this.titleSequence.volume = 0.5;
+        this.titleSequence.loop = true;
+        this.titleSequence.play();*/
+    },
+
+    update: function () {
+
+    },
+
+    onDown: function () {
+        //this.titleSequence.loop = false;
+        console.log("Play again!");
+        //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
+        this.game.state.start('Menu');
+    },
+
+    titleImage : function () {
+        //center image on screen
+        var x = this.game.width / 2;
+        var y = (this.game.height / 2) + 50;
+        this.title = this.game.add.sprite(x, y, 'WinTitle');
+        this.title.anchor.setTo(0.5, 0.5);
+    }
+};
+
+module.exports = Win;
 },{}]},{},[3]);

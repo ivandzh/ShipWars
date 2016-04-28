@@ -1,4 +1,4 @@
-var Load = function (game) {
+var Load = function () {
     this.asset = null;
     this.loadingReady = false;
     console.log("Load stage initiated!");

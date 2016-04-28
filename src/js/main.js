@@ -1,7 +1,8 @@
-'use strict'; //because referencing the window object
+'use strict';
 
-window.Helper = require('./helper');
-window.Sockets = io();
+window.Helper = require('./helper'); //make the Helper functions available through the window object
+window.Sockets = io(); //make sockets available through the window object
+//provides access to them from the whole project
 
 if (document.getElementById("jb-deathmatch")) {
 
@@ -17,8 +18,6 @@ if (document.getElementById("jb-deathmatch")) {
 	game.state.add('Menu', require('./states/menu'));
 	game.state.add('Play', require('./states/play'));
 	game.state.add('Win', require('./states/win'));
-	//game.state.add('Game', require('./states/game'));
-	//game.state.add('Win', require('./states/win'));
 
 	game.state.start('Boot');
 
