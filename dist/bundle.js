@@ -426,13 +426,12 @@ var Player = require('../entities/player');
 
 var Game = function () {
 
-    this.players = [];
+    this.players = this.game.add.group();
     //this.rocks = null;
     this.barrels = null;
     console.log("Play stage initiated");
     this.deathCounter = 0;
     this.playersAlive = 0;
-    this.currentPlayer = 0;
     this.winnerData = null;
 };
 
@@ -454,25 +453,25 @@ Game.prototype = {
         //this.game.physics.arcade.collide(this.players, this.rocks);
         //this.game.physics.arcade.collide(this.players, this.barrels);
 
-        for (var i = 0; i < this.players.length; i++) { // for each player
+        for (var i = 0; i < this.players.children.length; i++) { // for each player
 
             this.winnerData = {
-                id: this.players[i].playerId,
-                num:this.players[i].playerNum
+                id: this.players.children[i].playerId,
+                num:this.players.children[i].playerNum
             };
 
             //play the emitters
-            this.players[i].emitterOne.emitParticle();
-            this.players[i].emitterTwo.emitParticle();
+            this.players.children[i].emitterOne.emitParticle();
+            this.players.children[i].emitterTwo.emitParticle();
 
-            this.players[i].emitterOne.x = this.players[i].x;
-            this.players[i].emitterOne.y = this.players[i].y;
+            this.players.children[i].emitterOne.x = this.players.children[i].x;
+            this.players.children[i].emitterOne.y = this.players.children[i].y;
 
-            this.players[i].emitterTwo.x = this.players[i].x;
-            this.players[i].emitterTwo.y = this.players[i].y;
+            this.players.children[i].emitterTwo.x = this.players.children[i].x;
+            this.players.children[i].emitterTwo.y = this.players.children[i].y;
 
             //in case of player hitting barrel, destroy barrel and player
-            this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
+            this.game.physics.arcade.overlap(this.players.children[i], this.barrels, function (player, barrel) {
 
                 //player.kill();
                 //barrel.kill();
@@ -501,7 +500,7 @@ Game.prototype = {
             }, null, this);
 
             //in case of laser shot to barrel, destroy barrel and bullet
-           this.game.physics.arcade.overlap(this.players[i].lasers, this.barrels, function (laser, barrel) {
+           this.game.physics.arcade.overlap(this.players.children[i].lasers, this.barrels, function (laser, barrel) {
 
                laser.kill();
                //barrel.kill();
@@ -520,7 +519,7 @@ Game.prototype = {
             }, null, this);
 
             //in case of player hitting rock, destroy only player
-            this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
+            this.game.physics.arcade.overlap(this.players.children[i], this.rocks, function (player) {
 
                 //player.kill();
                 var tweenP = gameObj.game.add.tween(player);
@@ -542,20 +541,20 @@ Game.prototype = {
             }, null, this);
 
             //in case of laser shot to rock, destroy only bullet
-            this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
+            this.game.physics.arcade.overlap(this.players.children[i].lasers, this.rocks, function (laser) {
                 laser.kill();
             }, null, this);
 
-            for (var j = 0; j < this.players.length; j++) { //for each other player
-                if (this.players[i].playerId === this.players[j].playerId) {
+            for (var j = 0; j < this.players.children.length; j++) { //for each other player
+                if (this.players.children[i].playerId === this.players.children[j].playerId) {
                     continue; //skip if player is the exact same
                 }
                 var winnerData = {
                     //player: this.players[i],
-                    id: this.players[i].playerId,
-                    num:this.players[i].playerNum
+                    id: this.players.children[i].playerId,
+                    num:this.players.children[i].playerNum
                 };
-                this.game.physics.arcade.overlap(this.players[i].lasers, this.players[j], function (laser, player) {
+                this.game.physics.arcade.overlap(this.players.children[i].lasers, this.players.children[j], function (laser, player) {
                     laser.kill();
                     //player.kill();
 
@@ -572,14 +571,16 @@ Game.prototype = {
                             if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
                             {
                                 console.log("We have a winner!");
-                                Sockets.emit("server player win", gameObj.winnerData);
+                                console.log(gameObj.players.countDead());
+                                console.log(gameObj.players.countLiving());
+                                /*Sockets.emit("server player win", gameObj.winnerData);
                                 for (var i = 0; i < gameObj.players.length; i++) {
                                         gameObj.players[i].destroy(true);
                                         gameObj.players.splice(i, 1);
                                         gameObj.players = [];
                                 }
                                 gameObj.game.cache.removeSound('inGameLoop');
-                                gameObj.game.state.start('Win'); // move to win state
+                                gameObj.game.state.start('Win'); // move to win state*/
                             }
                        // }
                     });
@@ -620,9 +621,9 @@ Game.prototype = {
         Sockets.on("client new player", function (data) {
             gameObj.playersAlive++; //add one to the counter of players alive
                 gameObj.players.push(new Player({ //call the Player function from player.js
-                    playerNum : gameObj.players.length + 1,
+                    playerNum : gameObj.players.children.length + 1,
                     playerId : data.id,
-                    sprite : gameObj.players.length, //assign sprite according to playerNum? check
+                    sprite : gameObj.players.children.length, //assign sprite according to playerNum? check
                     game : gameObj.game,
                     x : gameObj.setX(), //spawning point, might be risky?
                     y : gameObj.setY()
@@ -632,8 +633,8 @@ Game.prototype = {
 
         Sockets.on("client disconnected", function (data) {
             for (var i = 0; i < gameObj.players.length; i++) {
-                if (gameObj.players[i].playerId === data.id) {
-                    gameObj.players[i].destroy(true);
+                if (gameObj.players.children[i].playerId === data.id) {
+                    gameObj.players.children[i].destroy(true);
                     gameObj.players.splice(i, 1);
                 }
             }
