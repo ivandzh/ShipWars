@@ -1,7 +1,6 @@
 //on script start - add new player
 Sockets.emit("server new player", null);
 Sockets.emit("server check start", null);
-document.getElementById("winnerBanner").visibility="hidden";
 
 var playerId = null;
 var spriteNum = null;
