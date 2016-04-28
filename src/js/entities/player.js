@@ -191,6 +191,7 @@ Player.prototype.fire = function () {
     if (this.game.time.now > this.laserTime) {
         this.laser = this.lasers.getFirstExists(false);
         console.log("Shoot!");
+        Helper.getShooter(this.playerId);
 
         if (this.laser) {
             this.laser.reset(this.x, this.y);  //was + 25

@@ -192,6 +192,7 @@ Player.prototype.fire = function () {
     if (this.game.time.now > this.laserTime) {
         this.laser = this.lasers.getFirstExists(false);
         console.log("Shoot!");
+        Helper.getShooter(this.playerId);
 
         if (this.laser) {
             this.laser.reset(this.x, this.y);  //was + 25
@@ -208,17 +209,22 @@ module.exports = Player;
 
 },{}],2:[function(require,module,exports){
 var Helper = {
-randomNumber: function(minimum, maximum) {
+/*randomNumber: function(minimum, maximum) {
     return Math.round(Math.random() * (maximum - minimum) + minimum);
-},
+},*/
 
-getScreenWidth : function () {
-    return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
-},
+    getScreenWidth : function () {
+        return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    },
 
-getScreenHeight : function () {
-    return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-}
+    getScreenHeight : function () {
+        return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
+    },
+
+    getShooter : function (playerId) {
+        window.shooter = playerId;
+        console.log("Shooter ID = " + window.shooter);
+    }
 };
 
 module.exports = Helper;
@@ -556,7 +562,7 @@ Game.prototype = {
 
                         //Check if there is only one player alive, if yes - move to win state.
                         console.log("Winner lasers " + winnerData.player.lasers + " =?= " + laser);
-                        if (winnerData.player.lasers === laser) {
+                        if (winnerData.player.lasers == laser) {
                             if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
                             {
                                 console.log("We have a winner!");
