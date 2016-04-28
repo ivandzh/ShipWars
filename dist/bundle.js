@@ -539,6 +539,7 @@ Game.prototype = {
                     continue; //skip if player is the exact same
                 }
                 var winnerData = {
+                    player: this.players[i],
                     id: this.players[i].playerId,
                     num:this.players[i].playerNum
                 };
@@ -554,11 +555,14 @@ Game.prototype = {
                         gameObj.playersAlive--;
 
                         //Check if there is only one player alive, if yes - move to win state.
-                        if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
-                        {
-                            console.log("We have a winner!");
-                            Sockets.emit("server player win", winnerData);
-                            gameObj.game.state.start('Win'); // move to win state
+                        console.log("Winner lasers " + winnerData.player.lasers + " =?= " + laser);
+                        if (winnerData.player.lasers === laser) {
+                            if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
+                            {
+                                console.log("We have a winner!");
+                                Sockets.emit("server player win", winnerData);
+                                gameObj.game.state.start('Win'); // move to win state
+                            }
                         }
                     });
                     tweenP.start();
