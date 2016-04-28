@@ -545,7 +545,7 @@ Game.prototype = {
                     tweenP.onComplete.add(function () {
                         player.kill();
                         gameObj.deathCounter++;
-                        Sockets.emit("client disconnected", null);
+                        Sockets.emit("disconnect", null);
                     });
                     tweenP.start();
                     gameObj.playerHitAudio.play(); //explode
@@ -608,6 +608,7 @@ Game.prototype = {
                     gameObj.players.splice(i, 1);
                 }
             }
+            console.log("client disconnected");
         });
     },
 
