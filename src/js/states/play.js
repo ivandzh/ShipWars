@@ -124,7 +124,10 @@ Game.prototype = {
                     tweenP.onComplete.add(function () {
                         player.kill();
                         gameObj.deathCounter++;
-                        Sockets.emit("disconnect", null);
+                        console.log("Remaining alive:");
+                        console.log(gameObj.players.countLiving());
+                        console.log("Already dead:");
+                        console.log(gameObj.players.countDead());
                     });
                     tweenP.start();
                     gameObj.playerHitAudio.play(); //explode
