@@ -27,7 +27,7 @@ Win.prototype = {
         console.log("Play again!");
         //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
 
-        this.game.state.start('Play');
+        this.game.state.start('Load');
     },
 
     titleImage : function () {

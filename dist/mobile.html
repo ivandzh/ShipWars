@@ -35,6 +35,7 @@
             -moz-user-select: none;
             -webkit-user-drag: none;
             -ms-user-select: none;
+            draggable: false;
         }
 
         .directions, .console {
@@ -128,29 +129,29 @@
     YOU ARE THE WINNER!
 </div>
 
-<div class="directions unselectable">
+<div class="directions unselectable" draggable="false">
     <div class="emptyFill">
-        <img src="assets/controller/title.png" class="scaleImg unselectable">
+        <img src="assets/controller/title.png" class="scaleImg unselectable" draggable="false">
     </div>
-    <div class="goUp unselectable">
+    <div class="goUp unselectable" draggable="false">
         <button type="button" id="up" class="up" >
-            <img src="assets/controller/upArrow.png" class="scaleImg unselectable">
+            <img src="assets/controller/upArrow.png" class="scaleImg unselectable" draggable="false">
         </button>
     </div>
-    <div class="goSides unselectable">
+    <div class="goSides unselectable" draggable="false">
         <button id="left" class="left" type="button">
-            <img src="assets/controller/leftArrow.png" class="scaleImg unselectable" style="padding-right: 3em">
+            <img src="assets/controller/leftArrow.png" class="scaleImg unselectable" style="padding-right: 3em" draggable="false">
         </button>
         <button id="right" class="right">
-            <img src="assets/controller/rightArrow.png" class="scaleImg unselectable" style="padding-left: 3em">
+            <img src="assets/controller/rightArrow.png" class="scaleImg unselectable" style="padding-left: 3em" draggable="false">
         </button>
     </div>
 </div>
 
 <div class="console">
-    <div class="display unselectable">
+    <div class="display unselectable" draggable="false">
             <!--<img src="assets/controller/ranger1.png" width="auto" height="80%">-->
-           <img id="displayRanger" src="" width="auto" height="80%" class="unselectable">
+           <img id="displayRanger" src="" width="auto" height="80%" class="unselectable" draggable="false">
         <!--<table border="1" style="width: 100%; height: 100%">
             <tr>
                 <td>
@@ -174,9 +175,9 @@
             </tr>
         </table>-->
     </div>
-    <div class="shoot">
+    <div class="shoot" draggable="false">
         <button id="shoot" class="up unselectable">
-            <img src="assets/controller/shootButton.png" width="100%" class="unselectable">
+            <img src="assets/controller/shootButton.png" width="100%" class="unselectable" draggable="false">
         </button>
     </div>
 </div>
