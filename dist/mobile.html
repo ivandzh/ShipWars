@@ -21,6 +21,20 @@
             -webkit-user-select: none;
             user-select: none;
             box-sizing: border-box;
+            user-drag: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -ms-user-select: none;
+        }
+
+        .unselectable {
+            -webkit-user-select: none;
+            user-select: none;
+            box-sizing: border-box;
+            user-drag: none;
+            -moz-user-select: none;
+            -webkit-user-drag: none;
+            -ms-user-select: none;
         }
 
         .directions, .console {
@@ -110,33 +124,33 @@
 
 <!--USE DIVS and CSS INSTEAD OF A TABLE-->
 
-<div class="winner" id="winnerBanner" style="visibility: hidden">
+<div class="winner unselectable" id="winnerBanner" style="visibility: hidden">
     YOU ARE THE WINNER!
 </div>
 
-<div class="directions">
+<div class="directions unselectable">
     <div class="emptyFill">
-        <img src="assets/controller/title.png" class="scaleImg">
+        <img src="assets/controller/title.png" class="scaleImg unselectable">
     </div>
-    <div class="goUp">
+    <div class="goUp unselectable">
         <button type="button" id="up" class="up" >
-            <img src="assets/controller/upArrow.png" class="scaleImg">
+            <img src="assets/controller/upArrow.png" class="scaleImg unselectable">
         </button>
     </div>
-    <div class="goSides">
+    <div class="goSides unselectable">
         <button id="left" class="left" type="button">
-            <img src="assets/controller/leftArrow.png" class="scaleImg" style="padding-right: 3em">
+            <img src="assets/controller/leftArrow.png" class="scaleImg unselectable" style="padding-right: 3em">
         </button>
         <button id="right" class="right">
-            <img src="assets/controller/rightArrow.png" class="scaleImg" style="padding-left: 3em">
+            <img src="assets/controller/rightArrow.png" class="scaleImg unselectable" style="padding-left: 3em">
         </button>
     </div>
 </div>
 
 <div class="console">
-    <div class="display">
+    <div class="display unselectable">
             <!--<img src="assets/controller/ranger1.png" width="auto" height="80%">-->
-           <img id="displayRanger" src="" width="auto" height="80%">
+           <img id="displayRanger" src="" width="auto" height="80%" class="unselectable">
         <!--<table border="1" style="width: 100%; height: 100%">
             <tr>
                 <td>
@@ -161,8 +175,8 @@
         </table>-->
     </div>
     <div class="shoot">
-        <button id="shoot" class="up">
-            <img src="assets/controller/shootButton.png" width="100%">
+        <button id="shoot" class="up unselectable">
+            <img src="assets/controller/shootButton.png" width="100%" class="unselectable">
         </button>
     </div>
 </div>

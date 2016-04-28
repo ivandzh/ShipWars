@@ -575,8 +575,6 @@ Game.prototype = {
                                         gameObj.players[i].destroy(true);
                                         gameObj.players.splice(i, 1);
                                 }
-                                gameObj.titleSequence.destroy();
-                                //game.cache.removeSound('inGameLoop');
                                 gameObj.game.state.start('Win'); // move to win state
                             }
                        // }
@@ -741,7 +739,7 @@ Win.prototype = {
         console.log("Play again!");
         //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
 
-        this.game.state.start('Menu');
+        this.game.state.start('Play');
     },
 
     titleImage : function () {
