@@ -9,6 +9,7 @@ var Game = function () {
     this.deathCounter = 0;
     this.playersAlive = 0;
     this.currentPlayer = 0;
+    this.winnerData = null;
 };
 
 Game.prototype = {
@@ -31,7 +32,7 @@ Game.prototype = {
 
         for (var i = 0; i < this.players.length; i++) { // for each player
 
-            var winnerData = {
+            this.winnerData = {
                 id: this.players[i].playerId,
                 num:this.players[i].playerNum
             };
@@ -145,7 +146,7 @@ Game.prototype = {
                             if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
                             {
                                 console.log("We have a winner!");
-                                Sockets.emit("server player win", winnerData);
+                                Sockets.emit("server player win", gameObj.winnerData);
                                 for (var i = 0; i < gameObj.players.length; i++) {
                                         gameObj.players[i].destroy(true);
                                         gameObj.players.splice(i, 1);
