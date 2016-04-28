@@ -102,7 +102,9 @@ Sockets.once("client check done", function (passData) {
 
 Sockets.on("client player win", function (winnerData) {
     console.log("client check done called");
-    if (winnerData.id === playerId) {
+    console.log("Winner ID " + winnerData.id + " =?= " + playerId);
+    console.log("Winner ID " + winnerData.num + " =?= " + spriteNum);
+    if (winnerData.num === spriteNum) {
         console.log("Winner is declared!");
         document.getElementById("winnerBanner").style.visibility="visible";
     }
