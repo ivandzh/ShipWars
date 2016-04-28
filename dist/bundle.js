@@ -643,7 +643,7 @@ Game.prototype = {
         this.rocks.forEach(function(rock) {
             this.barrels.forEach(function(barrel) {
             var random = this.game.world.randomX;
-            while (x = 0) {
+            do {
                 if(random != (rock.body.x && (rock.body.x + rock.body.length) && barrel.body.x  && (barrel.body.x + barrel.body.length))) {
                     x = random;
                     return x;
@@ -651,7 +651,7 @@ Game.prototype = {
                 else {
                     x = 0;
                 }
-            }
+            } while (x = 0);
             });
         });
     },
@@ -662,7 +662,7 @@ Game.prototype = {
         this.rocks.forEach(function(rock) {
             this.barrels.forEach(function(barrel) {
                 var random = this.game.world.randomX;
-                while (y = 0) {
+                do {
                     if(random != (rock.body.y && (rock.body.y + rock.body.length) && barrel.body.y  && (barrel.body.y + barrel.body.length))) {
                         y = random;
                         return y;
@@ -670,7 +670,7 @@ Game.prototype = {
                     else {
                         y = 0;
                     }
-                }
+                } while (y = 0);
             });
         });
     },
