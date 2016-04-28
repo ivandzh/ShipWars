@@ -40,7 +40,10 @@ Load.prototype = {
         // Loading Environment Objects
         this.load.image('rock1', 'assets/one_rock.png');
         this.load.image('rock2', 'assets/two_rock.png');
-        this.load.image('container1', 'assets/container.png');
+        this.load.image('rock3', 'assets/three_rock.png');
+        this.load.image('rock4', 'assets/four_rock.png');
+        this.load.image('container2', 'assets/container2.png');
+        this.load.image('container1', 'assets/container1.png');
         this.load.image('b_blue_hor', 'assets/b_blue_hor.png');
         this.load.image('b_yellow_hor', 'assets/b_yellow_hor.png');
         this.load.image('b_blue_vert', 'assets/b_blue_vert.png');

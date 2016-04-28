@@ -29,7 +29,8 @@ Menu.prototype = {
     onDown: function () {
         this.titleSequence.loop = false;
         console.log("Start game!");
-        this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
+        //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
+        this.game.state.start('Play');
     },
 
     titleImage : function () {

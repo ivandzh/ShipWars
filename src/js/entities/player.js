@@ -14,7 +14,7 @@ var Player = function (player) {
 
     //take values from passed player instance
     this.playerId = player.playerId;
-    this.playerNum = player.playerNum;   //server broadcast this Num!!!!
+    this.playerNum = player.playerNum;
 
     this.alpha = 1;
 
@@ -28,7 +28,7 @@ var Player = function (player) {
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
-    this.body.drag.set(500);
+    this.body.drag.set(200);
     this.body.maxVelocity.set(300);
 
     //set animation
