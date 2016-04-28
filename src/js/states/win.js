@@ -12,10 +12,10 @@ Win.prototype = {
         this.input.onDown.add(this.onDown, this);
 
         //USE FOR IN GAME
-       /* this.titleSequence = this.game.add.audio("inGameLoop");
-        this.titleSequence.volume = 0.5;
-        this.titleSequence.loop = true;
-        this.titleSequence.play();*/
+        this.winScreen = this.game.add.audio("winScreen");
+        this.winScreen.volume = 0.5;
+        //this.winScreen.loop = true;
+        this.winScreen.play();
     },
 
     update: function () {
@@ -23,7 +23,7 @@ Win.prototype = {
     },
 
     onDown: function () {
-        //this.titleSequence.loop = false;
+        //this.winScreen.loop = false;
         console.log("Play again!");
         //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
 

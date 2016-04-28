@@ -353,7 +353,7 @@ Load.prototype = {
         // Loading Sounds
         this.load.audio('explode', 'assets/audio/explode.ogg');
         this.load.audio('laserAudio', 'assets/audio/laser.wav');
-        //this.load.audio('titleSequence', 'assets/audio/titleSequence.wav');
+        this.load.audio('winScreen', 'assets/audio/winScreen.ogg');
         this.load.audio('inGameLoop', 'assets/audio/loopGame.wav');
     },
 
@@ -575,6 +575,8 @@ Game.prototype = {
                                         gameObj.players[i].destroy(true);
                                         gameObj.players.splice(i, 1);
                                 }
+                                gameObj.titleSequence.destroy();
+                                //game.cache.removeSound('inGameLoop');
                                 gameObj.game.state.start('Win'); // move to win state
                             }
                        // }
@@ -599,10 +601,10 @@ Game.prototype = {
         this.game.renderer.clearBeforeRender = true; // difference ??
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.playingAudio = this.game.add.audio("titleSequence"); //titleSequence  //AUDIO SHOULD BE FIXED
-        this.playingAudio.volume = 0.6;
+        //this.playingAudio = this.game.add.audio("titleSequence"); //titleSequence  //AUDIO SHOULD BE FIXED
+        //this.playingAudio.volume = 0.6;
         //this.playingAudio.loop = true; //false?
-        this.playingAudio.play();
+        //this.playingAudio.play();
 
         this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
     },
@@ -661,6 +663,8 @@ Game.prototype = {
 
         this.rocks = this.game.add.group();
         this.rocks.enableBody = true;
+        this.rocks.setAll('anchor.x', 0.5);
+        this.rocks.setAll('anchor.y', 0.5);
         //this.rocks.physicsBodyType = Phaser.Physics.ARCADE;
         //this.rockHit = this.game.add.audio('explode'); //explode    DOUBLE
 
@@ -683,10 +687,10 @@ Game.prototype = {
 
     setBarrels : function () {
 
-        var barrelExpl = null;
-
         this.barrels = this.game.add.group();
         this.barrels.enableBody = true;
+        this.barrels.setAll('anchor.x', 0.5);
+        this.barrels.setAll('anchor.y', 0.5);
         //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
 
 
@@ -722,10 +726,10 @@ Win.prototype = {
         this.input.onDown.add(this.onDown, this);
 
         //USE FOR IN GAME
-       /* this.titleSequence = this.game.add.audio("inGameLoop");
-        this.titleSequence.volume = 0.5;
-        this.titleSequence.loop = true;
-        this.titleSequence.play();*/
+        this.winScreen = this.game.add.audio("winScreen");
+        this.winScreen.volume = 0.5;
+        //this.winScreen.loop = true;
+        this.winScreen.play();
     },
 
     update: function () {
@@ -733,7 +737,7 @@ Win.prototype = {
     },
 
     onDown: function () {
-        //this.titleSequence.loop = false;
+        //this.winScreen.loop = false;
         console.log("Play again!");
         //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
 

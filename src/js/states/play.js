@@ -151,6 +151,8 @@ Game.prototype = {
                                         gameObj.players[i].destroy(true);
                                         gameObj.players.splice(i, 1);
                                 }
+                                gameObj.titleSequence.destroy();
+                                //game.cache.removeSound('inGameLoop');
                                 gameObj.game.state.start('Win'); // move to win state
                             }
                        // }
@@ -175,10 +177,10 @@ Game.prototype = {
         this.game.renderer.clearBeforeRender = true; // difference ??
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
-        this.playingAudio = this.game.add.audio("titleSequence"); //titleSequence  //AUDIO SHOULD BE FIXED
-        this.playingAudio.volume = 0.6;
+        //this.playingAudio = this.game.add.audio("titleSequence"); //titleSequence  //AUDIO SHOULD BE FIXED
+        //this.playingAudio.volume = 0.6;
         //this.playingAudio.loop = true; //false?
-        this.playingAudio.play();
+        //this.playingAudio.play();
 
         this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
     },
@@ -260,8 +262,6 @@ Game.prototype = {
     },
 
     setBarrels : function () {
-
-        var barrelExpl = null;
 
         this.barrels = this.game.add.group();
         this.barrels.enableBody = true;
