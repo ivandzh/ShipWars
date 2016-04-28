@@ -141,7 +141,7 @@ Game.prototype = {
 
                         //Check if there is only one player alive, if yes - move to win state.
                         console.log("Winner lasers " + winnerData.player.lasers + " =?= " + laser);
-                        if (winnerData.player.lasers === laser) {
+                        if (winnerData.player.lasers == laser) {
                             if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
                             {
                                 console.log("We have a winner!");
