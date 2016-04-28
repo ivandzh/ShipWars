@@ -151,6 +151,7 @@ Game.prototype = {
                                         gameObj.players[i].destroy(true);
                                         gameObj.players.splice(i, 1);
                                 }
+                                game.cache.removeSound('inGameLoop');
                                 gameObj.game.state.start('Win'); // move to win state
                             }
                        // }
