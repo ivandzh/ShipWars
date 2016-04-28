@@ -545,6 +545,7 @@ Game.prototype = {
                     tweenP.onComplete.add(function () {
                         player.kill();
                         gameObj.deathCounter++;
+                        Sockets.emit("client disconnected", null);
                     });
                     tweenP.start();
                     gameObj.playerHitAudio.play(); //explode
@@ -556,9 +557,9 @@ Game.prototype = {
             }
                 //players hit players explode or not? - No, opportunity to bump a player in an obstacle
 
-            console.log("Preparing for win state!");
+            /*console.log("Preparing for win state!");
             console.log(gameObj.players.length);
-            console.log(gameObj.deathCounter);
+            console.log(gameObj.deathCounter);*/
             if (gameObj.players.length == 1 && gameObj.deathCounter >= 1)
             {
                 console.log("We have a winner!");
