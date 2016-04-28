@@ -46,6 +46,9 @@ Game.prototype = {
             this.players[i].emitterTwo.x = this.players[i].x;
             this.players[i].emitterTwo.y = this.players[i].y;
 
+            var playerGroup = this.game.add.group(this.players);
+            console.log(playerGroup.countLiving());
+
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
 

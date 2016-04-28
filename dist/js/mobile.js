@@ -110,10 +110,6 @@ Sockets.on("client player win", function (winnerData) {
         console.log("Winner is declared!");
         document.getElementById("winnerBanner").style.visibility="visible";
     }
-    if (playerId === shootWin) {
-        console.log("Winner is declared!");
-        document.getElementById("winnerBanner").style.visibility="visible";
-    }
 });
 
 window.onbeforeunload = function(event)
