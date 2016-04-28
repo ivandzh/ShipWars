@@ -538,6 +538,10 @@ Game.prototype = {
                 if (this.players[i].playerId === this.players[j].playerId) {
                     continue; //skip if player is the exact same
                 }
+                var winnerData = {
+                    id: this.players[i].playerId,
+                    num:this.players[i].playerNum
+                };
                 this.game.physics.arcade.overlap(this.players[i].lasers, this.players[j], function (laser, player) {
                     laser.kill();
                     //player.kill();
