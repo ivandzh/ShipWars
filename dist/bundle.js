@@ -652,8 +652,8 @@ Game.prototype = {
                     x = 0;
                 }
             }
-            }, this);
-        }, this);
+            });
+        });
     },
 
     setY : function () {
@@ -671,8 +671,8 @@ Game.prototype = {
                         y = 0;
                     }
                 }
-            }, this);
-        }, this);
+            });
+        });
     },
 
     setRocks : function () {
