@@ -428,7 +428,7 @@ var Game = function () {
     this.barrels = null;
     console.log("Play stage initiated");
     this.deathCounter = 0;
-    this.playersAlive = [];
+    this.playersAlive = 0;
 };
 
 Game.prototype = {
@@ -546,7 +546,7 @@ Game.prototype = {
                     tweenP.onComplete.add(function () {
                         player.kill();
                         gameObj.deathCounter++;
-
+                        gameObj.playersAlive--;
                     });
                     tweenP.start();
                     gameObj.playerHitAudio.play(); //explode
@@ -562,13 +562,7 @@ Game.prototype = {
             console.log(gameObj.players.length);
             console.log(gameObj.deathCounter);*/
 
-            this.players.forEachAlive(function(player){
-
-                // put every living enemy in an array
-                this.playersAlive.push(player);
-            });
-
-            if (gameObj.playersAlive.length == 1 && gameObj.deathCounter >= 1)
+            if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
             {
                 console.log("We have a winner!");
             }
@@ -605,8 +599,9 @@ Game.prototype = {
                     x : gameObj.game.world.randomX, //spawning point, might be risky?
                     y : gameObj.game.world.randomY
                 }));
-            //console.log("Emit Server check!");
-            //Sockets.emit("server banana", null);
+
+            gameObj.playersAlive++; //add one to the counter of players alive
+
         });
 
         Sockets.on("client disconnected", function (data) {
