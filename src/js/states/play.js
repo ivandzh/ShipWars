@@ -237,6 +237,8 @@ Game.prototype = {
 
         this.rocks = this.game.add.group();
         this.rocks.enableBody = true;
+        this.rocks.setAll('anchor.x', 0.5);
+        this.rocks.setAll('anchor.y', 0.5);
         //this.rocks.physicsBodyType = Phaser.Physics.ARCADE;
         //this.rockHit = this.game.add.audio('explode'); //explode    DOUBLE
 
@@ -263,6 +265,8 @@ Game.prototype = {
 
         this.barrels = this.game.add.group();
         this.barrels.enableBody = true;
+        this.barrels.setAll('anchor.x', 0.5);
+        this.barrels.setAll('anchor.y', 0.5);
         //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
 
 
