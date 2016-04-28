@@ -443,8 +443,6 @@ Game.prototype = {
         this.setPlayers();
         this.setRocks();
         this.setBarrels();
-        this.setX();
-        this.setY();
     },
 
     update: function () {
@@ -615,6 +613,7 @@ Game.prototype = {
         this.playerHitAudio = this.game.add.audio("explode"); //explode
 
         Sockets.on("client new player", function (data) {
+            gameObj.playersAlive++; //add one to the counter of players alive
                 gameObj.players.push(new Player({ //call the Player function from player.js
                     playerNum : gameObj.players.length + 1,
                     playerId : data.id,
@@ -623,8 +622,6 @@ Game.prototype = {
                     x : gameObj.setX(), //spawning point, might be risky?
                     y : gameObj.setY()
                 }));
-
-            gameObj.playersAlive++; //add one to the counter of players alive
 
         });
 
@@ -640,41 +637,23 @@ Game.prototype = {
     },
 
     setX : function () {
-        var x = 0;
-
-        this.rocks.forEach(function(rock) {
-            this.barrels.forEach(function(barrel) {
-            var random = this.game.world.randomX;
-            do {
-                if(random != (rock.body.x && (rock.body.x + rock.body.length) && barrel.body.x  && (barrel.body.x + barrel.body.length))) {
-                    x = random;
-                    return x;
-                }
-                else {
-                    x = 0;
-                }
-            } while (x = 0);
-            });
-        });
+        switch (this.playersAlive)
+        {
+            case 1 :
+            case 2 : return 0; break;
+            case 3 :
+            case 4 : return Helper.getScreenWidth(); break;
+        }
     },
 
     setY : function () {
-        var y = 0;
-
-        this.rocks.forEach(function(rock) {
-            this.barrels.forEach(function(barrel) {
-                var random = this.game.world.randomX;
-                do {
-                    if(random != (rock.body.y && (rock.body.y + rock.body.length) && barrel.body.y  && (barrel.body.y + barrel.body.length))) {
-                        y = random;
-                        return y;
-                    }
-                    else {
-                        y = 0;
-                    }
-                } while (y = 0);
-            });
-        });
+        switch (this.playersAlive)
+        {
+            case 1 :
+            case 4 : return 0; break;
+            case 2 :
+            case 3 : return Helper.getScreenHeight(); break;
+        }
     },
 
     setRocks : function () {
