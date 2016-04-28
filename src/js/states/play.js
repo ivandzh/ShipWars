@@ -150,6 +150,7 @@ Game.prototype = {
                                 for (var i = 0; i < gameObj.players.length; i++) {
                                         gameObj.players[i].destroy(true);
                                         gameObj.players.splice(i, 1);
+                                        gameObj.players = [];
                                 }
                                 gameObj.game.cache.removeSound('inGameLoop');
                                 gameObj.game.state.start('Win'); // move to win state
