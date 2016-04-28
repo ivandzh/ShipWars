@@ -640,50 +640,38 @@ Game.prototype = {
     setX : function () {
         var x = 0;
 
-        this.rocks.forEach(function(rock)
-        {
-            this.barrels.forEach(function(barrel)
-            {
+        this.rocks.forEach(function(rock) {
+            this.barrels.forEach(function(barrel) {
             var random = this.game.world.randomX;
             while (x = 0) {
-                if(random != rock.body.x && (rock.body.x + rock.body.length) && barrel.body.x  && (barrel.body.x + barrel.body.length))
-                {
+                if(random != (rock.body.x && (rock.body.x + rock.body.length) && barrel.body.x  && (barrel.body.x + barrel.body.length))) {
                     x = random;
+                    return x;
                 }
-                else
-                {
+                else {
                     x = 0;
                 }
             }
-            return x
-
             }, this);
-
         }, this);
     },
 
     setY : function () {
         var y = 0;
 
-        this.rocks.forEach(function(rock)
-        {
-            this.barrels.forEach(function(barrel)
-            {
+        this.rocks.forEach(function(rock) {
+            this.barrels.forEach(function(barrel) {
                 var random = this.game.world.randomX;
                 while (y = 0) {
-                    if(random != rock.body.y && (rock.body.y + rock.body.length) && barrel.body.y  && (barrel.body.y + barrel.body.length))
-                    {
+                    if(random != (rock.body.y && (rock.body.y + rock.body.length) && barrel.body.y  && (barrel.body.y + barrel.body.length))) {
                         y = random;
+                        return y;
                     }
-                    else
-                    {
+                    else {
                         y = 0;
                     }
                 }
-                return y
-
             }, this);
-
         }, this);
     },
 
