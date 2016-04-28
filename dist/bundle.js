@@ -622,7 +622,7 @@ Game.prototype = {
 
         Sockets.on("client new player", function (data) {
             gameObj.playersAlive++; //add one to the counter of players alive
-                gameObj.players.push(new Player({ //call the Player function from player.js
+                gameObj.players.add(new Player({ //call the Player function from player.js
                     playerNum : gameObj.players.children.length + 1,
                     playerId : data.id,
                     sprite : gameObj.players.children.length, //assign sprite according to playerNum? check
