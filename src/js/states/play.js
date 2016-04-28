@@ -135,6 +135,9 @@ Game.prototype = {
             }
                 //players hit players explode or not? - No, opportunity to bump a player in an obstacle
 
+            console.log("Preparing for win state!");
+            console.log(gameObj.players.length);
+            console.log(gameObj.deathCounter);
             if (gameObj.players.length == 1 && gameObj.deathCounter >= 1)
             {
                 console.log("We have a winner!");
