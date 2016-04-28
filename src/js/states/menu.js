@@ -8,10 +8,6 @@ Menu.prototype = {
     create: function () {
         this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
 
-        /*this.titleSequence = this.game.add.audio("titleSequence");
-        this.titleSequence.volume = 0.3;
-        this.titleSequence.play();*/
-
         this.titleImage();
         this.input.onDown.add(this.onDown, this);
 
@@ -27,7 +23,6 @@ Menu.prototype = {
     },
 
     onDown: function () {
-        this.titleSequence.loop = false;
         console.log("Start game!");
         //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
         this.game.state.start('Play');

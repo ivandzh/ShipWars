@@ -137,13 +137,12 @@ Game.prototype = {
             }
                 //players hit players explode or not? - No, opportunity to bump a player in an obstacle
 
-            /*console.log("Preparing for win state!");
-            console.log(gameObj.players.length);
-            console.log(gameObj.deathCounter);*/
+           //Check if there is only one player alive, if yes - move to win state.
 
             if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
             {
                 console.log("We have a winner!");
+                this.game.state.start('Win'); // move to win state
             }
         }
 
