@@ -64,6 +64,7 @@ Game.prototype = {
                 tweenP.to( { alpha: 0 }, 100, Phaser.Easing.Linear.None);
                 tweenP.onComplete.add(function () {
                     player.kill();
+                    gameObj.deathCounter++;
                 });
                 tweenP.start();
 
@@ -102,6 +103,7 @@ Game.prototype = {
                 tweenP.to( { alpha: 0 }, 100, Phaser.Easing.Linear.None);
                 tweenP.onComplete.add(function () {
                     player.kill();
+                    gameObj.deathCounter++;
                 });
                 tweenP.start();
 
