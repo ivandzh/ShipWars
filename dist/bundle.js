@@ -426,7 +426,7 @@ var Player = require('../entities/player');
 
 var Game = function () {
 
-    this.players = this.game.add.group();
+    this.players = null;
     //this.rocks = null;
     this.barrels = null;
     console.log("Play stage initiated");
@@ -615,6 +615,8 @@ Game.prototype = {
     setPlayers : function () {
         //theGameObj
         var gameObj = this;
+
+        this.players = this.game.add.group();
 
         this.playerHitAudio = this.game.add.audio("explode"); //explode
 
