@@ -721,7 +721,7 @@ Game.prototype = {
     },
 
     setLayers : function () {
-        this.layers = {
+        this.gameLayers = {
             backgroundLayer: this.add.group(),
             behindTheShipLayer: this.add.group(),
             playerLayer: this.add.group()
