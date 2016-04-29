@@ -170,7 +170,7 @@ Game.prototype = {
         var gameObj = this;
 
         this.players = this.game.add.group();
-        this.gameLayers.playerLayer.add(this.players);
+        //this.gameLayers.playerLayer.add(this.players);
 
         Sockets.on("client new player", function (data) {
             gameObj.playersAlive++; //add one to the counter of players alive
