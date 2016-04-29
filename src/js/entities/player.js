@@ -157,8 +157,9 @@ Player.prototype.playerController = function () {
 
     Sockets.on("client up stop", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.stop, playerObj.body.velocity);
+            //playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.stop, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.stop;
+            this.body.drag.set(200);
         }
     });
 
