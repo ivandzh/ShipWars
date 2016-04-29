@@ -1,30 +1,34 @@
 var express = require("express");
 var http = require('http');
- var app = express();
-var server = http.createServer(app);
-var io = require('socket.io').listen(server);
+var app = express();
+var server = http.createServer(app); //create a server with express included
+var io = require('socket.io').listen(server); //start socket.io on server start
  
- /* serves main page */
+ // serves main page
 app.use(express.static(__dirname + '/dist'));
 
 app.get('/', function(req, res){
   res.sendFile(__dirname + '/dist/index.html');
 });
 
+// serves mobile page
 app.get('/mobile', function(req, res){
     res.sendFile(__dirname + '/dist/mobile.html');
 });
 
 io.on('connection', function(socket){
 
+    //useful information to pass
     var player = {
         id : socket.id
     };
 
-    console.log("User: " + socket.id + " Connected");
+    //Use convention ON "server socketCommand" --> EMIT "client socketCommand"
+
+    console.log("Player " + socket.id + " connected!");
 
     socket.on('disconnect', function(){
-        console.log("User: " + socket.id + " Disconnected");
+        console.log("Player " + socket.id + " disconnected!");
 
         socket.emit("client disconnected", player);
         socket.broadcast.emit("client disconnected", player);
@@ -65,8 +69,8 @@ io.on('connection', function(socket){
     });
 
     socket.on("server up stop", function () {
-        socket.emit("client up down stop", player);
-        socket.broadcast.emit("client up down stop", player);
+        socket.emit("client up stop", player);
+        socket.broadcast.emit("client up stop", player);
     });
 
     socket.on("server left right stop", function () {

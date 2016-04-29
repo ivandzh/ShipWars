@@ -8,14 +8,19 @@ Win.prototype = {
     create: function () {
         this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
 
-        this.titleImage();
-        this.input.onDown.add(this.onDown, this);
+        //center image on screen
+        var x = this.game.width / 2;
+        var y = (this.game.height / 2) + 50;
+        this.title = this.game.add.sprite(x, y, 'winTitle');
+        this.title.anchor.setTo(0.5, 0.5);
 
         //USE FOR IN GAME
         this.winScreen = this.game.add.audio("winScreen");
-        this.winScreen.volume = 0.5;
-        //this.winScreen.loop = true;
+        this.winScreen.volume = 0.6;
         this.winScreen.play();
+
+        //handle click on screen
+        this.input.onDown.add(this.onDown, this);
     },
 
     update: function () {
@@ -23,17 +28,9 @@ Win.prototype = {
     },
 
     onDown: function () {
-        //this.winScreen.loop = false;
         console.log("Play again!");
-        this.game.state.start('Load');
-    },
-
-    titleImage : function () {
-        //center image on screen
-        var x = this.game.width / 2;
-        var y = (this.game.height / 2) + 50;
-        this.title = this.game.add.sprite(x, y, 'winTitle');
-        this.title.anchor.setTo(0.5, 0.5);
+        //this.game.state.start('Load');
+        location.reload();
     }
 };
 

@@ -184,7 +184,7 @@ Game.prototype = {
                 gameObj.players.add(new Player({ //call the Player function from player.js
                     playerNum : gameObj.players.children.length + 1,
                     playerId : data.id,
-                    sprite : gameObj.players.children.length, //assign sprite according to playerNum? check
+                    sprite : gameObj.players.children.length, //assign sprite according to playerNum
                     game : gameObj.game,
                     x : gameObj.setX(), //spawning point, might be risky?
                     y : gameObj.setY()
@@ -196,7 +196,6 @@ Game.prototype = {
             for (var i = 0; i < gameObj.players.children.length; i++) {
                 if (gameObj.players.children[i].playerId === data.id) {
                     gameObj.players.children[i].destroy(true);
-                    //gameObj.players.splice(i, 1);
                 }
             }
             console.log("client disconnected");
@@ -229,8 +228,6 @@ Game.prototype = {
         this.rocks.enableBody = true;
         this.rocks.setAll('anchor.x', 0.5);
         this.rocks.setAll('anchor.y', 0.5);
-        //this.rocks.physicsBodyType = Phaser.Physics.ARCADE;
-        //this.rockHit = this.game.add.audio('explode'); //explode    DOUBLE
         this.gameLayers.behindTheBoatLayer.add(this.rocks);
 
 
@@ -256,7 +253,6 @@ Game.prototype = {
         this.barrels.enableBody = true;
         this.barrels.setAll('anchor.x', 0.5);
         this.barrels.setAll('anchor.y', 0.5);
-        //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
 
         this.gameLayers.behindTheBoatLayer.add(this.barrels);
 
@@ -275,14 +271,12 @@ Game.prototype = {
 
     },
 
-    //currently unused
+    //layer system for managing Z-index of sprites on the canvas
     setLayers : function () {
         this.gameLayers = {
             backgroundLayer: this.add.group(),
             behindTheBoatLayer: this.add.group(),
             playerLayer: this.add.group()
-            //somethingInFronOfAPlayerButBehindInterface: this.add.group(),
-            //interfaceLayer: this.add.group()
         };
     }
 

@@ -1,7 +1,6 @@
 var Helper = {
-/*randomNumber: function(minimum, maximum) {
-    return Math.round(Math.random() * (maximum - minimum) + minimum);
-},*/
+
+    //helper functions accessible from everywhere
 
     getScreenWidth : function () {
         return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
