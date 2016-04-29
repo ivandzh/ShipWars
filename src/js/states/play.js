@@ -154,7 +154,7 @@ Game.prototype = {
                                 //USE getFirstAlive(), only one will be alive, will return object, use id, compare with shooter
                                 var lastManStanding = gameObj.players.getFirstAlive();
                                 console.log(lastManStanding);
-                                Sockets.emit("server player win", lastManStanding);
+                                Sockets.emit("server player win", lastManStanding.playerId);
                                 for (var i = 0; i < gameObj.players.children.length; i++) {
                                         gameObj.players.children[i].destroy(true);
                                         //gameObj.players.splice(i, 1);
