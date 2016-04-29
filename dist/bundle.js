@@ -442,11 +442,11 @@ Game.prototype = {
 
     create: function () {
 
+        this.setLayers();
         this.setArena();
         this.setPlayers();
         this.setRocks();
         this.setBarrels();
-        this.setLayers();
     },
 
     update: function () {
