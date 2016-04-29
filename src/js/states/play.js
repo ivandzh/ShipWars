@@ -14,7 +14,7 @@ Game.prototype = {
 
     create: function () {
 
-        //this.setLayers();
+        this.setLayers();
         this.setArena();
         this.setPlayers();
         this.setRocks();
