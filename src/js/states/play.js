@@ -152,13 +152,13 @@ Game.prototype = {
                                 console.log(gameObj.players.countLiving());
 
                                 //USE getFirstAlive(), only one will be alive, will return object, use id, compare with shooter
-
-                                console.log(gameObj.players.getFirstAlive());
-                                /*Sockets.emit("server player win", gameObj.winnerData);
-                                for (var i = 0; i < gameObj.players.length; i++) {
-                                        gameObj.players[i].destroy(true);
-                                        gameObj.players.splice(i, 1);
-                                        gameObj.players = [];
+                                var lastManStanding = gameObj.players.getFirstAlive();
+                                console.log(lastManStanding);
+                                Sockets.emit("server player win", lastManStanding);
+                                for (var i = 0; i < gameObj.players.children.length; i++) {
+                                        gameObj.players.children[i].destroy(true);
+                                        //gameObj.players.splice(i, 1);
+                                        //gameObj.players = [];
                                 }
                                 gameObj.game.cache.removeSound('inGameLoop');
                                 gameObj.game.state.start('Win'); // move to win state*/
@@ -209,8 +209,7 @@ Game.prototype = {
                     sprite : gameObj.players.children.length, //assign sprite according to playerNum? check
                     game : gameObj.game,
                     x : gameObj.setX(), //spawning point, might be risky?
-                    y : gameObj.setY(),
-                    gameLayers : gameObj.setLayers()
+                    y : gameObj.setY()
                 }));
 
         });
