@@ -42,7 +42,7 @@ var Player = function (player) {
 
     //add group to game instance from passed player instance
     this.lasers = player.game.add.group();
-    player.game.gameLayers.behindTheShipLayer.add(this.lasers);
+    //player.game.gameLayers.behindTheShipLayer.add(this.lasers);
 
     //configure properties for the lasers group
     this.lasers.enableBody = true;
@@ -87,8 +87,8 @@ var Player = function (player) {
     //swap emitter with player, place underneath
    //player.game.world.swap(this.emitterOne, this);
    //player.game.world.swap(this.emitterTwo, this);
-    player.game.gameLayers.behindTheShipLayer.add(this.emitterOne);
-    player.game.gameLayers.behindTheShipLayer.add(this.emitterTwo);
+    player.gameLayers.behindTheShipLayer.add(this.emitterOne);
+    player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
 
     this.playerController();
 };
@@ -635,7 +635,8 @@ Game.prototype = {
                     sprite : gameObj.players.children.length, //assign sprite according to playerNum? check
                     game : gameObj.game,
                     x : gameObj.setX(), //spawning point, might be risky?
-                    y : gameObj.setY()
+                    y : gameObj.setY(),
+                    gameLayers : gameObj.setLayers()
                 }));
 
         });

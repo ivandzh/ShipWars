@@ -208,7 +208,8 @@ Game.prototype = {
                     sprite : gameObj.players.children.length, //assign sprite according to playerNum? check
                     game : gameObj.game,
                     x : gameObj.setX(), //spawning point, might be risky?
-                    y : gameObj.setY()
+                    y : gameObj.setY(),
+                    gameLayers : gameObj.setLayers()
                 }));
 
         });
