@@ -586,8 +586,8 @@ Game.prototype = {
 
         this.explodeAudio = this.game.add.audio('explode');
 
-        this.gameLayers.behindTheBoatLayer.add(this.emitterOne);
-        this.gameLayers.behindTheBoatLayer.add(this.emitterTwo);
+        //this.gameLayers.behindTheBoatLayer.add(this.emitterOne);
+        //this.gameLayers.behindTheBoatLayer.add(this.emitterTwo);
     },
 
     setPlayers : function () {
