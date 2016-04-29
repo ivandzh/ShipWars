@@ -86,8 +86,8 @@ var Player = function (player) {
     //swap emitter with player, place underneath
    //player.game.world.swap(this.emitterOne, this);
    //player.game.world.swap(this.emitterTwo, this);
-    player.gameLayers.behindTheShipLayer.add(this.emitterOne);
-    player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
+    //player.gameLayers.behindTheShipLayer.add(this.emitterOne);
+    //player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
 
     this.playerController();
 };

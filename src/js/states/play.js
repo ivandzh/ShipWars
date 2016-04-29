@@ -153,6 +153,7 @@ Game.prototype = {
 
                                 //USE getFirstAlive(), only one will be alive, will return object, use id, compare with shooter
 
+                                console.log(gameObj.players.getFirstAlive());
                                 /*Sockets.emit("server player win", gameObj.winnerData);
                                 for (var i = 0; i < gameObj.players.length; i++) {
                                         gameObj.players[i].destroy(true);

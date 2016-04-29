@@ -87,8 +87,8 @@ var Player = function (player) {
     //swap emitter with player, place underneath
    //player.game.world.swap(this.emitterOne, this);
    //player.game.world.swap(this.emitterTwo, this);
-    player.gameLayers.behindTheShipLayer.add(this.emitterOne);
-    player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
+    //player.gameLayers.behindTheShipLayer.add(this.emitterOne);
+    //player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
 
     this.playerController();
 };
@@ -580,6 +580,7 @@ Game.prototype = {
 
                                 //USE getFirstAlive(), only one will be alive, will return object, use id, compare with shooter
 
+                                console.log(gameObj.players.getFirstAlive());
                                 /*Sockets.emit("server player win", gameObj.winnerData);
                                 for (var i = 0; i < gameObj.players.length; i++) {
                                         gameObj.players[i].destroy(true);
