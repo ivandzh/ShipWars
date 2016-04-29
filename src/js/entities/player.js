@@ -18,26 +18,6 @@ var Player = function (player) {
 
     this.alpha = 1;
 
-    player.game.add.existing(this);
-    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
-
-    //set anchor of player
-    this.anchor.setTo(0.5, 0.5);
-    //this.scale.setTo(0.5,0.5);
-
-    //set additional behavioural properties to player
-    this.body.collideWorldBounds=true;
-    this.body.drag.set(200);
-    this.body.maxVelocity.set(300);
-
-    //set animation
-    this.animations.add('kaboom');
-
-    //CREATE EXPLOSION POOL
-    this.explosions = player.game.add.group();
-    this.explosions.createMultiple(30, 'kaboom');
-    this.explosions.forEach(this.setupExplosion, this);
-
     //add group to game instance from passed player instance
     this.lasers = player.game.add.group();
     //player.game.gameLayers.behindTheShipLayer.add(this.lasers);
@@ -82,13 +62,34 @@ var Player = function (player) {
     this.emitterTwo.maxParticleSpeed = new Phaser.Point(10,100);
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
 
+    Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
+    player.game.add.existing(this);
+    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
+
+    //set anchor of player
+    this.anchor.setTo(0.5, 0.5);
+    //this.scale.setTo(0.5,0.5);
+
+    //set additional behavioural properties to player
+    this.body.collideWorldBounds=true;
+    this.body.drag.set(200);
+    this.body.maxVelocity.set(300);
+
+    //set animation
+    this.animations.add('kaboom');
+
+    //CREATE EXPLOSION POOL
+    this.explosions = player.game.add.group();
+    this.explosions.createMultiple(30, 'kaboom');
+    this.explosions.forEach(this.setupExplosion, this);
+
+    //---------------------------------
+
     //swap emitter with player, place underneath
    //player.game.world.swap(this.emitterOne, this);
    //player.game.world.swap(this.emitterTwo, this);
     //player.gameLayers.behindTheShipLayer.add(this.emitterOne);
     //player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
-
-    Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
 
     this.playerController();
 };
