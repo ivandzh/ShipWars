@@ -68,11 +68,6 @@ io.on('connection', function(socket){
         socket.broadcast.emit("client right", player);
     });
 
-   /* socket.on("server up stop", function () {
-        socket.emit("client up stop", player);
-        socket.broadcast.emit("client up stop", player);
-    });*/
-
     socket.on("server left right break", function () {
         socket.emit("client left right break", player);
         socket.broadcast.emit("client left right break", player);

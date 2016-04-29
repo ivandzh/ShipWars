@@ -20,17 +20,15 @@ Win.prototype = {
         this.winScreen.play();
 
         //handle click on screen
-        this.input.onDown.add(this.onDown, this);
+        this.input.onDown.add(function () {
+            console.log("Play again!");
+            //this.game.state.start('Load');
+            location.reload();
+        }, this);
     },
 
     update: function () {
 
-    },
-
-    onDown: function () {
-        console.log("Play again!");
-        //this.game.state.start('Load');
-        location.reload();
     }
 };
 

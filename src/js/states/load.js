@@ -8,7 +8,7 @@ Load.prototype = {
 
     preload: function () {
 
-        //center a loading bar on the screen
+        //center a loading bar with text on the screen
         var x = this.game.width / 2;
         var y = this.game.height / 2;
         this.asset = this.add.sprite(x, y, 'loading');
@@ -22,22 +22,23 @@ Load.prototype = {
 
         this.load.setPreloadSprite(this.asset);
 
-        // Loading Jetboats
+        //load jet boats
         this.load.image("playerBoat_normal", "assets/jetboats/neutral_ranger.png");
         this.load.image("playerBoat_blue", "assets/jetboats/blue_ranger.png");
         this.load.image("playerBoat_red", "assets/jetboats/red_ranger.png");
         this.load.image("playerBoat_green", "assets/jetboats/green_ranger.png");
 
-        // Loading Bullets
+        //load laser bolts
         this.load.image('laser', 'assets/laserpng.png');
 
-        // Loading Explosion
+        //load explosion
         this.load.spritesheet('kaboom', 'assets/boom.png', 128, 128, 14);
 
-        //Loading Particles
+        //load particles
         this.load.image('bubble','assets/bubble.png');
 
-        // Loading Environment Objects
+        //load environment objects
+        this.load.image("backgroundWater", "assets/water.jpg");
         this.load.image('rock1', 'assets/one_rock.png');
         this.load.image('rock2', 'assets/two_rock.png');
         this.load.image('rock3', 'assets/three_rock.png');
@@ -49,14 +50,11 @@ Load.prototype = {
         this.load.image('b_blue_vert', 'assets/b_blue_vert.png');
         this.load.image('b_yellow_vert', 'assets/b_yellow_vert.png');
 
-        // Loading Background
-        this.load.image("backgroundWater", "assets/water.jpg");
-
-        // Loading Menu Title
+        //load menu title images
         this.load.image("menuTitle", "assets/menuTitle.png");
         this.load.image("winTitle", "assets/winTitle.png");
 
-        // Loading Sounds
+        //load audio
         this.load.audio('explode', 'assets/audio/explode.ogg');
         this.load.audio('laserAudio', 'assets/audio/laser.wav');
         this.load.audio('winScreen', 'assets/audio/winScreen.ogg');
@@ -68,12 +66,14 @@ Load.prototype = {
     },
 
     update: function () {
+        //constantly check if loading is ready, if yes - move to Menu
         if (!!this.loadingReady) {
             this.game.state.start('Menu');
             //console.log("Loading completed!")
         }
     },
 
+    //standard Phaser callback methods
     onLoadStart: function () {
         this.text.setText("Loading...");
     },

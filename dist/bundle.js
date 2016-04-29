@@ -6,6 +6,7 @@ var Player = function (player) {
 
     console.log("Start setting Player");
 
+    //create an array of boat sprites
     var playerBoat = [
         "playerBoat_normal",
         "playerBoat_blue",
@@ -23,11 +24,8 @@ var Player = function (player) {
     player.game.add.existing(this);
     player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
 
-    //set anchor of player
-    this.anchor.setTo(0.5, 0.5);
-    //this.scale.setTo(0.5,0.5);
-
     //set additional behavioural properties to player
+    this.anchor.setTo(0.5, 0.5);
     this.body.collideWorldBounds=true;
     this.body.drag.set(200);
     this.body.maxVelocity.set(300);
@@ -42,12 +40,11 @@ var Player = function (player) {
 
     //add group to game instance from passed player instance
     this.lasers = player.game.add.group();
-    //player.game.gameLayers.behindTheShipLayer.add(this.lasers);
 
     //configure properties for the lasers group
     this.lasers.enableBody = true;
     this.lasers.physicsBodyType = Phaser.Physics.ARCADE;
-    this.lasers.createMultiple(40, 'laser');
+    this.lasers.createMultiple(50, 'laser');
     this.lasers.setAll('checkWorldBounds', true);
     this.lasers.setAll('outOfBoundsKill', true);
     this.lasers.setAll('anchor.x', 0.5);
@@ -65,9 +62,6 @@ var Player = function (player) {
     this.emitterTwo = player.game.add.emitter(0, 0, 5000);
     this.emitterTwo.makeParticles('bubble');
 
-    // Attach the emitter to the sprite
-    //player.addChild(emitter);
-
     //position the emitters relative to the sprite's anchor location
     this.emitterOne.x = player.x;
     this.emitterOne.y = player.y;
@@ -84,12 +78,6 @@ var Player = function (player) {
     this.emitterTwo.maxParticleSpeed = new Phaser.Point(10,100);
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
 
-    //swap emitter with player, place underneath
-   //player.game.world.swap(this.emitterOne, this);
-   //player.game.world.swap(this.emitterTwo, this);
-    //player.gameLayers.behindTheShipLayer.add(this.emitterOne);
-    //player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
-
     this.playerController();
 };
 
@@ -103,19 +91,6 @@ Player.prototype.update = function() {
 Player.prototype.playerController = function () {
     //playerObj - local reference to this, to Player
     var playerObj = this;
-
-    //store values in variables to use later
-    var acceleration =
-    {
-        go: 200,
-        stop: 0
-    };
-    var angularVelocity =
-    {
-        stop : 0,
-        neg : -100,
-        pos : 100
-    };
 
     //all responses to messages from Sockets, from the mobile controller
    Sockets.on("client check start", function (data) {
@@ -133,53 +108,46 @@ Player.prototype.playerController = function () {
 
     Sockets.on("client up", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.go, playerObj.body.velocity);
-            playerObj.body.angularVelocity = angularVelocity.stop;
+            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, 200, playerObj.body.velocity);
+            playerObj.body.angularVelocity = 0;
         }
     });
 
     Sockets.on("client left", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.body.angularVelocity = angularVelocity.neg;
+            playerObj.body.angularVelocity = -100;
         }
     });
 
     Sockets.on("client right", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.body.angularVelocity = angularVelocity.pos;
+            playerObj.body.angularVelocity = 100;
         }
     });
 
     Sockets.on("client left right break", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.body.angularVelocity = angularVelocity.stop;
+            playerObj.body.angularVelocity = 0;
         }
     });
 
-    /*Sockets.on("client up stop", function (data) {
-        if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.stop, playerObj.body.velocity);
-            playerObj.body.angularVelocity = angularVelocity.stop;
-        }
-    });*/
-
     Sockets.on("client up right", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.go, playerObj.body.velocity);
-            playerObj.body.angularVelocity = angularVelocity.pos;
+            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, 200, playerObj.body.velocity);
+            playerObj.body.angularVelocity = 100;
         }
     });
 
     Sockets.on("client up left", function (data) {
         if (data.id === playerObj.playerId) {
-            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.go, playerObj.body.velocity);
-            playerObj.body.angularVelocity = angularVelocity.neg;
+            playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, 200, playerObj.body.velocity);
+            playerObj.body.angularVelocity = -100;
         }
     });
 
     Sockets.on("client shoot", function (data) {
         if (data.id === playerObj.playerId && playerObj.alive) {
-            playerObj.fire();
+            playerObj.shoot();
         }
     });
 };
@@ -191,7 +159,7 @@ Player.prototype.setupExplosion = function () {
 };
 
 //standard shooting function
-Player.prototype.fire = function () {
+Player.prototype.shoot = function () {
     if (this.game.time.now > this.laserTime) {
         this.laser = this.lasers.getFirstExists(false);
         console.log("Shoot!");
@@ -219,6 +187,7 @@ var Helper = {
 
     //helper functions accessible from everywhere
 
+    //get browser view port dimensions
     getScreenWidth : function () {
         return Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
     },
@@ -227,6 +196,7 @@ var Helper = {
         return Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
     },
 
+    //get id of currently shooting player
     getShooter : function (playerId) {
         window.shooter = playerId;
         console.log("Shooter ID = " + window.shooter);
@@ -275,17 +245,12 @@ Boot.prototype = {
 
         if (this.game.device.desktop) { //check if running on desktop
             this.game.stage.scale.pageAlignHorizontally = true; //center the canvas
-        } else { //else set screen for mobile
+        } else { //else set screen for mobile with standard Phaser settings
             this.game.stage.scaleMode = Phaser.StageScaleMode.SHOW_ALL;
-            this.game.stage.scale.minWidth =  480;
-            this.game.stage.scale.minHeight = 260;
-            this.game.stage.scale.maxWidth = 640;
-            this.game.stage.scale.maxHeight = 480;
             this.game.stage.scale.forceLandscape = true;
             this.game.stage.scale.pageAlignHorizontally = true;
             this.game.stage.scale.setScreenSize(true);
         }
-
         this.game.state.start('Load');
     }
 };
@@ -302,7 +267,7 @@ Load.prototype = {
 
     preload: function () {
 
-        //center a loading bar on the screen
+        //center a loading bar with text on the screen
         var x = this.game.width / 2;
         var y = this.game.height / 2;
         this.asset = this.add.sprite(x, y, 'loading');
@@ -316,22 +281,23 @@ Load.prototype = {
 
         this.load.setPreloadSprite(this.asset);
 
-        // Loading Jetboats
+        //load jet boats
         this.load.image("playerBoat_normal", "assets/jetboats/neutral_ranger.png");
         this.load.image("playerBoat_blue", "assets/jetboats/blue_ranger.png");
         this.load.image("playerBoat_red", "assets/jetboats/red_ranger.png");
         this.load.image("playerBoat_green", "assets/jetboats/green_ranger.png");
 
-        // Loading Bullets
+        //load laser bolts
         this.load.image('laser', 'assets/laserpng.png');
 
-        // Loading Explosion
+        //load explosion
         this.load.spritesheet('kaboom', 'assets/boom.png', 128, 128, 14);
 
-        //Loading Particles
+        //load particles
         this.load.image('bubble','assets/bubble.png');
 
-        // Loading Environment Objects
+        //load environment objects
+        this.load.image("backgroundWater", "assets/water.jpg");
         this.load.image('rock1', 'assets/one_rock.png');
         this.load.image('rock2', 'assets/two_rock.png');
         this.load.image('rock3', 'assets/three_rock.png');
@@ -343,14 +309,11 @@ Load.prototype = {
         this.load.image('b_blue_vert', 'assets/b_blue_vert.png');
         this.load.image('b_yellow_vert', 'assets/b_yellow_vert.png');
 
-        // Loading Background
-        this.load.image("backgroundWater", "assets/water.jpg");
-
-        // Loading Menu Title
+        //load menu title images
         this.load.image("menuTitle", "assets/menuTitle.png");
         this.load.image("winTitle", "assets/winTitle.png");
 
-        // Loading Sounds
+        //load audio
         this.load.audio('explode', 'assets/audio/explode.ogg');
         this.load.audio('laserAudio', 'assets/audio/laser.wav');
         this.load.audio('winScreen', 'assets/audio/winScreen.ogg');
@@ -362,12 +325,14 @@ Load.prototype = {
     },
 
     update: function () {
+        //constantly check if loading is ready, if yes - move to Menu
         if (!!this.loadingReady) {
             this.game.state.start('Menu');
             //console.log("Loading completed!")
         }
     },
 
+    //standard Phaser callback methods
     onLoadStart: function () {
         this.text.setText("Loading...");
     },
@@ -404,16 +369,14 @@ Menu.prototype = {
         this.titleSequence.play();
 
         //handle click on screen
-        this.input.onDown.add(this.onDown, this);
+        this.input.onDown.add(function () {
+            console.log("Start game!");
+            this.game.state.start('Play');
+        }, this);
     },
 
     update: function () {
 
-    },
-
-    onDown: function () {
-        console.log("Start game!");
-        this.game.state.start('Play');
     }
 };
 
@@ -727,17 +690,15 @@ Win.prototype = {
         this.winScreen.play();
 
         //handle click on screen
-        this.input.onDown.add(this.onDown, this);
+        this.input.onDown.add(function () {
+            console.log("Play again!");
+            //this.game.state.start('Load');
+            location.reload();
+        }, this);
     },
 
     update: function () {
 
-    },
-
-    onDown: function () {
-        console.log("Play again!");
-        //this.game.state.start('Load');
-        location.reload();
     }
 };
 

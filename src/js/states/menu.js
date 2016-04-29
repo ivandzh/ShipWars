@@ -21,16 +21,14 @@ Menu.prototype = {
         this.titleSequence.play();
 
         //handle click on screen
-        this.input.onDown.add(this.onDown, this);
+        this.input.onDown.add(function () {
+            console.log("Start game!");
+            this.game.state.start('Play');
+        }, this);
     },
 
     update: function () {
 
-    },
-
-    onDown: function () {
-        console.log("Start game!");
-        this.game.state.start('Play');
     }
 };
 
