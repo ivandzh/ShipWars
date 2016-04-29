@@ -7,6 +7,7 @@ var Game = function () {
     this.barrels = null;
     console.log("Play stage initiated");
     this.playersAlive = 0;
+    this.gameLayers = null;
 };
 
 Game.prototype = {
