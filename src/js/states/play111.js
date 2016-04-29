@@ -2,18 +2,19 @@ var Player = require('../entities/player');
 
 var Game = function () {
 
-    this.players = null;
-    this.rocks = null;
+    this.players = [];
+    //this.rocks = null;
     this.barrels = null;
     console.log("Play stage initiated");
+    this.deathCounter = 0;
     this.playersAlive = 0;
+    this.winnerData = null;
 };
 
 Game.prototype = {
 
     create: function () {
 
-        this.setLayers();
         this.setArena();
         this.setPlayers();
         this.setRocks();
@@ -28,20 +29,28 @@ Game.prototype = {
         //this.game.physics.arcade.collide(this.players, this.rocks);
         //this.game.physics.arcade.collide(this.players, this.barrels);
 
-        for (var i = 0; i < this.players.children.length; i++) { // for each player
+        for (var i = 0; i < this.players.length; i++) { // for each player
+
+            this.winnerData = {
+                id: this.players[i].playerId,
+                num:this.players[i].playerNum
+            };
 
             //play the emitters
-            this.players.children[i].emitterOne.emitParticle();
-            this.players.children[i].emitterTwo.emitParticle();
+            this.players[i].emitterOne.emitParticle();
+            this.players[i].emitterTwo.emitParticle();
 
-            this.players.children[i].emitterOne.x = this.players.children[i].x;
-            this.players.children[i].emitterOne.y = this.players.children[i].y;
+            this.players[i].emitterOne.x = this.players[i].x;
+            this.players[i].emitterOne.y = this.players[i].y;
 
-            this.players.children[i].emitterTwo.x = this.players.children[i].x;
-            this.players.children[i].emitterTwo.y = this.players.children[i].y;
+            this.players[i].emitterTwo.x = this.players[i].x;
+            this.players[i].emitterTwo.y = this.players[i].y;
 
             //in case of player hitting barrel, destroy barrel and player
-            this.game.physics.arcade.overlap(this.players.children[i], this.barrels, function (player, barrel) {
+            this.game.physics.arcade.overlap(this.players[i], this.barrels, function (player, barrel) {
+
+                //player.kill();
+                //barrel.kill();
 
                 var tweenB = gameObj.game.add.tween(barrel);
                 tweenB.to( { alpha: 0 }, 100, Phaser.Easing.Linear.None);
@@ -54,6 +63,7 @@ Game.prototype = {
                 tweenP.to( { alpha: 0 }, 100, Phaser.Easing.Linear.None);
                 tweenP.onComplete.add(function () {
                     player.kill();
+                    gameObj.deathCounter++;
                 });
                 tweenP.start();
 
@@ -66,10 +76,10 @@ Game.prototype = {
             }, null, this);
 
             //in case of laser shot to barrel, destroy barrel and bullet
-           this.game.physics.arcade.overlap(this.players.children[i].lasers, this.barrels, function (laser, barrel) {
+           this.game.physics.arcade.overlap(this.players[i].lasers, this.barrels, function (laser, barrel) {
 
                laser.kill();
-
+               //barrel.kill();
                 var tween = gameObj.game.add.tween(barrel);
                     tween.to( { alpha: 0 }, 100, Phaser.Easing.Linear.None);
                     tween.onComplete.add(function () {
@@ -85,14 +95,18 @@ Game.prototype = {
             }, null, this);
 
             //in case of player hitting rock, destroy only player
-            this.game.physics.arcade.overlap(this.players.children[i], this.rocks, function (player) {
+            this.game.physics.arcade.overlap(this.players[i], this.rocks, function (player) {
 
+                //player.kill();
                 var tweenP = gameObj.game.add.tween(player);
                 tweenP.to( { alpha: 0 }, 100, Phaser.Easing.Linear.None);
                 tweenP.onComplete.add(function () {
                     player.kill();
+                    gameObj.deathCounter++;
                 });
                 tweenP.start();
+
+                //this.game.add.tween(player).to( { alpha: 0 }, 1000, Phaser.Easing.Linear.None, true);
 
                 gameObj.explodeAudio.play(); //explode
                 //add explosion sprite
@@ -103,45 +117,49 @@ Game.prototype = {
             }, null, this);
 
             //in case of laser shot to rock, destroy only bullet
-            this.game.physics.arcade.overlap(this.players.children[i].lasers, this.rocks, function (laser) {
+            this.game.physics.arcade.overlap(this.players[i].lasers, this.rocks, function (laser) {
                 laser.kill();
             }, null, this);
 
-            for (var j = 0; j < this.players.children.length; j++) { //for each other player
-                if (this.players.children[i].playerId === this.players.children[j].playerId) {
+            for (var j = 0; j < this.players.length; j++) { //for each other player
+                if (this.players[i].playerId === this.players[j].playerId) {
                     continue; //skip if player is the exact same
                 }
-
-                this.game.physics.arcade.overlap(this.players.children[i].lasers, this.players.children[j], function (laser, player) {
-
+                var winnerData = {
+                    //player: this.players[i],
+                    id: this.players[i].playerId,
+                    num:this.players[i].playerNum
+                };
+                this.game.physics.arcade.overlap(this.players[i].lasers, this.players[j], function (laser, player) {
                     laser.kill();
+                    //player.kill();
 
                     var tweenP = gameObj.game.add.tween(player);
                     tweenP.to( { alpha: 0 }, 100, Phaser.Easing.Linear.None);
                     tweenP.onComplete.add(function () {
                         player.kill();
+                        gameObj.deathCounter++;
+                        gameObj.playersAlive--;
 
                         //Check if there is only one player alive, if yes - move to win state.
-                            if (gameObj.players.countLiving() == 1 && gameObj.players.countDead() >= 1)
+                        //console.log("Winner lasers " + winnerData.player.lasers + " =?= " + laser);
+                        //if (winnerData.player.lasers == laser) {
+                            if (gameObj.playersAlive == 1 && gameObj.deathCounter >= 1)
                             {
                                 console.log("We have a winner!");
-                                console.log(gameObj.players.countDead());
-                                console.log(gameObj.players.countLiving());
-
-                                //USE getFirstAlive(), only one will be alive, will return object
-                                var lastManStanding = gameObj.players.getFirstAlive();
-                                console.log(lastManStanding);
-                                var winnerData = {
-                                    id : lastManStanding.playerId,
-                                    num : lastManStanding.playerNum
-                                };
-                                Sockets.emit("server player win", winnerData);
+                                Sockets.emit("server player win", gameObj.winnerData);
+                                for (var i = 0; i < gameObj.players.length; i++) {
+                                        gameObj.players[i].destroy(true);
+                                        gameObj.players.splice(i, 1);
+                                        gameObj.players = [];
+                                }
                                 gameObj.game.cache.removeSound('inGameLoop');
-                                gameObj.game.state.start('Win'); // move to win state*/
+                                gameObj.game.state.start('Win'); // move to win state
                             }
+                       // }
                     });
                     tweenP.start();
-                    gameObj.explodeAudio.play(); //explode
+                    gameObj.playerHitAudio.play(); //explode
                     //add explosion sprite
                     /*var playerExpl = player.explosions.getFirstExists(false);
                     playerExpl.reset(player.x, player.y);
@@ -157,26 +175,29 @@ Game.prototype = {
     //set the Arena
     setArena : function () {
         this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
-        this.game.renderer.clearBeforeRender = true;
+        this.game.renderer.clearBeforeRender = true; // difference ??
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
+        //this.playingAudio = this.game.add.audio("titleSequence"); //titleSequence  //AUDIO SHOULD BE FIXED
+        //this.playingAudio.volume = 0.6;
+        //this.playingAudio.loop = true; //false?
+        //this.playingAudio.play();
 
-        this.explodeAudio = this.game.add.audio('explode');
+        this.explodeAudio = this.game.add.audio('explode'); //explode    DOUBLE
     },
 
     setPlayers : function () {
         //theGameObj
         var gameObj = this;
 
-        this.players = this.game.add.group();
-        this.gameLayers.playerLayer.add(this.players);
+        this.playerHitAudio = this.game.add.audio("explode"); //explode
 
         Sockets.on("client new player", function (data) {
             gameObj.playersAlive++; //add one to the counter of players alive
-                gameObj.players.add(new Player({ //call the Player function from player.js
-                    playerNum : gameObj.players.children.length + 1,
+                gameObj.players.push(new Player({ //call the Player function from player.js
+                    playerNum : gameObj.players.length + 1,
                     playerId : data.id,
-                    sprite : gameObj.players.children.length, //assign sprite according to playerNum? check
+                    sprite : gameObj.players.length, //assign sprite according to playerNum? check
                     game : gameObj.game,
                     x : gameObj.setX(), //spawning point, might be risky?
                     y : gameObj.setY()
@@ -185,12 +206,13 @@ Game.prototype = {
         });
 
         Sockets.on("client disconnected", function (data) {
-            for (var i = 0; i < gameObj.players.children.length; i++) {
-                if (gameObj.players.children[i].playerId === data.id) {
-                    gameObj.players.children[i].destroy(true);
-                    //gameObj.players.splice(i, 1);
+            for (var i = 0; i < gameObj.players.length; i++) {
+                if (gameObj.players[i].playerId === data.id) {
+                    gameObj.players[i].destroy(true);
+                    gameObj.players.splice(i, 1);
                 }
             }
+            console.log("client disconnected");
         });
     },
 
@@ -261,16 +283,6 @@ Game.prototype = {
             bYellowVert.body.immovable = true;
         }
 
-    },
-
-    setLayers : function () {
-        this.gameLayers = {
-            backgroundLayer: this.add.group(),
-            behindTheShipLayer: this.add.group(),
-            playerLayer: this.add.group()
-            //somethingInFronOfAPlayerButBehindInterface: this.add.group(),
-            //interfaceLayer: this.add.group()
-        };
     }
 
 };
