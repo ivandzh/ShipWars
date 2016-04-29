@@ -29,7 +29,7 @@ var Player = function (player) {
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
-    this.body.drag.set(200);
+    //this.body.drag.set(200);
     this.body.maxVelocity.set(300);
 
     //set animation
