@@ -41,9 +41,11 @@ Game.prototype = {
             this.players.children[i].emitterTwo.x = this.players.children[i].x;
             this.players.children[i].emitterTwo.y = this.players.children[i].y;
 
-
+            //add these to a group situated behind the player sprite
             this.gameLayers.behindTheBoatLayer.add( this.players.children[i].emitterOne);
             this.gameLayers.behindTheBoatLayer.add(this.players.children[i].emitterTwo);
+
+            this.gameLayers.behindTheBoatLayer.add(this.players.children[i].lasers);
 
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players.children[i], this.barrels, function (player, barrel) {
@@ -161,7 +163,8 @@ Game.prototype = {
 
     //set the Arena
     setArena : function () {
-        //this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
+        var backgroundWaterTile = this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
+        this.gameLayers.backgroundLayer.add(backgroundWaterTile);
         this.game.renderer.clearBeforeRender = true;
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
