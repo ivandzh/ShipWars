@@ -101,8 +101,8 @@
       <file leaf-file-name="player.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/js/entities/player.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.61491627" vertical-offset="939" max-vertical-offset="3706">
-              <caret line="79" column="66" selection-start-line="79" selection-start-column="66" selection-end-line="79" selection-end-column="66" />
+            <state vertical-scroll-proportion="0.71841705" vertical-offset="1058" max-vertical-offset="3723">
+              <caret line="90" column="115" selection-start-line="90" selection-start-column="115" selection-end-line="90" selection-end-column="115" />
               <folding />
             </state>
           </provider>
@@ -433,7 +433,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/src/js/entities/player.js</url>
-          <line>201</line>
+          <line>202</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="javascript">
@@ -820,8 +820,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/js/entities/player.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.61491627" vertical-offset="939" max-vertical-offset="3706">
-          <caret line="79" column="66" selection-start-line="79" selection-start-column="66" selection-end-line="79" selection-end-column="66" />
+        <state vertical-scroll-proportion="0.71841705" vertical-offset="1058" max-vertical-offset="3723">
+          <caret line="90" column="115" selection-start-line="90" selection-start-column="115" selection-end-line="90" selection-end-column="115" />
           <folding />
         </state>
       </provider>

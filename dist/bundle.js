@@ -19,6 +19,9 @@ var Player = function (player) {
 
     this.alpha = 1;
 
+    player.game.add.existing(this);
+    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
+
     //set anchor of player
     this.anchor.setTo(0.5, 0.5);
     //this.scale.setTo(0.5,0.5);
@@ -87,8 +90,6 @@ var Player = function (player) {
     //player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
 
     Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
-    player.game.add.existing(this);
-    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
 
     this.playerController();
 };
