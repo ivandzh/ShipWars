@@ -84,8 +84,8 @@ var Player = function (player) {
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
 
     //swap emitter with player, place underneath
-   player.game.world.swap(this.emitterOne, this);
-   player.game.world.swap(this.emitterTwo, this);
+   //player.game.world.swap(this.emitterOne, this);
+   //player.game.world.swap(this.emitterTwo, this);
 
     this.playerController();
 };
@@ -573,6 +573,9 @@ Game.prototype = {
                                 console.log("We have a winner!");
                                 console.log(gameObj.players.countDead());
                                 console.log(gameObj.players.countLiving());
+
+                                //USE getFirstAlive(), only one will be alive, will return object, use id, compare with shooter
+
                                 /*Sockets.emit("server player win", gameObj.winnerData);
                                 for (var i = 0; i < gameObj.players.length; i++) {
                                         gameObj.players[i].destroy(true);
@@ -637,10 +640,10 @@ Game.prototype = {
             for (var i = 0; i < gameObj.players.length; i++) {
                 if (gameObj.players.children[i].playerId === data.id) {
                     gameObj.players.children[i].destroy(true);
-                    gameObj.players.splice(i, 1);
+                    //gameObj.players.splice(i, 1);
                 }
             }
-            console.log("client disconnected");
+            console.log("client disconnected"); //gets triggered before connecting new player
         });
     },
 
