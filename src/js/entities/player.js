@@ -28,7 +28,7 @@ var Player = function (player) {
 
     //set additional behavioural properties to player
     this.body.collideWorldBounds=true;
-    //this.body.drag.set(200);
+    this.body.drag.set(200);
     this.body.maxVelocity.set(300);
 
     //set animation
@@ -149,19 +149,18 @@ Player.prototype.playerController = function () {
         }
     });
 
-    Sockets.on("client left right stop", function (data) {
+    Sockets.on("client left right break", function (data) {
         if (data.id === playerObj.playerId) {
             playerObj.body.angularVelocity = angularVelocity.stop;
         }
     });
 
-    Sockets.on("client up stop", function (data) {
+    /*Sockets.on("client up stop", function (data) {
         if (data.id === playerObj.playerId) {
-            this.body.drag.set(200);
             playerObj.game.physics.arcade.velocityFromAngle(playerObj.angle, acceleration.stop, playerObj.body.velocity);
             playerObj.body.angularVelocity = angularVelocity.stop;
         }
-    });
+    });*/
 
     Sockets.on("client up right", function (data) {
         if (data.id === playerObj.playerId) {
@@ -195,12 +194,14 @@ Player.prototype.fire = function () {
     if (this.game.time.now > this.laserTime) {
         this.laser = this.lasers.getFirstExists(false);
         console.log("Shoot!");
+        //check who is shooting
         Helper.getShooter(this.playerId);
         var shooterId = this.playerId;
+        //emit who is shooting
         Sockets.emit("server shooter", shooterId);
 
         if (this.laser) {
-            this.laser.reset(this.x, this.y);  //was + 25
+            this.laser.reset(this.x, this.y);
             this.laser.lifespan = 2000;
             this.laser.rotation = this.rotation;
             this.game.physics.arcade.velocityFromRotation(this.rotation, 400, this.laser.body.velocity);

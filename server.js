@@ -68,14 +68,14 @@ io.on('connection', function(socket){
         socket.broadcast.emit("client right", player);
     });
 
-    socket.on("server up stop", function () {
+   /* socket.on("server up stop", function () {
         socket.emit("client up stop", player);
         socket.broadcast.emit("client up stop", player);
-    });
+    });*/
 
-    socket.on("server left right stop", function () {
-        socket.emit("client left right stop", player);
-        socket.broadcast.emit("client left right stop", player);
+    socket.on("server left right break", function () {
+        socket.emit("client left right break", player);
+        socket.broadcast.emit("client left right break", player);
     });
 
     socket.on("server up left", function () {
@@ -94,25 +94,17 @@ io.on('connection', function(socket){
     });
 
     socket.on('server shooter', function(shooterId){
-        console.log(shooterId);
         socket.emit("client shooter", shooterId);
         socket.broadcast.emit("client shooter", shooterId);
-        console.log("server shooter");
     });
 
     socket.on('server player win', function(winnerData){
-        console.log(winnerData);
         socket.emit("client player win", winnerData);
         socket.broadcast.emit("client player win", winnerData);
-        console.log("server player win");
     });
 });
 
 var port = process.env.PORT || 5000;
 server.listen(port);
 console.log("Listening on port " + port);
-/*
-var port = process.env.PORT || 5000;
- app.listen(port, function() {
-   console.log("Listening on " + port);
- });*/
+

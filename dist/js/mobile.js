@@ -13,9 +13,9 @@ bean.on(document.getElementById("up"), "touchstart", function (e) {
     Sockets.emit("server up", null);
 });
 
-bean.on(document.getElementById("up"), "touchend", function (e) {
+/*bean.on(document.getElementById("up"), "touchend", function (e) {
     Sockets.emit("server up stop", null);
-});
+});*/
 
 //Socket handle the LEFT button
 bean.on(document.getElementById("left"), "touchstart", function (e) {
@@ -23,7 +23,7 @@ bean.on(document.getElementById("left"), "touchstart", function (e) {
 });
 
 bean.on(document.getElementById("left"), "touchend", function (e) {
-    Sockets.emit("server left right stop", null);
+    Sockets.emit("server left right break", null);
 });
 
 //Socket handle the RIGHT button
@@ -32,7 +32,7 @@ bean.on(document.getElementById("right"), "touchstart", function (e) {
 });
 
 bean.on(document.getElementById("right"), "touchend", function (e) {
-    Sockets.emit("server left right stop", null);
+    Sockets.emit("server left right break", null);
 });
 
 //Socket handle the SHOOT button
