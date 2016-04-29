@@ -463,6 +463,10 @@ Game.prototype = {
             this.players.children[i].emitterTwo.x = this.players.children[i].x;
             this.players.children[i].emitterTwo.y = this.players.children[i].y;
 
+
+            this.gameLayers.behindTheBoatLayer.add( this.players.children[i].emitterOne);
+            this.gameLayers.behindTheBoatLayer.add(this.players.children[i].emitterTwo);
+
             //in case of player hitting barrel, destroy barrel and player
             this.game.physics.arcade.overlap(this.players.children[i], this.barrels, function (player, barrel) {
 
@@ -585,9 +589,6 @@ Game.prototype = {
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.explodeAudio = this.game.add.audio('explode');
-
-        //this.gameLayers.behindTheBoatLayer.add(this.emitterOne);
-        //this.gameLayers.behindTheBoatLayer.add(this.emitterTwo);
     },
 
     setPlayers : function () {
