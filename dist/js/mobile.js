@@ -104,12 +104,12 @@ Sockets.on("client shooter", function (shooterId) {
 
 Sockets.on("client player win", function (winnerData) {
     console.log("client check done called");
-    console.log("Winner ID " + winnerData.playerId + " =?= " + shootWin + " =?= " + playerId);
+    console.log("Winner ID " + winnerData.id + " =?= " + shootWin + " =?= " + playerId);
     //console.log("Winner ID " + winnerData.num + " =?= " + spriteNum);
-    if (winnerData.playerId == shootWin && winnerData.playerId == playerId) {
+    if (winnerData.id == shootWin && winnerData.id == playerId) {
         console.log("Winner is declared!");
         document.getElementById("winnerBanner").style.visibility="visible";
-        switch (winnerData.playerNum)
+        switch (winnerData.num)
         {
             case 1: document.getElementById("winnerBanner").innerHTML = "PLAYER 1 (GREY) WINS!"; break;
             case 2: document.getElementById("winnerBanner").innerHTML = "PLAYER 2 (BLUE) WINS!"; break;
