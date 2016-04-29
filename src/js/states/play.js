@@ -19,6 +19,7 @@ Game.prototype = {
         this.setPlayers();
         this.setRocks();
         this.setBarrels();
+        this.setLayers();
     },
 
     update: function () {
@@ -290,6 +291,16 @@ Game.prototype = {
             bYellowVert.body.immovable = true;
         }
 
+    },
+
+    setLayers : function () {
+        this.layers = {
+            backgroundLayer: this.add.group(),
+            behindTheShipLayer: this.add.group(),
+            playerLayer: this.add.group()
+            //somethingInFronOfAPlayerButBehindInterface: this.add.group(),
+            //interfaceLayer: this.add.group()
+        };
     }
 
 };

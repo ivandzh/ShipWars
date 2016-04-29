@@ -42,6 +42,7 @@ var Player = function (player) {
 
     //add group to game instance from passed player instance
     this.lasers = player.game.add.group();
+    this.layers.behindTheShipLayer.add(this.lasers);
 
     //configure properties for the lasers group
     this.lasers.enableBody = true;
@@ -86,6 +87,8 @@ var Player = function (player) {
     //swap emitter with player, place underneath
    //player.game.world.swap(this.emitterOne, this);
    //player.game.world.swap(this.emitterTwo, this);
+    this.layers.behindTheShipLayer.add(this.emitterOne);
+    this.layers.behindTheShipLayer.add(this.emitterTwo);
 
     this.playerController();
 };
@@ -443,6 +446,7 @@ Game.prototype = {
         this.setPlayers();
         this.setRocks();
         this.setBarrels();
+        this.setLayers();
     },
 
     update: function () {
@@ -714,6 +718,16 @@ Game.prototype = {
             bYellowVert.body.immovable = true;
         }
 
+    },
+
+    setLayers : function () {
+        this.layers = {
+            backgroundLayer: this.add.group(),
+            behindTheShipLayer: this.add.group(),
+            playerLayer: this.add.group()
+            //somethingInFronOfAPlayerButBehindInterface: this.add.group(),
+            //interfaceLayer: this.add.group()
+        };
     }
 
 };
