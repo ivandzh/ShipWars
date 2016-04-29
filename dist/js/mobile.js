@@ -104,9 +104,9 @@ Sockets.on("client shooter", function (shooterId) {
 
 Sockets.on("client player win", function (winnerData) {
     console.log("client check done called");
-    console.log("Winner ID " + winnerData + " =?= " + shootWin);
+    console.log("Winner ID " + winnerData + " =?= " + shootWin + " =?= " + playerId);
     //console.log("Winner ID " + winnerData.num + " =?= " + spriteNum);
-    if (winnerData === shootWin) {
+    if (winnerData === shootWin === playerId) {
         console.log("Winner is declared!");
         document.getElementById("winnerBanner").style.visibility="visible";
     }
