@@ -25,8 +25,6 @@ Win.prototype = {
     onDown: function () {
         //this.winScreen.loop = false;
         console.log("Play again!");
-        //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
-
         this.game.state.start('Load');
     },
 

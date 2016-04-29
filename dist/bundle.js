@@ -19,10 +19,6 @@ var Player = function (player) {
 
     this.alpha = 1;
 
-    Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
-    player.game.add.existing(this);
-    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
-
     //set anchor of player
     this.anchor.setTo(0.5, 0.5);
     //this.scale.setTo(0.5,0.5);
@@ -89,6 +85,10 @@ var Player = function (player) {
    //player.game.world.swap(this.emitterTwo, this);
     //player.gameLayers.behindTheShipLayer.add(this.emitterOne);
     //player.gameLayers.behindTheShipLayer.add(this.emitterTwo);
+
+    Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
+    player.game.add.existing(this);
+    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
 
     this.playerController();
 };
@@ -244,10 +244,6 @@ if (document.getElementById("jb-deathmatch")) {
 
 	//initiate Phaser canvas
 	var game = new Phaser.Game(Helper.getScreenWidth(), Helper.getScreenHeight(), Phaser.AUTO, 'jb-deathmatch');
-
-	/*window.playerState = {
-		currentLevel: 'Play'
-	};*/
 
 	game.state.add('Boot', require('./states/boot'));
 	game.state.add('Load', require('./states/load'));
@@ -410,7 +406,6 @@ Menu.prototype = {
 
     onDown: function () {
         console.log("Start game!");
-        //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
         this.game.state.start('Play');
     },
 
@@ -692,6 +687,7 @@ Game.prototype = {
 
     },
 
+    //currently unused
     setLayers : function () {
         this.gameLayers = {
             backgroundLayer: this.add.group(),
@@ -733,8 +729,6 @@ Win.prototype = {
     onDown: function () {
         //this.winScreen.loop = false;
         console.log("Play again!");
-        //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
-
         this.game.state.start('Load');
     },
 

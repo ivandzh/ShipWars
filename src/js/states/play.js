@@ -265,6 +265,7 @@ Game.prototype = {
 
     },
 
+    //currently unused
     setLayers : function () {
         this.gameLayers = {
             backgroundLayer: this.add.group(),

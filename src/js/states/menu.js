@@ -24,7 +24,6 @@ Menu.prototype = {
 
     onDown: function () {
         console.log("Start game!");
-        //this.game.state.start(playerState.currentLevel); //starts Play state defined in Main
         this.game.state.start('Play');
     },
 
