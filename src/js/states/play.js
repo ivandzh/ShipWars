@@ -157,12 +157,15 @@ Game.prototype = {
 
     //set the Arena
     setArena : function () {
-        this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
+        //this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
         this.game.renderer.clearBeforeRender = true;
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.explodeAudio = this.game.add.audio('explode');
+
+        this.gameLayers.behindTheBoatLayer.add(this.emitterOne);
+        this.gameLayers.behindTheBoatLayer.add(this.emitterTwo);
     },
 
     setPlayers : function () {
@@ -170,7 +173,7 @@ Game.prototype = {
         var gameObj = this;
 
         this.players = this.game.add.group();
-        //this.gameLayers.playerLayer.add(this.players);
+        this.gameLayers.playerLayer.add(this.players);
 
         Sockets.on("client new player", function (data) {
             gameObj.playersAlive++; //add one to the counter of players alive
@@ -224,6 +227,7 @@ Game.prototype = {
         this.rocks.setAll('anchor.y', 0.5);
         //this.rocks.physicsBodyType = Phaser.Physics.ARCADE;
         //this.rockHit = this.game.add.audio('explode'); //explode    DOUBLE
+        this.gameLayers.behindTheBoatLayer.add(this.rocks);
 
 
         var SquaredRock = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "rock1");
@@ -250,6 +254,8 @@ Game.prototype = {
         this.barrels.setAll('anchor.y', 0.5);
         //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
 
+        this.gameLayers.behindTheBoatLayer.add(this.barrels);
+
 
         for (var i = 0; i < 2; i++) {
             var bBlueHor = this.barrels.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
@@ -269,7 +275,7 @@ Game.prototype = {
     setLayers : function () {
         this.gameLayers = {
             backgroundLayer: this.add.group(),
-            behindTheShipLayer: this.add.group(),
+            behindTheBoatLayer: this.add.group(),
             playerLayer: this.add.group()
             //somethingInFronOfAPlayerButBehindInterface: this.add.group(),
             //interfaceLayer: this.add.group()

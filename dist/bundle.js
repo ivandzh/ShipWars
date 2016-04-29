@@ -19,6 +19,27 @@ var Player = function (player) {
 
     this.alpha = 1;
 
+    Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
+    player.game.add.existing(this);
+    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
+
+    //set anchor of player
+    this.anchor.setTo(0.5, 0.5);
+    //this.scale.setTo(0.5,0.5);
+
+    //set additional behavioural properties to player
+    this.body.collideWorldBounds=true;
+    this.body.drag.set(200);
+    this.body.maxVelocity.set(300);
+
+    //set animation
+    this.animations.add('kaboom');
+
+    //CREATE EXPLOSION POOL
+    this.explosions = player.game.add.group();
+    this.explosions.createMultiple(30, 'kaboom');
+    this.explosions.forEach(this.setupExplosion, this);
+
     //add group to game instance from passed player instance
     this.lasers = player.game.add.group();
     //player.game.gameLayers.behindTheShipLayer.add(this.lasers);
@@ -62,29 +83,6 @@ var Player = function (player) {
     this.emitterTwo.lifespan = 300;
     this.emitterTwo.maxParticleSpeed = new Phaser.Point(10,100);
     this.emitterTwo.minParticleSpeed = new Phaser.Point(-10,-100);
-
-    Phaser.Sprite.call(this, player.game, player.x, player.y, playerBoat[player.sprite]); //make sure to limit to 4
-    player.game.add.existing(this);
-    player.game.physics.enable(this, Phaser.Physics.ARCADE); //enable Arcade physics for the player
-
-    //set anchor of player
-    this.anchor.setTo(0.5, 0.5);
-    //this.scale.setTo(0.5,0.5);
-
-    //set additional behavioural properties to player
-    this.body.collideWorldBounds=true;
-    this.body.drag.set(200);
-    this.body.maxVelocity.set(300);
-
-    //set animation
-    this.animations.add('kaboom');
-
-    //CREATE EXPLOSION POOL
-    this.explosions = player.game.add.group();
-    this.explosions.createMultiple(30, 'kaboom');
-    this.explosions.forEach(this.setupExplosion, this);
-
-    //---------------------------------
 
     //swap emitter with player, place underneath
    //player.game.world.swap(this.emitterOne, this);
@@ -581,12 +579,15 @@ Game.prototype = {
 
     //set the Arena
     setArena : function () {
-        this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
+        //this.game.add.tileSprite(0, 0, screen.width, screen.height, "backgroundWater");
         this.game.renderer.clearBeforeRender = true;
         this.game.renderer.roundPixels = true;
         this.game.physics.startSystem(Phaser.Physics.ARCADE);
 
         this.explodeAudio = this.game.add.audio('explode');
+
+        this.gameLayers.behindTheBoatLayer.add(this.emitterOne);
+        this.gameLayers.behindTheBoatLayer.add(this.emitterTwo);
     },
 
     setPlayers : function () {
@@ -594,7 +595,7 @@ Game.prototype = {
         var gameObj = this;
 
         this.players = this.game.add.group();
-        //this.gameLayers.playerLayer.add(this.players);
+        this.gameLayers.playerLayer.add(this.players);
 
         Sockets.on("client new player", function (data) {
             gameObj.playersAlive++; //add one to the counter of players alive
@@ -648,6 +649,7 @@ Game.prototype = {
         this.rocks.setAll('anchor.y', 0.5);
         //this.rocks.physicsBodyType = Phaser.Physics.ARCADE;
         //this.rockHit = this.game.add.audio('explode'); //explode    DOUBLE
+        this.gameLayers.behindTheBoatLayer.add(this.rocks);
 
 
         var SquaredRock = this.rocks.create(this.game.world.randomX, this.game.world.randomY, "rock1");
@@ -674,6 +676,8 @@ Game.prototype = {
         this.barrels.setAll('anchor.y', 0.5);
         //this.barrels.physicsBodyType = Phaser.Physics.ARCADE;
 
+        this.gameLayers.behindTheBoatLayer.add(this.barrels);
+
 
         for (var i = 0; i < 2; i++) {
             var bBlueHor = this.barrels.create(this.game.world.randomX, this.game.world.randomY, "b_blue_hor");
@@ -693,7 +697,7 @@ Game.prototype = {
     setLayers : function () {
         this.gameLayers = {
             backgroundLayer: this.add.group(),
-            behindTheShipLayer: this.add.group(),
+            behindTheBoatLayer: this.add.group(),
             playerLayer: this.add.group()
             //somethingInFronOfAPlayerButBehindInterface: this.add.group(),
             //interfaceLayer: this.add.group()
